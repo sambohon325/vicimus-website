@@ -950,4 +950,4 @@ button.btn{margin:0;background-image:none}
 .pie-impact-v{font-family:var(--display);font-style:italic;font-weight:800;font-size:2.8rem;color:var(--yellow);line-height:1.1;font-variant-numeric:tabular-nums}
 .pie-insight-sub{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.92rem;color:#fff;margin:0}
 .pie-next,.pie-restart{margin-top:4px}
-.pie-restart{margin-top:22px;display:block;margin-left:auto;margin-right:auto}
+.pie-restart,button.pie-restart{margin:32px auto 0;display:block}
