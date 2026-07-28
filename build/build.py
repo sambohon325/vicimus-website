@@ -401,7 +401,7 @@ def pie_comparison():
         return [(row[idx + 1][0], row[0], row[idx + 1][1] if len(row[idx + 1]) > 1 else "") for row in rows]
 
     cards = [
-        {"name": "Pie", "badge": "Intelligent analytics", "highlight": True, "items": col(0)},
+        {"name": "Pie", "badge": "Advanced intelligence", "highlight": True, "items": col(0)},
         {"name": "AutoAlert", "badge": "Equity mining", "items": col(1)},
         {"name": "Generic BI", "badge": "Tableau / Power BI", "items": col(2)},
     ]
