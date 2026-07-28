@@ -830,3 +830,80 @@ button.btn{margin:0;background-image:none}
 .cmp-no{background:rgba(110,110,108,.1)}.cmp-no svg{stroke:var(--faint)}
 .cmp-lbl{display:block;font-size:.64rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-top:3px}
 .cmp-disc{font-size:.72rem;line-height:1.55;color:var(--faint);margin-top:16px;max-width:80ch}
+
+/* ============================================================
+   CAMPAIGN BUILDER (Bumper Inventory Ads page)
+   ============================================================ */
+.cb{margin-top:44px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
+.cb-steps{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);background:var(--wash)}
+.cb-step{display:flex;align-items:center;justify-content:center;gap:9px;padding:15px 10px;border:0;background:none;cursor:pointer;font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.74rem;letter-spacing:.02em;color:var(--muted);border-bottom:3px solid transparent;transition:all .18s}
+@media(max-width:640px){.cb-step{flex-direction:column;gap:4px;font-size:.62rem;text-align:center}}
+.cb-step:hover{color:var(--ink)}
+.cb-step.is-active{color:var(--blue);border-bottom-color:var(--blue);background:#fff}
+.cb-step.is-done{color:var(--teal)}
+.cb-step-n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--line);color:var(--muted);font-family:var(--body);font-style:normal;font-size:.72rem;font-weight:700}
+.cb-step.is-active .cb-step-n{background:var(--blue);color:#fff}
+.cb-step.is-done .cb-step-n{background:var(--teal);color:#fff}
+.cb-stage{padding:32px;min-height:340px;position:relative}
+.cb-panel{display:none;animation:cb-fade .4s ease}
+.cb-panel.is-active{display:block}
+@keyframes cb-fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.cb-cols{display:grid;grid-template-columns:1fr 260px;gap:26px;align-items:start}
+@media(max-width:760px){.cb-cols{grid-template-columns:1fr}}
+.cb-inv{display:flex;flex-direction:column;gap:10px}
+.cb-inv-row{padding:16px 18px;border:1px solid var(--line);border-radius:10px;font-weight:600;color:var(--ink);font-size:.92rem;position:relative;transition:all .3s}
+.cb-inv-row.is-sel{border-color:var(--blue);background:rgba(43,104,171,.06);box-shadow:inset 3px 0 0 var(--blue)}
+.cb-inv-row.is-sel::after{content:"\2713";position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--blue);font-weight:700}
+.cb-side{background:var(--blue-deep);color:#fff;border-radius:12px;padding:26px 22px;text-align:center}
+.cb-side-lbl{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.cb-counter{font-family:var(--display);font-style:italic;font-weight:800;font-size:3rem;line-height:1.05;margin:8px 0 4px;color:var(--yellow);font-variant-numeric:tabular-nums}
+.cb-side-sub{font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.4;margin-bottom:18px}
+.cb-side .btn{width:100%;justify-content:center}
+.cb-auds{display:flex;flex-direction:column;gap:10px}
+.cb-aud{text-align:left;padding:15px 18px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;font-weight:600;font-size:.9rem;color:var(--ink);display:flex;align-items:center;gap:12px;transition:all .18s}
+.cb-aud::before{content:"";width:18px;height:18px;border-radius:50%;border:2px solid var(--line);flex:none;transition:all .18s}
+.cb-aud:hover{border-color:var(--muted)}
+.cb-aud.is-on{border-color:var(--teal);background:rgba(62,189,196,.07)}
+.cb-aud.is-on::before{border-color:var(--teal);background:var(--teal);box-shadow:inset 0 0 0 3px #fff}
+.cb-hint{text-align:center;color:var(--muted);font-size:.88rem;margin:0 auto 24px;max-width:56ch}
+.cb-ads{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:760px){.cb-ads{grid-template-columns:1fr}}
+.cb-ad{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;opacity:0;transform:translateY(16px) scale(.97);transition:opacity .45s,transform .45s}
+.cb-ad.is-in{opacity:1;transform:translateY(0) scale(1)}
+.cb-ad-tag{font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;color:#fff}
+.cb-ad--fb .cb-ad-tag{background:#1877F2}
+.cb-ad--gg .cb-ad-tag{background:#34A853}
+.cb-ad-img{height:104px;background:linear-gradient(135deg,#e6eef7,#d3e0ef);display:grid;place-items:center}
+.cb-ico-car{width:48px;height:32px;background:var(--faint);-webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M5 11l1.5-4.5h11L19 11h1a1 1 0 0 1 1 1v4h-2a2 2 0 0 1-4 0H9a2 2 0 0 1-4 0H3v-4a1 1 0 0 1 1-1Z'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M5 11l1.5-4.5h11L19 11h1a1 1 0 0 1 1 1v4h-2a2 2 0 0 1-4 0H9a2 2 0 0 1-4 0H3v-4a1 1 0 0 1 1-1Z'/></svg>") center/contain no-repeat}
+.cb-ad-body{padding:14px 16px}
+.cb-ad-t{font-weight:700;font-size:.92rem;color:var(--ink)}
+.cb-ad-p{font-family:var(--display);font-style:italic;font-weight:800;color:var(--blue);font-size:1.25rem;margin:4px 0 10px}
+.cb-ad-cta{display:inline-block;background:#1877F2;color:#fff;font-size:.72rem;font-weight:700;padding:6px 16px;border-radius:6px}
+.cb-ad-dealer{font-size:.74rem;color:var(--muted);margin:3px 0 6px}
+.cb-ad-price{font-family:var(--display);font-style:italic;font-weight:800;color:var(--ink);font-size:1.3rem}
+.cb-results{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media(max-width:640px){.cb-results{grid-template-columns:repeat(2,1fr)}}
+.cb-metric{background:var(--wash);border:1px solid var(--line);border-radius:12px;padding:24px 18px;text-align:center}
+.cb-metric-n{font-family:var(--display);font-style:italic;font-weight:800;font-size:2.1rem;color:var(--blue-deep);font-variant-numeric:tabular-nums;line-height:1}
+.cb-metric-l{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+
+/* ============================================================
+   INTERACTIVE COMPARISON (Bumper Inventory Ads page)
+   ============================================================ */
+.icmp{margin-top:40px;max-width:680px;margin-left:auto;margin-right:auto}
+.icmp-tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
+.icmp-tab{padding:11px 26px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer;font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.78rem;letter-spacing:.03em;color:var(--muted);transition:all .18s}
+.icmp-tab:hover{border-color:var(--muted);color:var(--ink)}
+.icmp-tab.is-active{background:var(--blue);border-color:var(--blue);color:#fff}
+.icmp-panel{display:none}
+.icmp-panel.is-active{display:block;animation:cb-fade .35s ease}
+.icmp-name{font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;font-size:1.3rem;color:var(--ink);text-align:center;margin-bottom:18px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.icmp-badge{font-family:var(--body);font-style:normal;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(62,189,196,.15);color:#178791;padding:4px 12px;border-radius:20px}
+.cmp-ilist{list-style:none;margin:0 auto;padding:0;max-width:440px;display:flex;flex-direction:column;gap:2px}
+.cmp-ilist li{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:10px;font-size:.94rem;font-weight:500}
+.cmp-ilist li:nth-child(odd){background:#fff}
+.cmp-i-mark{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:.9rem;font-weight:700}
+.cmp-i-yes{color:var(--ink)}
+.cmp-i-yes .cmp-i-mark{background:rgba(22,163,74,.14);color:var(--green)}
+.cmp-i-no{color:var(--faint)}
+.cmp-i-no .cmp-i-mark{background:rgba(110,110,108,.1);color:var(--faint)}

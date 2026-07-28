@@ -330,6 +330,253 @@ def retention_comparison():
 </section>'''
 
 
+def inventory_campaign_builder():
+    """"Launch a campaign in 30 seconds" — a 4-step interactive builder.
+    Bumper Inventory Ads only. Inventory -> Audience -> Ads -> Results."""
+    return '''<section class="section section--tight">
+  <div class="wrap centered">
+    <p class="eyebrow" style="color:var(--teal)">See it work</p>
+    <h2 class="h2" style="margin-bottom:8px">Launch a campaign in 30 seconds.</h2>
+    <p class="lede">Pick inventory, choose who should see it, and Bumper builds the ads and reports the results &mdash; automatically, across Facebook and Google.</p>
+  </div>
+  <div class="wrap">
+    <div class="cb" id="cb">
+      <div class="cb-steps">
+        <button class="cb-step is-active" data-s="0"><span class="cb-step-n">1</span> Select inventory</button>
+        <button class="cb-step" data-s="1"><span class="cb-step-n">2</span> Choose audience</button>
+        <button class="cb-step" data-s="2"><span class="cb-step-n">3</span> Ads build</button>
+        <button class="cb-step" data-s="3"><span class="cb-step-n">4</span> Results</button>
+      </div>
+      <div class="cb-stage">
+
+        <!-- STEP 1 -->
+        <div class="cb-panel is-active" data-s="0">
+          <div class="cb-cols">
+            <div class="cb-inv">
+              <div class="cb-inv-row" data-v="38">2024 Ford F-150</div>
+              <div class="cb-inv-row" data-v="24">2023 Chevy Tahoe</div>
+              <div class="cb-inv-row" data-v="31">2025 Honda Civic</div>
+              <div class="cb-inv-row" data-v="34">2024 Toyota RAV4</div>
+            </div>
+            <div class="cb-side">
+              <div class="cb-side-lbl">Selected inventory</div>
+              <div class="cb-counter" id="cb-veh">0</div>
+              <div class="cb-side-sub">vehicles, synced live from your DMS</div>
+              <button class="btn btn-blue cb-next" data-go="1">Choose audience &rarr;</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="cb-panel" data-s="1">
+          <div class="cb-cols">
+            <div class="cb-auds">
+              <button class="cb-aud" data-size="12480">Past Customers</button>
+              <button class="cb-aud" data-size="9260">Service Customers</button>
+              <button class="cb-aud" data-size="4310">Lease Maturity</button>
+              <button class="cb-aud" data-size="11890">In-Market Shoppers</button>
+              <button class="cb-aud" data-size="4621">Equity Positive</button>
+            </div>
+            <div class="cb-side">
+              <div class="cb-side-lbl">Audience size</div>
+              <div class="cb-counter" id="cb-aud">0</div>
+              <div class="cb-side-sub">matched, de-duplicated reach</div>
+              <button class="btn btn-blue cb-next" data-go="2">Build the ads &rarr;</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="cb-panel" data-s="2">
+          <p class="cb-hint">Bumper generates platform-ready ads for every selected vehicle &mdash; no manual work.</p>
+          <div class="cb-ads">
+            <div class="cb-ad cb-ad--fb">
+              <div class="cb-ad-tag">Facebook</div>
+              <div class="cb-ad-img"><span class="cb-ico-car"></span></div>
+              <div class="cb-ad-body">
+                <div class="cb-ad-t">2024 Ford F-150 XLT</div>
+                <div class="cb-ad-p">$599/mo</div>
+                <div class="cb-ad-cta">Shop Now</div>
+              </div>
+            </div>
+            <div class="cb-ad cb-ad--gg">
+              <div class="cb-ad-tag">Google Vehicle Ad</div>
+              <div class="cb-ad-img"><span class="cb-ico-car"></span></div>
+              <div class="cb-ad-body">
+                <div class="cb-ad-t">2024 Ford F-150 XLT</div>
+                <div class="cb-ad-dealer">Lakeview Ford &middot; Dallas, TX</div>
+                <div class="cb-ad-price">$54,995</div>
+              </div>
+            </div>
+            <div class="cb-ad cb-ad--fb">
+              <div class="cb-ad-tag">Facebook</div>
+              <div class="cb-ad-img"><span class="cb-ico-car"></span></div>
+              <div class="cb-ad-body">
+                <div class="cb-ad-t">2023 Chevy Tahoe LT</div>
+                <div class="cb-ad-p">$679/mo</div>
+                <div class="cb-ad-cta">Shop Now</div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-blue cb-next" data-go="3" style="margin-top:22px">See the results &rarr;</button>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="cb-panel" data-s="3">
+          <p class="cb-hint">Real-time performance, tracked down to the VDP view and the individual lead.</p>
+          <div class="cb-results">
+            <div class="cb-metric"><div class="cb-metric-n" data-num="487412">0</div><div class="cb-metric-l">Reach</div></div>
+            <div class="cb-metric"><div class="cb-metric-n" data-num="6423">0</div><div class="cb-metric-l">Clicks</div></div>
+            <div class="cb-metric"><div class="cb-metric-n" data-num="187">0</div><div class="cb-metric-l">Leads</div></div>
+            <div class="cb-metric"><div class="cb-metric-n" data-num="11329">0</div><div class="cb-metric-l">VDP Views</div></div>
+          </div>
+          <button class="btn btn-yellow cb-restart" style="margin-top:22px">&#8635; Run it again</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById('cb'); if(!root) return;
+    var steps=[].slice.call(root.querySelectorAll('.cb-step'));
+    var panels=[].slice.call(root.querySelectorAll('.cb-panel'));
+    var cur=0, invDone=false, audTotal=0, started=false;
+
+    function animCount(el,target,dur){
+      dur=dur||900; var t0=performance.now();
+      function tick(now){ var k=Math.min(1,(now-t0)/dur); var v=target*(0.5-Math.cos(k*Math.PI)/2);
+        el.textContent=Math.round(v).toLocaleString(); if(k<1) requestAnimationFrame(tick); }
+      requestAnimationFrame(tick);
+    }
+    function show(i){
+      cur=i;
+      steps.forEach(function(s,idx){ s.classList.toggle('is-active',idx===i); s.classList.toggle('is-done',idx<i); });
+      panels.forEach(function(p,idx){ p.classList.toggle('is-active',idx===i); });
+      if(i===0 && !invDone){ runInventory(); }
+      if(i===2){ buildAds(); }
+      if(i===3){ rollResults(); }
+    }
+    function runInventory(){
+      if(invDone) return;
+      invDone=true;
+      var rows=[].slice.call(root.querySelectorAll('.cb-inv-row')); var total=0, d=0;
+      document.getElementById('cb-veh').textContent='0';
+      rows.forEach(function(r){ setTimeout(function(){ r.classList.add('is-sel'); total+=parseInt(r.getAttribute('data-v')); animCount(document.getElementById('cb-veh'),total,500); }, d+=260); });
+    }
+    // step 2 audience toggles
+    root.querySelectorAll('.cb-aud').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var sz=parseInt(btn.getAttribute('data-size'));
+        if(btn.classList.toggle('is-on')){ audTotal+=sz; } else { audTotal-=sz; }
+        animCount(document.getElementById('cb-aud'),audTotal,500);
+      });
+    });
+    function buildAds(){
+      var ads=[].slice.call(root.querySelectorAll('.cb-ad')); var d=0;
+      ads.forEach(function(a){ a.classList.remove('is-in'); });
+      ads.forEach(function(a){ setTimeout(function(){ a.classList.add('is-in'); }, d+=280); });
+    }
+    function rollResults(){
+      root.querySelectorAll('.cb-metric-n').forEach(function(el,i){
+        setTimeout(function(){ animCount(el,parseInt(el.getAttribute('data-num')),1100); }, i*180);
+      });
+    }
+    steps.forEach(function(s){ s.addEventListener('click',function(){ show(parseInt(s.getAttribute('data-s'))); }); });
+    root.querySelectorAll('.cb-next').forEach(function(b){ b.addEventListener('click',function(){ show(parseInt(b.getAttribute('data-go'))); }); });
+    root.querySelector('.cb-restart').addEventListener('click',function(){
+      invDone=false; audTotal=0;
+      root.querySelectorAll('.cb-inv-row').forEach(function(r){ r.classList.remove('is-sel'); });
+      root.querySelectorAll('.cb-aud').forEach(function(a){ a.classList.remove('is-on'); });
+      document.getElementById('cb-veh').textContent='0'; document.getElementById('cb-aud').textContent='0';
+      show(0);
+    });
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && !started){ started=true; runInventory(); } }); },{threshold:.35}).observe(root);
+    } else { runInventory(); }
+  })();
+  </script>
+</section>'''
+
+
+def inventory_comparison():
+    """Interactive competitor comparison — click a competitor to reveal its
+    capability breakdown against Bumper. Bumper Inventory Ads only."""
+    def li(items):
+        return "".join(
+            f'<li class="{("cmp-i-yes" if yes else "cmp-i-no")}">'
+            f'<span class="cmp-i-mark">{"&#10003;" if yes else "&times;"}</span>{txt}</li>'
+            for yes, txt in items
+        )
+    dealercom = li([
+        (True, "Large website + digital ecosystem"),
+        (True, "Inventory advertising"),
+        (False, "Customer intent mining"),
+        (False, "Retention automation"),
+        (False, "Connected customer lifecycle marketing"),
+    ])
+    purecars = li([
+        (True, "Advertising platform"),
+        (True, "Conquest campaigns"),
+        (False, "Ringless voicemail"),
+        (False, "Lifecycle campaigns"),
+        (False, "Customer intent mining"),
+    ])
+    bumper = li([
+        (True, "Inventory advertising"),
+        (True, "Facebook &amp; Google campaigns"),
+        (True, "Retention audiences"),
+        (True, "Intent-mining integration"),
+        (True, "Customer lifecycle activation"),
+        (True, "Dedicated performance manager"),
+    ])
+    return f'''<section class="section section--wash">
+  <div class="wrap centered">
+    <p class="eyebrow">How it stacks up</p>
+    <h2 class="h2" style="margin-bottom:8px">More than an ad platform.</h2>
+    <p class="lede">Most inventory advertising stops at the click. Bumper connects the same ad spend to intent mining, retention audiences, and the full customer lifecycle.</p>
+  </div>
+  <div class="wrap">
+    <div class="icmp" id="icmp">
+      <div class="icmp-tabs">
+        <button class="icmp-tab is-active" data-c="bumper">Bumper</button>
+        <button class="icmp-tab" data-c="dealercom">Dealer.com</button>
+        <button class="icmp-tab" data-c="purecars">PureCars</button>
+      </div>
+      <div class="icmp-panels">
+        <div class="icmp-panel is-active" data-c="bumper">
+          <div class="icmp-name">Bumper Inventory Ads <span class="icmp-badge">Connected lifecycle</span></div>
+          <ul class="cmp-ilist">{bumper}</ul>
+        </div>
+        <div class="icmp-panel" data-c="dealercom">
+          <div class="icmp-name">Dealer.com</div>
+          <ul class="cmp-ilist">{dealercom}</ul>
+        </div>
+        <div class="icmp-panel" data-c="purecars">
+          <div class="icmp-name">PureCars</div>
+          <ul class="cmp-ilist">{purecars}</ul>
+        </div>
+      </div>
+    </div>
+    <p class="cmp-disc">Comparison reflects Vicimus's understanding of publicly available information about Dealer.com and PureCars as of 2026, prepared in good faith. Competitor offerings change and may vary by plan, region, and configuration; product and company names are trademarks of their respective owners, used here for identification only. Verify current capabilities with each vendor.</p>
+  </div>
+  <script>
+  (function(){{
+    var root=document.getElementById('icmp'); if(!root) return;
+    var tabs=[].slice.call(root.querySelectorAll('.icmp-tab'));
+    var panels=[].slice.call(root.querySelectorAll('.icmp-panel'));
+    tabs.forEach(function(t){{
+      t.addEventListener('click',function(){{
+        var c=t.getAttribute('data-c');
+        tabs.forEach(function(x){{ x.classList.toggle('is-active',x===t); }});
+        panels.forEach(function(pnl){{ pnl.classList.toggle('is-active',pnl.getAttribute('data-c')===c); }});
+      }});
+    }});
+  }})();
+  </script>
+</section>'''
+
+
 def build_product(p, lang):
     pp = "../"                      # product pages live one level under lang root
     ap = ap_for(lang, pp)
@@ -346,9 +593,17 @@ def build_product(p, lang):
     html = head(p["seo_title"], p["seo_desc"], ap, lang)
     html += header(pp, ap, lang)
     # Per-product custom sections (Bumper Retention gets the journey simulator
-    # under Key Capabilities and a capability comparison after the screenshots).
-    extra_after_capabilities = retention_journey() if p["slug"] == "bumper-retention" else ""
-    extra_after_shots = retention_comparison() if p["slug"] == "bumper-retention" else ""
+    # under Key Capabilities and a capability comparison after the screenshots;
+    # Bumper Inventory Ads gets the campaign builder + interactive comparison).
+    if p["slug"] == "bumper-retention":
+        extra_after_capabilities = retention_journey()
+        extra_after_shots = retention_comparison()
+    elif p["slug"] == "bumper-inventory-ads":
+        extra_after_capabilities = inventory_campaign_builder()
+        extra_after_shots = inventory_comparison()
+    else:
+        extra_after_capabilities = ""
+        extra_after_shots = ""
     html += f'''
 <section class="subhero">
   <img class="subhero__bg" src="{ap}assets/img/hero.jpg" alt="">
