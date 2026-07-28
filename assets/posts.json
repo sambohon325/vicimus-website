@@ -1,0 +1,34 @@
+{
+  "posts": [
+    {
+      "slug": "bumper-bi-vin-attribution",
+      "title": "Bumper BI adds VIN-level attribution across departments",
+      "tag": "Product",
+      "date": "2026-01-15",
+      "author": "Vicimus Team",
+      "excerpt": "Sales, service, parts, and inventory reporting now share a single connected layer — with benchmarked KPIs and trend analysis.",
+      "image": "",
+      "body": "Bumper BI now ties every metric back to the VIN, giving dealership leadership one connected view across sales, service, parts, and inventory.\n\n## Why VIN-level matters\n\nMost dealership reporting lives in silos. Sales sees one dashboard, service another, and parts a third — with no shared thread between them. VIN-level attribution changes that by making the vehicle the common key across every department.\n\n- Compare department performance in context, not isolation\n- Spot inventory aging and fixed-coverage issues before they hit profitability\n- Track revenue per VIN across the full ownership lifecycle\n\n## What it means for your store\n\nLeadership teams can finally have one trusted conversation about performance, backed by numbers everyone agrees on. That's the whole point of business intelligence — **fewer arguments about the data, more decisions made on it.**"
+    },
+    {
+      "slug": "white-glove-support-2026",
+      "title": "Why white-glove support still matters in 2026",
+      "tag": "Company",
+      "date": "2026-01-08",
+      "author": "Vicimus Team",
+      "excerpt": "As automotive vendor support dwindles industry-wide, our dedicated performance model is more relevant than ever.",
+      "image": "",
+      "body": "Across the industry, vendor support is thinning out. Layoffs and downsizing have left many dealers on their own after the sale.\n\nWe built Vicimus around the opposite idea. Every account gets a dedicated performance manager, and we **cap the number of active clients per team member** so that attention is real, not theoretical.\n\n## The monthly strategy session\n\nEvery client meets with their performance manager on a regular cadence to review results, align on goals, and prioritize what's next. It's the difference between a tool you're handed and a partner who owns the outcome with you."
+    },
+    {
+      "slug": "intent-mining-explained",
+      "title": "Intent mining: reaching customers before they shop",
+      "tag": "Retention",
+      "date": "2026-01-02",
+      "author": "Vicimus Team",
+      "excerpt": "How capturing behavioral signals lets your store engage at the forefront of the customer's consideration process.",
+      "image": "",
+      "body": "What if you could identify who was most likely to become a lead before they started shopping?\n\nThat's the idea behind intent mining. By sorting, filtering, and analyzing your existing customer data, we surface the signals that indicate a customer is moving toward a purchase or service decision — and get your store in front of them first.\n\n## Ahead of the third parties\n\nThe alternative is waiting until that customer shows up on a third-party lead provider's list, at which point you're paying to reach someone who was already yours. Intent mining keeps the relationship — and the margin — where it belongs."
+    }
+  ]
+}

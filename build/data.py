@@ -1,0 +1,437 @@
+# -*- coding: utf-8 -*-
+"""All page content in one editable place. Copy is drawn from vicimus.com
+   and lightly tightened. Edit here, then re-run build.py to regenerate."""
+
+# Colour family per product: b=Bumper(blue) t=GloveBox/BDC(teal) r=Odometer(red)
+PRODUCTS = [
+    {
+        "slug": "bumper-retention",
+        "name": "Bumper Retention",
+        "logo": "bumper.svg",
+        "family": "b",
+        "eyebrow": "The Bumper Platform",
+        "hero_h": "Data-driven retention marketing that keeps your customers yours.",
+        "hero_p": "Pick from a library of campaigns to reach new and existing customers through direct mail, email, SMS, and ringless voicemail — intelligently automating your customer lifecycle across every department.",
+        "intro_h": "Uncover sales opportunities and engage customers proactively.",
+        "intro_p": "What if you could identify who was most likely to become a lead before they started shopping? Our intent-mining technology sorts, filters, and optimizes your data to identify and engage historic sales, service, and unsold customers before they wander out to third-party lead providers. By capturing customer signals and analyzing behavior, we alert and retarget those showing buying signals — so you engage at the forefront of their consideration process and keep that customer yours.",
+        "features_h": "Retention, done four ways.",
+        "features": [
+            ("b", "Smart Campaigning", "Segmenting 100% of the total addressable sales, service, and unsold prospect database into micro-targeted campaigns ensures the highest possible delivery and engagement rates."),
+            ("b", "Smart Messaging", "As we refine and segment your data, the platform tracks the medium each customer engages with and focuses future messaging on that channel."),
+            ("b", "SMS / Text", "Communicate where customers are most likely to read and respond. Our TCPA-compliant bulk texting tool respects the opt-in status of customers from your CRM or DMS."),
+            ("b", "Personalization", "Every communication is personalized with names, vehicle owned or traded, and tracked behaviorally back to the customer record in our CDP."),
+        ],
+        "band_eyebrow": "What Sets Us Apart",
+        "band_h": "Advanced technology + white-glove performance management.",
+        "band_p": "Meet your retention concierge. Your performance partner is always there when you need them — and we cap the number of active clients per team member so every client gets the personalized service and attention they deserve.",
+        "seo_title": "Bumper Retention — Lifecycle Marketing | Vicimus",
+        "seo_desc": "Data-driven retention and intent mining. Reach customers through direct mail, email, SMS, and ringless voicemail with a dedicated performance manager.",
+    },
+    {
+        "slug": "bumper-inventory-ads",
+        "name": "Bumper Inventory Ads",
+        "logo": "bumper-ads.svg",
+        "family": "b",
+        "eyebrow": "Inventory Ads",
+        "hero_h": "Automated, customizable inventory ads on demand.",
+        "hero_p": "Run Facebook and Google ad campaigns in minutes. Engage thousands of prospects and customers, extend your reach, and generate more leads at a lower cost — or let our white-glove team handle it for you.",
+        "intro_h": "Run digital marketing campaigns in minutes.",
+        "intro_p": "Bumper Inventory Ads is your efficient solution for automated advertising. Save time and cost with real-time lead distribution to CRM or BDC reps, target in-market prospects using custom audience settings, and build assets swiftly with the Ads Creator. Connect customized webpages to Facebook campaigns for enhanced conversions and gain real-time insights through behavioral tracking.",
+        "features_h": "Conquest, done four ways.",
+        "features": [
+            ("b", "Visibility", "Run inventory ads across Facebook and the Google Display Network so your vehicles reach in-market shoppers wherever they are."),
+            ("b", "Ubiquity", "Connected Messaging ensures your customers receive consistent messages across every medium and channel."),
+            ("b", "Intelligence", "Our Smart-ad Generator identifies the best ad criteria for the intended audience based on market segmentation."),
+            ("b", "Partnership", "Our dedicated support team handles the heavy lifting of ad creation and budget management."),
+        ],
+        "band_eyebrow": "Conquest & Retention",
+        "band_h": "Enhance retention and drive conquest leads.",
+        "band_p": "Take control of your advertising strategy. Drive leads, increase sales, and secure service appointments with real-time response tracking for individual prospects.",
+        "seo_title": "Bumper Inventory Ads — Facebook & Google Campaigns | Vicimus",
+        "seo_desc": "Automated, customizable inventory ads across Facebook and the Google Display Network, with real-time lead distribution and behavioral tracking.",
+    },
+    {
+        "slug": "bumper-bi",
+        "name": "Bumper BI",
+        "logo": "bumper-bi.svg",
+        "family": "b",
+        "eyebrow": "Bumper Business Intelligence",
+        "hero_h": "Drive your dealership with data.",
+        "hero_p": "Bumper BI consolidates sales, service, parts, inventory, and financial metrics into one intuitive platform — giving leadership a clean, high-level view of what's happening now and where attention is needed next.",
+        "intro_h": "Turn dealership data into confident decisions.",
+        "intro_p": "What if every department was working from the same trusted view of performance? Bumper BI brings clarity to complex dealership data, highlighting the metrics that matter, removing noise, and presenting insights that can be understood at a glance. No clutter, no hunting — just clear visibility into the health of your operation.",
+        "features_h": "Performance, made visible.",
+        "features": [
+            ("b", "Unified Reporting", "Consolidating 100% of your operational data into a single reporting layer eliminates silos so performance is evaluated in context, not isolation."),
+            ("b", "Smart Metrics", "The KPIs that drive outcomes are normalized, benchmarked, and trended over time to surface what's improving, what's declining, and where attention is required."),
+            ("b", "Operational Visibility", "From inventory aging and fixed coverage to revenue per VIN and technician efficiency, spot bottlenecks and outliers before they impact profitability."),
+            ("b", "Accountability", "Every insight ties back to departments, roles, and timeframes — enabling clearer conversations around priorities and improvement."),
+        ],
+        "band_eyebrow": "What Sets Us Apart",
+        "band_h": "Purpose-built intelligence + hands-on insight.",
+        "band_p": "Bumper BI is a custom-built analytics platform designed specifically for dealerships, supported by a team that understands how to interpret the data behind the numbers. We limit active clients so every dealership receives focused, actionable guidance.",
+        "seo_title": "Bumper BI — Dealership Business Intelligence | Vicimus",
+        "seo_desc": "Unified reporting across sales, service, parts, inventory, and finance with VIN-level visibility and benchmarked KPIs.",
+    },
+    {
+        "slug": "bumper-finance",
+        "name": "Bumper Finance",
+        "logo": "bumper.svg",
+        "family": "b",
+        "eyebrow": "Bumper Finance",
+        "hero_h": "A modern retailing finance experience.",
+        "hero_p": "Bridge the gap between handshake and F&I. Empower customers to customize their vehicle and payment while they wait — with gamification, video learning, and menu selection that ensures 100% product presentation.",
+        "intro_h": "Embrace the educated customer.",
+        "intro_p": "Bumper Finance breaks language barriers and eliminates pressure sales. Experience faster CSI improvement, increased product penetration, and an average lift of $800 PVR. Meet your educated customers with an experience that lets them control deal finalization transparently and without confrontation.",
+        "features_h": "Upsell, done four ways.",
+        "features": [
+            ("b", "Video Engagement", "Custom, dealership-branded videos let the customer feel in control of the process — encouraging them to make more buying decisions."),
+            ("b", "Consistency", "The 300% rule applies: present 100% of your products to 100% of customers 100% of the time, and you'll sell more product."),
+            ("b", "Intelligence", "Your customers are more educated than ever. Meet them with a process that respects their research and the time they've invested."),
+            ("b", "Customization", "Start from our library and add, change, or edit your offerings on the fly, as you need us."),
+        ],
+        "band_eyebrow": "Finance Process Reinvention",
+        "band_h": "Put the \u201cME\u201d back in finance menu.",
+        "band_p": "Modern retailing for your finance department is here — a totally customer-centric approach to F&I that never sacrifices profitability.",
+        "seo_title": "Bumper Finance — Modern F&I Retailing | Vicimus",
+        "seo_desc": "A customer-centric F&I menu experience with video learning and gamification, driving an average $800 PVR lift and higher product penetration.",
+    },
+    {
+        "slug": "accessory-accelerator",
+        "name": "Accessory Accelerator",
+        "logo": "accessory-accelerator.svg",
+        "family": "b",
+        "eyebrow": "Accessory Accelerator",
+        "hero_h": "The flexible way to boost accessory sales.",
+        "hero_p": "The aftermarket parts and accessory business is a $7B industry annually. Give your customers every opportunity to spend that money with you — we have the tool and the process to make it happen.",
+        "intro_h": "Customers will customize.",
+        "intro_p": "There are so many untapped opportunities for customers to add accessories to their vehicle. With Accessory Accelerator you capitalize on this revenue stream at exactly the right moments in the ownership lifecycle — at the point of sale, in the service lounge, and through aftersale campaigns.",
+        "features_h": "Four moments to capture.",
+        "features": [
+            ("b", "With Vehicle Purchase", "Once a customer agrees to a deal they enter a calm, open state — the perfect time to browse a menu of options that make their purchase unique."),
+            ("b", "For Service Customers", "Your service waiting area is a captive audience. Let them review your full menu of accessories while they wait, and watch sales rise."),
+            ("b", "Aftersale Campaigns", "Because the application can be sent as a link, we identify customers who didn't buy accessories and retarget them with campaigns."),
+            ("b", "Loyalty & Trust", "Customers who purchase accessories and have them installed at the dealership are 5x more likely to return for warranty and maintenance work."),
+        ],
+        "band_eyebrow": "Keep Your Customers Yours",
+        "band_h": "A little-known fact about OEM accessory portals.",
+        "band_p": "Many OEM accessory portals can send customers to a different dealership than the one referring them. If you're driving traffic to the OEM portal, that customer may get a call from your competition — possibly while sitting in your lounge. Accessory Accelerator gives you control over how and where your customers buy.",
+        "seo_title": "Accessory Accelerator — Boost Accessory Sales | Vicimus",
+        "seo_desc": "Capture untapped accessory revenue at the point of sale, in the service lounge, and through aftersale campaigns — and keep customers buying from you.",
+    },
+    {
+        "slug": "glovebox-websites",
+        "name": "GloveBox Websites",
+        "logo": "glovebox.svg",
+        "family": "t",
+        "eyebrow": "Digital Storefront",
+        "hero_h": "Your online presence, your way.",
+        "hero_p": "GloveBox is a robust, fully customizable and managed website platform built for dealers. From inventory to website content, you have total control — premium and boutique, yet budget friendly.",
+        "intro_h": "Think premium & boutique, yet budget friendly.",
+        "intro_p": "Every dealership has different needs. GloveBox empowers dealers to represent themselves online exactly the way they want, with a completely customizable and managed website experience. It's a responsive solution — and we built tools to create optimized experiences for any device.",
+        "features_h": "Total control, four ways.",
+        "features": [
+            ("t", "Inventory Manager", "Real-time control over every vehicle on the site, including merchandising options and smart filters."),
+            ("t", "Leads Manager", "See all your leads, send ADF to your CRM, and set up unlimited distribution groups."),
+            ("t", "Forms Manager", "Create custom forms, add them to any page, and control how they show up in your analytics."),
+            ("t", "Page Manager", "Create new pages, manage existing ones, or choose from a library of templates to get started."),
+        ],
+        "band_eyebrow": "Optimized & Integrated",
+        "band_h": "Integrates with any vendor or OEM.",
+        "band_p": "From service booking to digital retailing, GloveBox supports any and all integrations. Whether you need real-time inventory control or live chat, the platform supports it — with best-in-class performance management behind it.",
+        "seo_title": "GloveBox Websites — Custom Dealer Websites | Vicimus",
+        "seo_desc": "Fully customizable, managed dealership websites with inventory, leads, forms, and page managers — and integrations with any vendor or OEM.",
+    },
+    {
+        "slug": "odometer-voip",
+        "name": "Odometer VoIP",
+        "logo": "odometer.svg",
+        "family": "r",
+        "eyebrow": "VoIP Cloud Services & Reporting",
+        "hero_h": "Insights and tracking for dealerships and BDCs.",
+        "hero_p": "From the live dashboard to scheduled reports, Odometer gives you insight into everything happening on your phone system — from missed calls to tracking numbers — while saving up to 70% on monthly phone expenses.",
+        "intro_h": "Monitor, review, and report on all calls.",
+        "intro_p": "Odometer delivers premium VoIP features at less cost, with complete oversight of calls and staff — from Sales and Service to the BDC. Retain copies of all calls or specific calls, and control which calls are recorded, who can access recordings, and whether they're added to each customer profile in the CRM.",
+        "features_h": "Every call, accounted for.",
+        "features": [
+            ("r", "Track Every Call", "Every phone call is tracked by individual, department, tracking number, and how it's handled."),
+            ("r", "Reporting Comes to You", "Daily, weekly, monthly, or on demand — customized reports are available through the dashboard."),
+            ("r", "Your Phone Follows You", "When you're on the move, so is your number — calls seamlessly redirect to your cell phone."),
+            ("r", "Updates Your CRM", "When customers call, Odometer looks them up in the CRM and attaches a recording of the call."),
+        ],
+        "band_eyebrow": "Major Cost Savings",
+        "band_h": "Save up to 70% on monthly phone expenses.",
+        "band_p": "On average, dealerships spend over $1,000 per month in phone charges. Odometer combines multiple solutions into one end-to-end system — from your phone system to oversight — for far less expense.",
+        "seo_title": "Odometer VoIP — Call Tracking & Reporting | Vicimus",
+        "seo_desc": "Cloud VoIP with full call tracking, recording, and reporting across every department — saving dealerships up to 70% on monthly phone costs.",
+    },
+    {
+        "slug": "calls-on-demand",
+        "name": "Calls on Demand",
+        "logo": "glovebox.svg",  # COD has no standalone SVG in the pack; use a neutral mark
+        "family": "t",
+        "eyebrow": "COD — Calls on Demand",
+        "hero_h": "Inbound & outbound BDC services for every dealership.",
+        "hero_p": "Customers want what they want, when they want it — and it starts by answering the phone. Our Calls on Demand service professionally handles your consumer engagements and drives sales and service traffic to your location.",
+        "intro_h": "There for your customers when you can't be.",
+        "intro_p": "Our COD communications center uses three locations in North America to create boutique operations, so clients receive personalized attention and can adjust strategy based on immediate feedback from our Call Specialists and Management Team. Full-spectrum inbound and outbound call services for sales and service, conquest and retention.",
+        "features_h": "Full-spectrum call services.",
+        "features": [
+            ("t", "Data Mining Campaigns", "Certified appointment specialists handle the heavy lifting on outbound sales and service campaigns, setting appointments and creating incremental opportunities."),
+            ("t", "Sales Campaigns", "In-equity campaigns, private offers, lease renewal, and special finance campaigns — booked and tracked."),
+            ("t", "Service Campaigns", "Appointment scheduling, service clinics, service specials, and lost-service / first-appointment outreach."),
+            ("t", "Backstop Campaigns", "We answer the phones when you can't — and you only pay for the calls you would have missed."),
+        ],
+        "band_eyebrow": "Real-Time Follow-Up",
+        "band_h": "Highly trained professionals handling your opportunities.",
+        "band_p": "Our agents are trained daily and weekly to be the best at what they do — setting appointments and making customers feel the warmth of doing business with your dealership. Before you staff up your BDC, see what we can do for a fraction of the cost.",
+        "seo_title": "Calls on Demand (COD) — BDC Services | Vicimus",
+        "seo_desc": "Full-spectrum inbound and outbound BDC call services for sales and service — data mining, appointment setting, and missed-call backstop.",
+    },
+    {
+        "slug": "powersports-independent",
+        "name": "Powersports Independent (PSI)",
+        "logo": "bumper.svg",
+        "family": "r",
+        "eyebrow": "Powersports & Independent Solutions",
+        "hero_h": "Scaled solutions for powersports and independent markets.",
+        "hero_p": "Tired of being a vendor afterthought? Build customized bundles that include only the applications that make an impact and provide essential ROI for your business — with dedicated performance support for every dealer.",
+        "intro_h": "Best-in-class service for every client, in every category.",
+        "intro_p": "We've been in your stores, attended NIADA conventions, and understand your frustrations. While many vendors offer only an all-or-nothing product, we take flexibility to heart — as willing to be flexible in budget and offerings as we are in our technology solutions.",
+        "features_h": "Flexible by design.",
+        "features": [
+            ("r", "Wear Fewer Hats", "A partner that takes marketing and communication duties off your hands changes your daily schedule for the better."),
+            ("r", "No Skimping on Support", "No matter the size or type of dealership, everyone gets dedicated performance support."),
+            ("r", "A-La-Carte Bundles", "Only pay for what you need with our special PSI packages."),
+            ("r", "PSI Sushi Menu", "Special pricing options for PSI dealers — without long-term contracts."),
+        ],
+        "band_eyebrow": "How Many Hats Do You Wear?",
+        "band_h": "We get it — all of them.",
+        "band_p": "Operating an independent dealership requires massive focus and flexibility, where every dollar spent must return on investment. A vendor with the experience to take the wheel for you, as we do here at Vicimus, makes all the difference.",
+        "seo_title": "Powersports Independent (PSI) — Scaled Dealer Solutions | Vicimus",
+        "seo_desc": "Flexible, a-la-carte marketing and technology bundles for powersports and independent dealers, with dedicated performance support and no long-term contracts.",
+    },
+]
+
+# Shared testimonials
+TESTIMONIALS = [
+    ("Maria and the team at Vicimus are one of the best and most reliable vendors I have ever worked with. The level of customer service has been first class — better than most vendor relationships I have experienced in over 20 years.", "Julia Shauf"),
+    ("Bumper has got it right — the right message to the right people at the right times.", "Kristi Alguire"),
+    ("I highly recommend Bumper, a company that specializes in creating highly effective marketing campaigns.", "Jason Aginsky"),
+]
+
+
+# ======================================================================
+# SOLUTIONS  (Layout A — problem-first, functional need)
+# products = slugs of the product pages that address this solution
+# ======================================================================
+SOLUTIONS = [
+    {
+        "slug": "retention-lifecycle",
+        "name": "Retention & Lifecycle Marketing",
+        "eyebrow": "Solutions",
+        "hero_h": "Turn one-time buyers into customers for life.",
+        "hero_p": "Most dealerships sit on a database full of customers they'll never hear from again. Retention marketing closes that gap — reaching the right customer with the right message at exactly the right moment in their ownership journey.",
+        "challenge_h": "The retention problem every store knows.",
+        "challenges": [
+            ("Customers slip away after the sale", "Without a system, follow-up depends on whoever remembers to call. Most equity, lease-maturity, and service-due moments pass unnoticed — and the customer buys or services elsewhere."),
+            ("Your data isn't working for you", "The DMS and CRM hold everything you need to retain customers. What's missing is the tooling to act on those signals systematically, at scale, across every department."),
+            ("Marketing spend leaks to conquest", "When retention is weak, stores overspend chasing new customers to replace the ones they quietly lost — the most expensive way to grow."),
+        ],
+        "products": ["bumper-retention", "bumper-finance", "accessory-accelerator", "calls-on-demand"],
+        "outcomes": [
+            ("b", "89%", "of service customers return when contacted at the right time"),
+            ("t", "1:1", "dedicated performance manager guiding every campaign"),
+            ("r", "5", "channels — email, SMS, voicemail, direct mail, and calls"),
+        ],
+        "seo_title": "Retention & Lifecycle Marketing | Vicimus",
+        "seo_desc": "Systematic retention and lifecycle marketing that reaches the right customer at the right moment — email, SMS, voicemail, direct mail, and BDC calls.",
+    },
+    {
+        "slug": "inventory-advertising",
+        "name": "Inventory Advertising",
+        "eyebrow": "Solutions",
+        "hero_h": "Every vehicle, in front of the right buyer.",
+        "hero_p": "Inventory changes daily. Your advertising should keep up automatically — VIN-specific ads that sync to your live stock and reach in-market shoppers across Facebook and Google, without manual work.",
+        "challenge_h": "Why most dealer advertising underperforms.",
+        "challenges": [
+            ("Ads go stale the moment inventory moves", "Manually built campaigns can't keep pace with a lot that turns over daily. Shoppers click ads for vehicles that sold last week — wasting spend and trust."),
+            ("Conquest and retention live in silos", "Prospecting new buyers and re-engaging your database are usually two disconnected efforts. Connected messaging keeps them working together."),
+            ("You can't see what's actually working", "Without real-time, VIN-level response tracking, budget gets spread evenly instead of flowing to the ads and vehicles that convert."),
+        ],
+        "products": ["bumper-inventory-ads", "glovebox-websites", "bumper-bi"],
+        "outcomes": [
+            ("b", "Live", "inventory sync — ads always reflect current stock"),
+            ("t", "2", "platforms — Facebook and the Google Display Network"),
+            ("r", "Real-time", "response tracking down to the individual prospect"),
+        ],
+        "seo_title": "Inventory Advertising | Vicimus",
+        "seo_desc": "VIN-specific inventory ads that auto-sync to live stock across Facebook and Google, with real-time response tracking and connected conquest + retention.",
+    },
+    {
+        "slug": "lead-management",
+        "name": "Lead Management & Websites",
+        "eyebrow": "Solutions",
+        "hero_h": "Capture every lead. Drop none.",
+        "hero_p": "Your website and your phones are where leads are won or lost. A conversion-built site plus professional call handling means every inbound opportunity is captured, routed, and followed up — automatically.",
+        "challenge_h": "Where leads leak out of the funnel.",
+        "challenges": [
+            ("Websites built to look good, not convert", "A template site with weak lead capture and no live CRM sync turns interested shoppers into bounced traffic. Conversion has to be designed in."),
+            ("Inbound calls go unanswered", "Roughly one in five service and sales calls never gets picked up. Every missed call is a booked appointment or a sale walking to a competitor."),
+            ("Leads arrive but nobody owns them", "Without routing and distribution, web and phone leads sit unassigned. Speed-to-lead collapses and the opportunity cools."),
+        ],
+        "products": ["glovebox-websites", "calls-on-demand", "bumper-retention", "odometer-voip"],
+        "outcomes": [
+            ("b", "~20%", "of inbound calls go unanswered — we close that gap"),
+            ("t", "Live", "CRM sync so every lead is captured and routed"),
+            ("r", "24/7", "call coverage through our BDC backstop"),
+        ],
+        "seo_title": "Lead Management & Websites | Vicimus",
+        "seo_desc": "Conversion-built dealership websites plus professional inbound and outbound call handling, so every web and phone lead is captured, routed, and followed up.",
+    },
+    {
+        "slug": "call-tracking",
+        "name": "Call Tracking & VoIP",
+        "eyebrow": "Solutions",
+        "hero_h": "Know exactly which campaigns drive calls.",
+        "hero_p": "The phone is still the highest-intent channel in the dealership. Cloud VoIP with call tracking and recording tells you which campaigns, departments, and people are turning calls into appointments — and cuts your phone bill doing it.",
+        "challenge_h": "The blind spot in most phone systems.",
+        "challenges": [
+            ("You can't attribute the call that mattered", "Without tracking numbers and recording, there's no way to know which ad, campaign, or channel produced a call — so marketing decisions run on guesswork."),
+            ("Legacy phone systems cost too much", "Analog and outdated systems quietly drain over a thousand dollars a month while offering none of the oversight a modern store needs."),
+            ("No visibility into how calls are handled", "Missed calls, hold times, and how staff handle live opportunities stay invisible without department- and individual-level reporting."),
+        ],
+        "products": ["odometer-voip", "calls-on-demand", "bumper-bi"],
+        "outcomes": [
+            ("b", "70%", "typical reduction in monthly phone expense"),
+            ("t", "Every", "call tracked by department, number, and individual"),
+            ("r", "CRM", "recordings attached to the customer record automatically"),
+        ],
+        "seo_title": "Call Tracking & VoIP | Vicimus",
+        "seo_desc": "Cloud VoIP with call tracking, recording, and campaign attribution across every department — full phone visibility at a fraction of legacy cost.",
+    },
+]
+
+
+# ======================================================================
+# MARKETS SERVED  (Layout A — audience-first)
+# ======================================================================
+MARKETS = [
+    {
+        "slug": "franchise-retail",
+        "name": "Franchise Retail",
+        "eyebrow": "Markets Served",
+        "hero_h": "Defend your service drive and grow every department.",
+        "hero_p": "Franchise stores have the data and the traffic — but also OEM standards, co-op rules, and independents chipping away at service share. We help you retain customers, lift F&I and accessories, and report it all in one place.",
+        "challenge_h": "What franchise dealers are up against.",
+        "challenges": [
+            ("Independents are taking service share", "Franchise stores lose service-retention ground year over year. Systematic lifecycle outreach brings customers back to your drive instead of the shop down the road."),
+            ("Tool sprawl across the rooftop", "DMS, CRM, ad vendors, website, phones — franchise stores juggle a dozen systems that don't talk. Our stack layers on and connects, rather than adding another silo."),
+            ("Every department carries a target", "Sales, service, F&I, parts, and accessories all need to perform. Retention, finance, and accessory tools lift revenue across all of them from the customers you already have."),
+        ],
+        "products": ["bumper-retention", "bumper-finance", "accessory-accelerator", "bumper-bi"],
+        "outcomes": [
+            ("b", "$800", "average PVR lift with a modern F&I menu experience"),
+            ("t", "1", "connected dashboard across every department"),
+            ("r", "OEM", "co-op-friendly campaigns and reporting"),
+        ],
+        "seo_title": "Franchise Retail Dealers | Vicimus",
+        "seo_desc": "Retention, F&I, accessory, and BI tools built for franchise dealers — defend service share and grow every department from the customers you already have.",
+    },
+    {
+        "slug": "independent-retail",
+        "name": "Independent Retail",
+        "eyebrow": "Markets Served",
+        "hero_h": "Enterprise-grade tools, independent-sized budgets.",
+        "hero_p": "Independent stores wear every hat and answer to no OEM. You need marketing and technology that punch above their price — flexible, a-la-carte, and backed by a team that actually picks up the phone.",
+        "challenge_h": "The independent dealer's reality.",
+        "challenges": [
+            ("No OEM support behind you", "There's no factory co-op or corporate marketing team. Every tool has to earn its keep and deliver ROI you can see, or it's gone."),
+            ("You're wearing every hat", "Owner, marketer, desk manager, BDC. A partner that takes marketing and communication off your plate gives you back your day."),
+            ("All-or-nothing vendors don't fit", "Most platforms sell one rigid package. You need to buy only what moves the needle for your store — and change it as you grow."),
+        ],
+        "products": ["powersports-independent", "glovebox-websites", "bumper-retention", "odometer-voip"],
+        "outcomes": [
+            ("b", "A-la-carte", "bundles — pay only for what you need"),
+            ("t", "No", "long-term contracts to get locked into"),
+            ("r", "1:1", "dedicated support, regardless of store size"),
+        ],
+        "seo_title": "Independent Retail Dealers | Vicimus",
+        "seo_desc": "Flexible, a-la-carte marketing and technology for independent dealers — enterprise-grade tools at independent budgets, with dedicated support and no long contracts.",
+    },
+    {
+        "slug": "bhph",
+        "name": "Buy Here Pay Here (BHPH)",
+        "eyebrow": "Markets Served",
+        "hero_h": "Keep every customer close and every account current.",
+        "hero_p": "BHPH lives and dies on relationships and repeat business. Consistent, personal communication keeps customers engaged, accounts current, and brings them back for their next vehicle — instead of losing them at payoff.",
+        "challenge_h": "What makes BHPH different.",
+        "challenges": [
+            ("Retention is the whole business model", "Your best next customer is the one paying you now. Staying in front of them through the loan and beyond turns one deal into a lifetime of repeat sales."),
+            ("Communication has to be constant and personal", "Payment reminders, service, and check-ins all matter. Automated, personalized outreach across SMS, voicemail, and calls keeps every customer engaged without adding staff."),
+            ("You need eyes on the whole portfolio", "Understanding trends across your accounts and customers — who's due, who's at risk, who's ready to upgrade — takes connected reporting, not spreadsheets."),
+        ],
+        "products": ["bumper-retention", "calls-on-demand", "odometer-voip", "bumper-bi"],
+        "outcomes": [
+            ("b", "Repeat", "business driven by consistent lifecycle contact"),
+            ("t", "Multi", "channel — SMS, voicemail, and live BDC calls"),
+            ("r", "Portfolio", "level visibility across every account"),
+        ],
+        "seo_title": "Buy Here Pay Here (BHPH) Dealers | Vicimus",
+        "seo_desc": "Lifecycle communication, BDC calling, VoIP, and reporting built for BHPH — keep customers engaged, accounts current, and repeat business flowing.",
+    },
+    {
+        "slug": "enterprise",
+        "name": "Enterprise & Dealer Groups",
+        "eyebrow": "Markets Served",
+        "hero_h": "Run every rooftop like one connected operation.",
+        "hero_p": "Dealer groups need consistency, consolidated reporting, and centralized marketing that still respects each store. We connect your rooftops with unified BI, group-wide retention, and advertising that scales without losing the local touch.",
+        "challenge_h": "Scaling without losing control.",
+        "challenges": [
+            ("Reporting doesn't roll up cleanly", "Every rooftop reports differently, so group leadership can't compare performance or spot problems early. Unified BI gives one trusted view across the whole organization."),
+            ("Marketing consistency across stores is hard", "Keeping messaging, campaigns, and standards aligned across many locations is a full-time job. Centralized tooling makes it manageable."),
+            ("Local performance still matters", "Group scale can't come at the cost of the individual store. Each rooftop keeps a dedicated performance manager and locally relevant campaigns."),
+        ],
+        "products": ["bumper-bi", "bumper-retention", "bumper-inventory-ads", "glovebox-websites"],
+        "outcomes": [
+            ("b", "1", "unified reporting layer across every rooftop"),
+            ("t", "Group", "wide retention and advertising, centrally managed"),
+            ("r", "Local", "performance managers on every store"),
+        ],
+        "seo_title": "Enterprise & Dealer Groups | Vicimus",
+        "seo_desc": "Unified BI, group-wide retention, and scalable advertising for multi-rooftop dealer groups — run every store like one connected operation.",
+    },
+]
+
+
+# ======================================================================
+# ABOUT / TEAM  (Layout C)
+# ======================================================================
+COMPANY_VALUES = [
+    ("White-glove, always", "We cap active clients per team member so every dealer gets real attention — not a ticket number."),
+    ("Connect, don't replace", "Our products layer onto the DMS, CRM, and OEM data you already run on. We close gaps; we don't rip things out."),
+    ("Own the outcome", "A dedicated performance manager owns every account and every result, with monthly strategy sessions built in."),
+    ("Built for dealers, by dealer people", "We've been in the stores and at the conventions. The tools reflect how a dealership actually works."),
+]
+
+MILESTONES = [
+    ("Founded in Ontario", "Vicimus starts with one observation: dealers had the data to retain customers but not the tools to act on it systematically."),
+    ("The Bumper platform", "The retention and lifecycle engine launches, unifying email, SMS, voicemail, and direct mail on dealer data."),
+    ("The suite expands", "GloveBox websites, Odometer VoIP, Calls on Demand, Bumper BI, Finance, and Accessory Accelerator join the family."),
+    ("Serving US & Canada", "Sixteen-plus years in, Vicimus supports franchise, independent, BHPH, and enterprise dealers across both markets."),
+]
+
+# Placeholder team — swap names/roles/photos when ready.
+TEAM_DEPARTMENTS = [
+    ("Performance Management", "Your day-to-day partners. Every account has a dedicated manager running strategy, campaigns, and monthly reviews."),
+    ("Product & Engineering", "The team building and scaling the Bumper platform — retention, BI, websites, and the connective tissue between them."),
+    ("Creative Services", "Content and design for every campaign, from direct mail to landing pages to inventory ads."),
+    ("BDC & Call Services", "The voices behind Calls on Demand — trained daily to set appointments and represent your store with warmth."),
+]
+
+LEADERSHIP = [
+    ("Leadership", "Founder & CEO"),
+    ("Leadership", "VP, Marketing"),
+    ("Leadership", "VP, Product"),
+    ("Leadership", "Director, Performance"),
+]

@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vicimus — Dealer Retention &amp; Lifecycle Marketing</title>
+<meta name="description" content="Bumper, GloveBox, and Odometer layer directly onto your existing DMS and CRM — adding systematic retention, lead management, and call tracking without replacing a single tool you already depend on.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,600;1,700;1,800&family=Barlow:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
+
+<!--
+  VICIMUS — HOMEPAGE
+  ============================================================
+  Look & feel: the "HOMEPAGE_v2" system — Archivo italic display,
+  Barlow body, rounded cards, four-colour divider, real photography.
+
+  Hero: the interactive four-step "calculator journey" (See the
+  opportunity → Choose products → Calculate ROI → Get started)
+  restyled to match. US / CA market toggle swaps the headline + copy.
+
+  Nav: hamburger opens a full-width mega-menu (Solutions / Products /
+  Markets Served / Company).
+
+  Assets:
+    assets/img/*     photography from the 2026 redesign pack
+    assets/logos/*   official product logo SVGs
+  Fonts load from Google Fonts. Everything else is self-contained.
+-->
+
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <div class="header__left">
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <a class="wordmark" href="/" aria-label="Vicimus home">
+      <svg height="20" viewBox="0 0 311.029 42.361" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.056,0v42.36L31.774,0Z" transform="translate(11.664)" fill="#fbcf09"/><path d="M31.774,0,10.056,42.361H31.774Z" transform="translate(11.664)" fill="#ee3c25"/>
+        <path d="M0,0l21.718,42.36V0Z" fill="#3fbcc4"/><path d="M0,0v42.36H21.72Z" fill="#2b68ab"/>
+        <path d="M115.567,28.894a1.736,1.736,0,0,1-1.734-1.734V13.8L106.9,27.65a1.732,1.732,0,0,1-3.1,0L96.858,13.8V27.16a1.734,1.734,0,0,1-3.469,0V6.47a1.734,1.734,0,0,1,3.285-.775L105.344,23l8.672-17.307a1.734,1.734,0,0,1,3.285.775V27.16a1.736,1.736,0,0,1-1.734,1.734" transform="translate(108.324 5.494)" fill="#111"/>
+        <path d="M40.93,28.608h-.017a1.735,1.735,0,0,1-1.534-.957L29.158,7.246a1.733,1.733,0,1,1,3.1-1.553l8.711,17.387,9.182-17.42a1.734,1.734,0,0,1,3.067,1.618l-10.754,20.4a1.732,1.732,0,0,1-1.534.927" transform="translate(33.607 5.493)" fill="#111"/>
+        <path d="M51.675,29.178a1.736,1.736,0,0,1-1.734-1.734V6.468a1.734,1.734,0,0,1,3.469,0V27.443a1.736,1.736,0,0,1-1.734,1.734" transform="translate(57.928 5.493)" fill="#111"/>
+        <path d="M83.545,28.895a1.736,1.736,0,0,1-1.734-1.734V6.47a1.734,1.734,0,0,1,3.469,0V27.16a1.736,1.736,0,0,1-1.734,1.734" transform="translate(94.895 5.493)" fill="#111"/>
+        <path d="M83.354,28.895H63.938A1.736,1.736,0,0,1,62.2,27.16V6.47a1.736,1.736,0,0,1,1.734-1.734H83.354a1.734,1.734,0,1,1,0,3.469H65.673V25.426H83.354a1.734,1.734,0,1,1,0,3.469" transform="translate(72.152 5.493)" fill="#111"/>
+        <path d="M144.9,28.895H134.416a1.734,1.734,0,1,1,0-3.469h8.754V6.47A1.736,1.736,0,0,1,144.9,4.736h10.489a1.734,1.734,0,0,1,0,3.469h-8.754V27.16a1.736,1.736,0,0,1-1.734,1.734" transform="translate(153.901 5.493)" fill="#111"/>
+        <path d="M136.411,28.895H115.433A1.736,1.736,0,0,1,113.7,27.16V6.47a1.734,1.734,0,0,1,3.469,0V25.426h17.508V6.47a1.734,1.734,0,1,1,3.469,0V27.16a1.736,1.736,0,0,1-1.734,1.734" transform="translate(131.882 5.493)" fill="#111"/>
+      </svg>
+    </a>
+
+    <div class="util">
+      <div class="langpick" id="langpick">
+        <button class="langpick__btn" type="button" onclick="toggleLangMenu()" aria-haspopup="true" aria-label="Choose region and language">
+          <span id="lp-region">US</span><span class="langpick__dot">&middot;</span><span id="lp-lang">EN</span><span class="langpick__chev">&#9662;</span>
+        </button>
+        <div class="langpick__menu" id="lp-menu" role="menu">
+          <div class="langpick__grp">United States</div>
+          <button type="button" data-region="us" data-lang="en" onclick="setLang('us','en')">English</button>
+          <button type="button" data-region="us" data-lang="es" onclick="setLang('us','es')">Espa&ntilde;ol</button>
+          <div class="langpick__grp">Canada</div>
+          <button type="button" data-region="ca" data-lang="en" onclick="setLang('ca','en')">English</button>
+          <button type="button" data-region="ca" data-lang="fr" onclick="setLang('ca','fr')">Fran&ccedil;ais</button>
+          <button type="button" data-region="ca" data-lang="es" onclick="setLang('ca','es')">Espa&ntilde;ol</button>
+        </div>
+      </div>
+      <span class="bar hide-sm" aria-hidden="true"></span>
+      <a class="hide-sm" href="tel:+18883016178">888-301-6178</a>
+      <span class="bar hide-sm" aria-hidden="true"></span>
+      <a class="hide-sm" href="#contact">Support</a>
+      <span class="bar hide-sm" aria-hidden="true"></span>
+      <a class="hide-sm" href="https://bumper.vicimus.com/login">Login</a>
+      <a class="btn btn-red" href="book-a-demo.html">Book a demo</a>
+    </div>
+  </div>
+
+  <!-- Mega menu -->
+  <div class="mega" id="mega">
+    <div class="mega__grid">
+      <div class="mega__col">
+        <h4>Solutions</h4>
+        <a href="solutions/retention-lifecycle.html">Retention &amp; Lifecycle</a>
+        <a href="solutions/inventory-advertising.html">Inventory Advertising</a>
+        <a href="solutions/lead-management.html">Lead Management &amp; Websites</a>
+        <a href="solutions/call-tracking.html">Call Tracking &amp; VoIP</a>
+      </div>
+      <div class="mega__col t">
+        <h4>Products</h4>
+        <a class="sub" href="products/bumper-retention.html">Bumper Retention</a>
+        <a class="sub" href="products/bumper-inventory-ads.html">Bumper Inventory Ads</a>
+        <a class="sub" href="products/bumper-bi.html">Bumper BI</a>
+        <a class="sub" href="products/bumper-finance.html">Bumper Finance</a>
+        <a class="sub" href="products/accessory-accelerator.html">Accessory Accelerator</a>
+        <a class="sub" href="products/glovebox-websites.html">GloveBox Websites</a>
+        <a class="sub" href="products/odometer-voip.html">Odometer VoIP</a>
+        <a class="sub" href="products/calls-on-demand.html">Calls on Demand</a>
+        <a class="sub" href="products/powersports-independent.html">Powersports Independent (PSI)</a>
+      </div>
+      <div class="mega__col y">
+        <h4>Markets Served</h4>
+        <a href="markets/franchise-retail.html">Franchise Retail</a>
+        <a href="markets/independent-retail.html">Independent Retail</a>
+        <a href="markets/bhph.html">Buy Here Pay Here</a>
+        <a href="markets/enterprise.html">Enterprise &amp; Groups</a>
+      </div>
+      <div class="mega__col r">
+        <h4>Company</h4>
+        <a href="about.html">About Us</a>
+        <a href="team.html">Team</a>
+        <a href="updates.html">Updates</a>
+        <a href="careers.html">Careers</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== HERO (calculator journey) ===================== -->
+<section class="hero" id="top">
+  <img class="hero__bg" src="assets/img/hero.jpg" alt="">
+  <div class="hero__inner">
+
+    <!-- Step pills -->
+    <nav class="steps" aria-label="Steps">
+      <button class="step is-active" id="pill-0" onclick="goStep(0)"><span class="step__num">1</span><span class="step__label">See the opportunity</span></button>
+      <button class="step" id="pill-1" onclick="goStep(1)"><span class="step__num">2</span><span class="step__label">Choose your products</span></button>
+      <button class="step" id="pill-2" onclick="goStep(2)"><span class="step__num">3</span><span class="step__label">Calculate your ROI</span></button>
+      <button class="step" id="pill-3" onclick="goStep(3)"><span class="step__num">4</span><span class="step__label">Get started</span></button>
+    </nav>
+
+    <!-- STEP 1 — See the opportunity -->
+    <div class="panel is-active" id="panel-0">
+      <div class="hero-grid">
+        <div>
+          <span class="mkt-flag" id="mkt-flag">United States</span>
+          <p class="eyebrow">Dealer retention &amp; lifecycle marketing</p>
+          <h1 class="h1" id="hero-h">Close the gap your stack can't reach.</h1>
+          <p class="hero__lead" id="hero-p">Bumper, GloveBox, and Odometer layer directly onto your existing DMS and CRM — adding systematic retention, lead management, and call tracking without replacing a single tool you already depend on.</p>
+          <button class="btn btn-yellow" onclick="goStep(1)">Choose your products →</button>
+        </div>
+        <div class="stat-card">
+          <div class="stat stat--b">
+            <div class="stat__value">89%</div>
+            <p>of service customers will return if contacted</p>
+            <cite>Cox Automotive, Fixed Ops &amp; Ownership Study 2024</cite>
+          </div>
+          <div class="stat stat--t">
+            <div class="stat__value">6pt</div>
+            <p>service share lost to independents, year-over-year</p>
+            <cite>CDK Global, Service Shopper Study 2024</cite>
+          </div>
+          <div class="stat stat--y">
+            <div class="stat__value">25%</div>
+            <p>of new buyers introduced to service at point of sale</p>
+            <cite>Cox Automotive, 2024</cite>
+          </div>
+          <div class="stat stat--r">
+            <div class="stat__value">~20%</div>
+            <p>of inbound service calls go unanswered</p>
+            <cite>Industry aggregate, multiple call analytics vendors</cite>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 — Choose your products -->
+    <div class="panel" id="panel-1">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Step 02 — Products</p>
+          <h2 class="h2">Select what fits your store.</h2>
+          <p class="hero__lead">Pick the products to include in your ROI estimate. Hover any chip to preview what it does.</p>
+          <div class="chip-legend">
+            <span class="leg b">Bumper</span>
+            <span class="leg t">GloveBox</span>
+            <span class="leg y">Channels</span>
+            <span class="leg r">Odometer</span>
+          </div>
+          <div class="chips" id="chips">
+            <button class="chip b is-on" data-k="r"   onmouseenter="showInfo('r')"   onclick="toggleChip(this,'r')">Bumper Retention</button>
+            <button class="chip b"       data-k="a"   onmouseenter="showInfo('a')"   onclick="toggleChip(this,'a')">Bumper Ads</button>
+            <button class="chip b"       data-k="bi"  onmouseenter="showInfo('bi')"  onclick="toggleChip(this,'bi')">Bumper BI</button>
+            <button class="chip b"       data-k="bf"  onmouseenter="showInfo('bf')"  onclick="toggleChip(this,'bf')">Bumper Finance</button>
+            <button class="chip b"       data-k="ac"  onmouseenter="showInfo('ac')"  onclick="toggleChip(this,'ac')">Accessory Accelerator</button>
+            <button class="chip t"       data-k="gb"  onmouseenter="showInfo('gb')"  onclick="toggleChip(this,'gb')">GloveBox Websites</button>
+            <button class="chip t"       data-k="cod" onmouseenter="showInfo('cod')" onclick="toggleChip(this,'cod')">Calls on Demand</button>
+            <button class="chip y"       data-k="rv"  onmouseenter="showInfo('rv')"  onclick="toggleChip(this,'rv')">Ringless Voicemail</button>
+            <button class="chip y"       data-k="dm"  onmouseenter="showInfo('dm')"  onclick="toggleChip(this,'dm')">Direct Mail</button>
+            <button class="chip r"       data-k="od"  onmouseenter="showInfo('od')"  onclick="toggleChip(this,'od')">Odometer VoIP</button>
+            <button class="chip r"       data-k="psi" onmouseenter="showInfo('psi')" onclick="toggleChip(this,'psi')">PSI</button>
+          </div>
+          <div class="hero-actions">
+            <button class="btn btn-yellow" onclick="goStep(2)">Calculate my ROI →</button>
+            <button class="btn btn-ghost" style="color:rgba(255,255,255,.75)" onclick="goStep(0)">← Back</button>
+          </div>
+        </div>
+        <div>
+          <div class="prod-info">
+            <h3 class="prod-info__name" id="pi-name">Bumper Retention</h3>
+            <p class="prod-info__desc" id="pi-desc">Full lifecycle automation — email, SMS, ringless voicemail, direct mail — driven by your DMS and CRM data. Every customer receives the right message at the right time. Includes a dedicated performance manager and monthly strategy sessions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 — ROI -->
+    <div class="panel" id="panel-2">
+
+      <!-- ROI calculator -->
+      <div class="hero-grid">
+        <div class="calc-fields">
+          <p class="eyebrow">Step 03 — ROI Calculator</p>
+          <h2 class="h2">Your true stack ROI.</h2>
+          <div class="field-block" style="margin-top:18px">
+            <label>Dealership name <span class="hint">(for your print one-sheet)</span></label>
+            <input class="field-dark" type="text" id="c-dealer" placeholder="e.g. Lakeview Ford">
+          </div>
+          <div class="field-block">
+            <label>Annual repair orders</label>
+            <input class="field-dark" type="number" id="c-ro" value="3600" min="200" max="30000" oninput="calc()">
+          </div>
+          <div class="field-block">
+            <label>Avg. repair order value ($)</label>
+            <input class="field-dark" type="number" id="c-rv" value="420" min="50" max="3000" oninput="calc()">
+          </div>
+          <div class="field-block">
+            <label>Store size</label>
+            <select class="field-dark" id="c-sz" onchange="calc()">
+              <option value="s">Small — under 300 units/yr</option>
+              <option value="m" selected>Mid-size — 300–700 units/yr</option>
+              <option value="l">Large — 700+ units/yr</option>
+            </select>
+          </div>
+          <p class="calc-note">Directional estimates based on published industry benchmarks — not financial projections or guarantees. Sources: CDK Service Shopper 5.0 (2024); industry call-analytics aggregates; directional averages.</p>
+          <div class="hero-actions">
+            <button class="btn btn-yellow" onclick="goStep(3)">Get started →</button>
+            <button class="btn btn-ghost" style="color:rgba(255,255,255,.75)" onclick="goStep(1)">← Back</button>
+          </div>
+        </div>
+        <div>
+          <div class="calc-card">
+            <div class="roi-banner">
+              <div class="roi-lbl">Your estimated annual ROI</div>
+              <div class="roi-num" id="roi-n">$0</div>
+              <div class="roi-sub" id="roi-s">Select products in step 2</div>
+            </div>
+            <div id="roi-rows"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 — Get started -->
+    <div class="panel" id="panel-3">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Step 04 — Get started</p>
+          <h2 class="h2">Every month without it is <span style="color:var(--red)">revenue left behind.</span></h2>
+          <div class="vps">
+            <div class="vp"><div class="vp-dot b">1</div><div class="vp-txt"><strong>Modular</strong><span>Start with one product. Expand when ready. Nothing gets ripped out.</span></div></div>
+            <div class="vp"><div class="vp-dot t">2</div><div class="vp-txt"><strong>Human-backed</strong><span>Dedicated performance manager on every account. Monthly strategy sessions included.</span></div></div>
+            <div class="vp"><div class="vp-dot y">3</div><div class="vp-txt"><strong>Data-first</strong><span>Direct DMS, CRM, and OEM integration — your actual customers, not purchased lists.</span></div></div>
+            <div class="vp"><div class="vp-dot r">4</div><div class="vp-txt"><strong>Transparent</strong><span>Real-time dashboards and ROI reporting across every channel, every month.</span></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="demo-card">
+            <h3>Book a 20-minute demo</h3>
+            <div class="demo-two">
+              <div class="demo-field"><label>First name</label><input class="field-dark" placeholder="Alex"></div>
+              <div class="demo-field"><label>Last name</label><input class="field-dark" placeholder="Sharma"></div>
+            </div>
+            <div class="demo-field"><label>Work email</label><input class="field-dark" type="email" placeholder="alex@dealership.com"></div>
+            <div class="demo-field"><label>Dealership name</label><input class="field-dark" id="s4-dealer" placeholder="Lakeview Ford"></div>
+            <div class="demo-two">
+              <div class="demo-field"><label>Market</label><select class="field-dark" id="demo-mkt"><option>United States</option><option>Canada</option></select></div>
+              <div class="demo-field"><label>Role</label><select class="field-dark"><option>General Manager</option><option>Dealer Principal</option><option>Service Director</option><option>BDC / Marketing</option></select></div>
+            </div>
+            <button class="btn btn-yellow" style="width:100%;justify-content:center;margin-top:6px" onclick="alert('Demo request captured — wire this button to your CRM or form endpoint before launch.')">Request my demo</button>
+            <p style="font-size:.66rem;color:rgba(255,255,255,.6);text-align:center;margin:8px 0 0;letter-spacing:.03em">No long-term contracts · No tools to rip out · Setup in days</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="explore" onclick="document.getElementById('suite').scrollIntoView({behavior:'smooth'})">
+    <span>Explore Vicimus</span><span class="arr">↓</span>
+  </div>
+</section>
+
+<div class="divider" role="presentation"></div>
+
+<!-- ===================== PRODUCT SUITE ===================== -->
+<section class="suite" id="suite">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Product suite</p>
+      <h2 class="h2">Add what you need. Keep what works.</h2>
+      <p class="lede">Start with one. Expand when you're ready. Everything connects directly to your existing DMS, CRM, and OEM data.</p>
+    </div>
+
+    <div class="product-grid">
+      <a href="products/bumper-retention.html" class="product" style="text-decoration:none">
+        <div class="product__logo"><img src="assets/logos/bumper.svg" alt="Bumper"></div>
+        <h3 class="product__name">Bumper Retention</h3>
+        <p>Full lifecycle automation across email, SMS, ringless voicemail, and direct mail — driven by your own customer data.</p>
+      </a>
+      <a href="products/bumper-inventory-ads.html" class="product" style="text-decoration:none">
+        <div class="product__logo"><img src="assets/logos/bumper-ads.svg" alt="Bumper Ads"></div>
+        <h3 class="product__name">Bumper Inventory Ads</h3>
+        <p>VIN-specific Meta advertising, auto-synced to your live inventory. No manual updates required.</p>
+      </a>
+      <a href="products/bumper-bi.html" class="product" style="text-decoration:none">
+        <div class="product__logo"><img src="assets/logos/bumper-bi.svg" alt="Bumper BI"></div>
+        <h3 class="product__name">Bumper BI</h3>
+        <p>Sales, service, parts, inventory, and financial reporting in one dashboard with VIN-level attribution.</p>
+      </a>
+      <a href="products/glovebox-websites.html" class="product fam-t" style="text-decoration:none">
+        <div class="product__logo"><img src="assets/logos/glovebox.svg" alt="GloveBox"></div>
+        <h3 class="product__name">GloveBox Websites</h3>
+        <p>Dealership websites built for conversion — virtual retailing, lead capture, and live DMS sync built in.</p>
+      </a>
+      <a href="products/calls-on-demand.html" class="product fam-t" style="text-decoration:none">
+        <div class="product__logo"><img src="assets/logos/glovebox.svg" alt="GloveBox"></div>
+        <h3 class="product__name">Calls on Demand</h3>
+        <p>Inbound and outbound call handling through our BDC team — every inquiry captured, every appointment booked.</p>
+      </a>
+      <a href="products/bumper-finance.html" class="product" style="text-decoration:none">
+        <div class="product__logo"><img src="assets/logos/bumper.svg" alt="Bumper Finance"></div>
+        <h3 class="product__name">Bumper Finance</h3>
+        <p>Lifecycle campaigns targeting equity-positive and lease-maturity customers before they shop elsewhere.</p>
+      </a>
+      <a href="products/accessory-accelerator.html" class="product" style="text-decoration:none">
+        <div class="product__logo"><img src="assets/logos/accessory-accelerator.svg" alt="Accessory Accelerator"></div>
+        <h3 class="product__name">Accessory Accelerator</h3>
+        <p>Targeted upsell campaigns delivered to new-vehicle owners at the right point in the ownership cycle.</p>
+      </a>
+      <a href="products/odometer-voip.html" class="product fam-r" style="text-decoration:none">
+        <div class="product__logo"><img src="assets/logos/odometer.svg" alt="Odometer"></div>
+        <h3 class="product__name">Odometer VoIP</h3>
+        <p>Business phone with call tracking, recording, and campaign attribution built in from day one.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CATEGORY TILES ===================== -->
+<section class="tiles">
+  <article class="tile">
+    <img class="tile__img" src="assets/img/tile-retention.jpg" alt="">
+    <div class="tile__body">
+      <h3 class="tile__title">Retention &amp; Lifecycle Marketing</h3>
+      <p>Automated, data-driven outreach timed to real customer signals — service reminders, trade-in equity alerts, lease renewals, and post-sale engagement.</p>
+    </div>
+  </article>
+  <article class="tile">
+    <img class="tile__img" src="assets/img/tile-inventory.jpg" alt="">
+    <div class="tile__body">
+      <h3 class="tile__title">Inventory Advertising</h3>
+      <p>VIN-specific digital advertising that syncs automatically to your live inventory. Every ad always current, always accurate, always relevant.</p>
+    </div>
+  </article>
+  <article class="tile">
+    <img class="tile__img" src="assets/img/tile-leads.jpg" alt="">
+    <div class="tile__body">
+      <h3 class="tile__title">Lead Management &amp; Websites</h3>
+      <p>Professional dealership websites with virtual retailing, lead capture, and real-time CRM integration — every inbound lead handled, none dropped.</p>
+    </div>
+  </article>
+  <article class="tile">
+    <img class="tile__img" src="assets/img/tile-calls.jpg" alt="">
+    <div class="tile__body">
+      <h3 class="tile__title">Call Tracking &amp; VoIP</h3>
+      <p>Know exactly which campaigns drive calls. Full recording, tracking numbers, and reporting across every channel so you can stop guessing.</p>
+    </div>
+  </article>
+</section>
+
+<div class="divider" role="presentation"></div>
+
+<!-- ===================== SUCCESS STORIES ===================== -->
+<section class="stories" id="stories">
+  <div class="wrap section-head">
+    <p class="eyebrow">Success stories</p>
+    <h2 class="h2">Dealers who made the switch.</h2>
+  </div>
+  <div class="rail" tabindex="0" aria-label="Customer quotes">
+    <figure class="story">
+      <blockquote class="story__quote">"The dedicated performance manager makes the difference. We've tried platforms where you're completely on your own after the sale. This isn't that."</blockquote>
+      <figcaption><div class="story__role">General Manager</div><div class="story__org">Multi-Rooftop Dealer Group</div></figcaption>
+    </figure>
+    <figure class="story">
+      <blockquote class="story__quote">"We kept our DMS and our CRM. Bumper just filled in the parts they were never built to do."</blockquote>
+      <figcaption><div class="story__role">Fixed Operations Director</div><div class="story__org">Domestic Franchise Store</div></figcaption>
+    </figure>
+    <figure class="story">
+      <blockquote class="story__quote">"Our service drive finally has a system behind it instead of whoever remembers to call."</blockquote>
+      <figcaption><div class="story__role">Dealer Principal</div><div class="story__org">Independent Group, Ontario</div></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section class="about" id="about">
+  <div class="about__panel">
+    <p class="eyebrow">About Vicimus</p>
+    <h2 class="h2">Built for dealers who want more from their data.</h2>
+    <p class="about__lead">We built the retention layer the industry was missing.</p>
+    <p>Vicimus was founded in Ontario, Canada on one observation: most dealers had the data to retain their customers — they just didn't have the tools to act on it systematically. Every product we've built since works on the same principle: connect what you already have, close the gaps, and make it easy for a small team to run like a large one.</p>
+    <div class="facts">
+      <div class="fact"><b>16+</b><span>Years serving dealers</span></div>
+      <div class="fact"><b>US &amp; CA</b><span>Markets served</span></div>
+      <div class="fact"><b>Bootstrapped</b><span>Independent and owner-operated</span></div>
+    </div>
+  </div>
+  <div class="about__media">
+    <img src="assets/img/tile-leads.jpg" alt="">
+    <button class="play" aria-label="Play the Vicimus overview video"></button>
+  </div>
+</section>
+
+<!-- ===================== PARTNERS ===================== -->
+<section class="partners">
+  <div class="wrap section-head">
+    <p class="eyebrow">Technology partners</p>
+    <h2 class="h2">Works with the tools you already use.</h2>
+    <p class="lede">Bumper connects directly to the DMS, CRM, and OEM platforms your store already runs on.</p>
+  </div>
+  <div class="partner-row">
+    <span>AutoSync</span><span>DealerSocket</span><span>RouteOne</span><span>Dealertrack</span><span>Tekion</span>
+  </div>
+</section>
+
+<!-- ===================== CTA BANNER ===================== -->
+<section class="cta">
+  <div class="cta__inner">
+    <div class="cta__copy">
+      <p class="eyebrow">Ready to start?</p>
+      <h2 class="h2">Every month without it is revenue left on the table.</h2>
+      <div class="cta__actions">
+        <a class="btn btn-yellow" href="book-a-demo.html">Book a demo</a>
+        <a class="btn btn-outline" href="#suite">View all products</a>
+      </div>
+    </div>
+    <div class="cta__devices">
+      <img src="assets/img/cta-devices.png" alt="Vicimus products on phone, tablet, and desktop">
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section class="contact" id="contact">
+  <div class="wrap section-head">
+    <p class="eyebrow">Get in touch</p>
+    <h2 class="h2">Book a 20-minute demo.</h2>
+    <p class="lede">No long-term contracts. No tools to rip out. We'll show you exactly what Bumper would do for a store like yours.</p>
+    <p class="contact__lines">
+      Sales: <a href="tel:+18883016178">888-301-6178</a>
+      <span class="dot">•</span>
+      Email: <a href="mailto:sales@vicimus.com">sales@vicimus.com</a>
+      <span class="dot">•</span>
+      Support: <a href="mailto:support@vicimus.com">support@vicimus.com</a>
+    </p>
+  </div>
+
+  <form class="form wrap" method="post" action="#">
+    <span class="form__legend">Request a demo</span>
+    <div class="form-row cols-3">
+      <div class="field"><label for="first-name">First Name</label><input id="first-name" name="first-name" type="text" autocomplete="given-name" required></div>
+      <div class="field"><label for="last-name">Last Name</label><input id="last-name" name="last-name" type="text" autocomplete="family-name" required></div>
+      <div class="field"><label for="work-email">Work Email</label><input id="work-email" name="work-email" type="email" autocomplete="email" required></div>
+    </div>
+    <div class="form-row">
+      <div class="field"><label for="dealership">Dealership Name</label><input id="dealership" name="dealership" type="text" required></div>
+    </div>
+    <div class="form-row cols-2">
+      <div class="field"><label for="market">Market</label>
+        <select id="market" name="market"><option>United States</option><option>Canada</option></select>
+      </div>
+      <div class="field"><label for="role">Role</label>
+        <select id="role" name="role"><option>General Manager</option><option>Dealer Principal</option><option>Fixed Operations Director</option><option>Marketing Manager</option><option>Other</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="field"><label for="message">Message (Optional)</label><textarea id="message" name="message"></textarea></div>
+    </div>
+    <button class="form__submit" type="submit">Request a demo</button>
+  </form>
+</section>
+
+<div class="divider" role="presentation"></div>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__grid">
+      <div>
+        <svg height="16" viewBox="0 0 311.029 42.361" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.056,0v42.36L31.774,0Z" transform="translate(11.664)" fill="#fbcf09"/><path d="M31.774,0,10.056,42.361H31.774Z" transform="translate(11.664)" fill="#ee3c25"/>
+          <path d="M0,0l21.718,42.36V0Z" fill="#3fbcc4"/><path d="M0,0v42.36H21.72Z" fill="#2b68ab"/>
+          <path d="M115.567,28.894a1.736,1.736,0,0,1-1.734-1.734V13.8L106.9,27.65a1.732,1.732,0,0,1-3.1,0L96.858,13.8V27.16a1.734,1.734,0,0,1-3.469,0V6.47a1.734,1.734,0,0,1,3.285-.775L105.344,23l8.672-17.307a1.734,1.734,0,0,1,3.285.775V27.16a1.736,1.736,0,0,1-1.734,1.734" transform="translate(108.324 5.494)" fill="#fff"/>
+          <path d="M40.93,28.608h-.017a1.735,1.735,0,0,1-1.534-.957L29.158,7.246a1.733,1.733,0,1,1,3.1-1.553l8.711,17.387,9.182-17.42a1.734,1.734,0,0,1,3.067,1.618l-10.754,20.4a1.732,1.732,0,0,1-1.534.927" transform="translate(33.607 5.493)" fill="#fff"/>
+          <path d="M51.675,29.178a1.736,1.736,0,0,1-1.734-1.734V6.468a1.734,1.734,0,0,1,3.469,0V27.443a1.736,1.736,0,0,1-1.734,1.734" transform="translate(57.928 5.493)" fill="#fff"/>
+          <path d="M83.545,28.895a1.736,1.736,0,0,1-1.734-1.734V6.47a1.734,1.734,0,0,1,3.469,0V27.16a1.736,1.736,0,0,1-1.734,1.734" transform="translate(94.895 5.493)" fill="#fff"/>
+          <path d="M83.354,28.895H63.938A1.736,1.736,0,0,1,62.2,27.16V6.47a1.736,1.736,0,0,1,1.734-1.734H83.354a1.734,1.734,0,1,1,0,3.469H65.673V25.426H83.354a1.734,1.734,0,1,1,0,3.469" transform="translate(72.152 5.493)" fill="#fff"/>
+          <path d="M144.9,28.895H134.416a1.734,1.734,0,1,1,0-3.469h8.754V6.47A1.736,1.736,0,0,1,144.9,4.736h10.489a1.734,1.734,0,0,1,0,3.469h-8.754V27.16a1.736,1.736,0,0,1-1.734,1.734" transform="translate(153.901 5.493)" fill="#fff"/>
+          <path d="M136.411,28.895H115.433A1.736,1.736,0,0,1,113.7,27.16V6.47a1.734,1.734,0,0,1,3.469,0V25.426h17.508V6.47a1.734,1.734,0,1,1,3.469,0V27.16a1.736,1.736,0,0,1-1.734,1.734" transform="translate(131.882 5.493)" fill="#fff"/>
+        </svg>
+        <p class="footer__note">Dealer retention and lifecycle marketing. Ontario, Canada. Serving US &amp; CA markets.</p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <ul>
+          <li><a href="products/bumper-retention.html">Bumper Retention</a></li>
+          <li><a href="products/bumper-inventory-ads.html">Bumper Inventory Ads</a></li>
+          <li><a href="products/bumper-bi.html">Bumper BI</a></li>
+          <li><a href="products/glovebox-websites.html">GloveBox Websites</a></li>
+          <li><a href="products/odometer-voip.html">Odometer VoIP</a></li>
+          <li><a href="products/powersports-independent.html">Powersports Independent (PSI)</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="updates.html">Updates</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+18883016178">888-301-6178</a></li>
+          <li><a href="mailto:sales@vicimus.com">sales@vicimus.com</a></li>
+          <li><a href="contact.html">Support Portal</a></li>
+          <li><a href="https://bumper.vicimus.com/login">Login</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__base">
+      <span>© 2026 Vicimus Inc. All rights reserved.</span>
+      <nav>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Use</a>
+        <a href="#casl">CASL Compliance</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   STATE
+   ============================================================ */
+let market='us', menuOpen=false;
+
+const productInfo={
+  r:{n:'Bumper Retention',d:'Full lifecycle automation — email, SMS, ringless voicemail, direct mail — driven by your DMS and CRM data. Dedicated performance manager and monthly strategy sessions included.'},
+  a:{n:'Bumper Ads',d:'VIN-specific Meta advertising that auto-syncs with your live inventory. Every ad always current — no manual updates required.'},
+  bi:{n:'Bumper BI',d:'Sales, service, parts, inventory, and financial reporting unified in one dashboard with VIN-level attribution across all departments.'},
+  bf:{n:'Bumper Finance',d:'Lifecycle campaigns targeting equity-positive customers and lease-maturity windows before they visit a competing dealer.'},
+  ac:{n:'Accessory Accelerator',d:'Targeted upsell and accessory campaigns delivered to new-vehicle owners at the right point in the ownership cycle.'},
+  gb:{n:'GloveBox Websites',d:'Professional dealership websites with virtual rep, lead capture, and real-time CRM integration built in from day one.'},
+  cod:{n:'Calls on Demand',d:'Inbound and outbound call handling through our BDC team — every inquiry captured, every appointment booked, all tracked in Bumper.'},
+  rv:{n:'Ringless Voicemail',d:'Broadcast a personal voicemail directly to your customers. Numbers verified before launch to ensure delivery.'},
+  dm:{n:'Direct Mail',d:'Personally addressed postcards and letters sent to the exact customers Bumper identifies for each specific campaign.'},
+  od:{n:'Odometer VoIP',d:'Business phone system with call tracking, recording, and campaign attribution built in — know exactly which campaigns drive calls.'},
+  psi:{n:'Powersports Independent (PSI)',d:'The full Bumper stack purpose-built for powersports dealers — seasonal campaigns, off-season engagement, and brand-specific lifecycle flows.'}
+};
+const productNames={r:'Bumper Retention',a:'Bumper Ads',bi:'Bumper BI',bf:'Bumper Finance',ac:'Accessory Accelerator',gb:'GloveBox Websites',cod:'Calls on Demand',rv:'Ringless Voicemail',dm:'Direct Mail',od:'Odometer VoIP',psi:'PSI'};
+const selected={r:true,a:false,bi:false,bf:false,ac:false,gb:false,cod:false,rv:false,dm:false,od:false,psi:false};
+
+/* ============================================================
+   NAV / MENU / MARKET
+   ============================================================ */
+function toggleMenu(){
+  menuOpen=!menuOpen;
+  document.getElementById('mega').classList.toggle('is-open',menuOpen);
+  document.getElementById('hamburger').classList.toggle('is-open',menuOpen);
+  document.getElementById('hamburger').setAttribute('aria-expanded',menuOpen);
+}
+document.querySelectorAll('#mega a').forEach(a=>a.addEventListener('click',()=>{if(menuOpen)toggleMenu();}));
+
+function setMarket(m){
+  market=m;
+  var flag=document.getElementById('mkt-flag'); if(flag) flag.textContent = m==='us' ? 'United States' : 'Canada';
+  if(m==='us'){
+    document.getElementById('hero-h').textContent="Close the gap your stack can't reach.";
+    document.getElementById('hero-p').textContent="Bumper, GloveBox, and Odometer layer directly onto your existing DMS and CRM — adding systematic retention, lead management, and call tracking without replacing a single tool you already depend on.";
+  }else{
+    document.getElementById('hero-h').textContent="The retention layer AutoSync doesn't have.";
+    document.getElementById('hero-p').textContent="Your AutoSync suite handles inventory, CRM, and ads. Bumper handles what comes after the close — lifecycle communication and service follow-up that turns a one-time buyer into a loyal customer.";
+  }
+  const dm=document.getElementById('demo-mkt'); if(dm) dm.value = m==='us' ? 'United States' : 'Canada';
+}
+
+/* ============================================================
+   STEPS
+   ============================================================ */
+function goStep(n){
+  for(let i=0;i<4;i++){
+    document.getElementById('panel-'+i).classList.toggle('is-active',i===n);
+    const p=document.getElementById('pill-'+i);
+    p.classList.toggle('is-active',i===n);
+    p.classList.toggle('is-done',i<n);
+  }
+  if(n===2) calc();
+  document.getElementById('top').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function showInfo(k){
+  const p=productInfo[k]; if(!p) return;
+  document.getElementById('pi-name').textContent=p.n;
+  document.getElementById('pi-desc').textContent=p.d;
+}
+function toggleChip(el,k){
+  if(k==='r') return;           // Retention is the anchor product — always on
+  selected[k]=!selected[k];
+  el.classList.toggle('is-on',selected[k]);
+  calc();
+}
+
+/* ============================================================
+   ROI CALCULATOR
+   ============================================================ */
+function fmt(n){return '$'+Math.round(n).toLocaleString();}
+function calcRows(ro,rv){
+  const svc=ro*rv; let tot=0, rows=[];
+  const add=(l,v)=>{tot+=v;rows.push({l,v});};
+  if(selected.r)   add('Bumper Retention — lapsed customer recovery', svc*0.07);
+  if(selected.cod) add('Calls on Demand — missed call recovery', (ro*0.20)*(rv*0.85));
+  if(selected.gb)  add('GloveBox — lead engagement lift', svc*0.03);
+  if(selected.a)   add('Bumper Ads — VIN ad revenue', svc*0.04);
+  if(selected.dm)  add('Direct Mail — campaign touches', svc*0.02);
+  if(selected.rv)  add('Ringless Voicemail — reach lift', svc*0.025);
+  if(selected.od)  add('Odometer — call attribution', ro*0.2*rv*0.15);
+  if(selected.bf)  add('Bumper Finance — equity campaigns', svc*0.03);
+  if(selected.bi)  add('Bumper BI — reporting efficiency', svc*0.015);
+  if(selected.ac)  add('Accessory Accelerator — upsell', svc*0.02);
+  if(selected.psi) add('PSI — seasonal engagement', svc*0.05);
+  return {tot,rows};
+}
+function calc(){
+  const ro=parseInt(document.getElementById('c-ro').value)||3600;
+  const rv=parseInt(document.getElementById('c-rv').value)||420;
+  const {tot,rows}=calcRows(ro,rv);
+  document.getElementById('roi-n').textContent=fmt(tot);
+  document.getElementById('roi-s').textContent = tot>0 ? 'estimated annual recoverable revenue' : 'Select products in step 2';
+  document.getElementById('roi-rows').innerHTML = rows.map(r=>
+    `<div class="res-row"><span class="res-lbl">${r.l}</span><span class="res-val">${fmt(r.v)}</span></div>`
+  ).join('');
+}
+calc();
+</script>
+<script>window.SITE={root:"",page:"index.html",lang:"en"};</script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/sb-catalog.js"></script>
+<script src="assets/js/vendor/jspdf.umd.min.js"></script>
+<script src="assets/js/solutions-builder.js"></script>
+</body>
+</html>
