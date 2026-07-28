@@ -899,3 +899,55 @@ button.btn{margin:0;background-image:none}
 .cmp-i-part .cmp-i-mark svg path{fill:var(--yellow-ink)}
 .cmp-i-part .cmp-i-mark svg circle{fill:none;stroke:var(--yellow-ink);stroke-width:2}
 .cmp-note{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-left:6px;vertical-align:middle}
+
+/* ============================================================
+   PIE DASHBOARD DEMO (Pie / bumper-bi page)
+   ============================================================ */
+.pie{margin-top:44px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:34px 32px;min-height:360px;position:relative}
+@media(max-width:640px){.pie{padding:26px 20px}}
+.pie-panel{display:none;animation:cb-fade .4s ease}
+.pie-panel.is-active{display:block}
+.pie-q{font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;font-size:1.5rem;color:var(--ink);text-align:center;margin-bottom:26px;line-height:1.1}
+.pie-concerns{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+@media(max-width:760px){.pie-concerns{grid-template-columns:repeat(2,1fr)}}
+.pie-concern{display:flex;flex-direction:column;align-items:center;gap:10px;padding:22px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.82rem;color:var(--ink);transition:all .18s}
+.pie-concern:hover{border-color:var(--blue);background:var(--wash);transform:translateY(-2px)}
+.pie-emoji{font-size:1.9rem;font-style:normal}
+.pie-note{text-align:center;color:var(--muted);font-size:.85rem;margin-top:22px}
+.pie-crumb{display:flex;align-items:center;gap:12px;margin-bottom:22px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.pie-back{background:none;border:1px solid var(--line);border-radius:20px;padding:6px 14px;cursor:pointer;font:inherit;color:var(--blue);letter-spacing:.04em}
+.pie-back:hover{background:var(--wash)}
+.pie-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px}
+@media(max-width:640px){.pie-kpis{grid-template-columns:1fr}}
+.pie-kpi{border:1px solid var(--line);border-radius:12px;padding:22px 20px;text-align:center;position:relative;overflow:hidden}
+.pie-kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px}
+.pie-kpi.pie-up::before{background:var(--green)}
+.pie-kpi.pie-down::before{background:var(--red)}
+.pie-kpi-l{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.pie-kpi-v{font-family:var(--display);font-style:italic;font-weight:800;font-size:2.2rem;margin-top:6px}
+.pie-up .pie-kpi-v{color:var(--green)} .pie-down .pie-kpi-v{color:var(--red)}
+.pie-flag{display:flex;gap:14px;align-items:flex-start;background:rgba(238,59,37,.06);border:1px solid rgba(238,59,37,.25);border-radius:12px;padding:16px 18px;margin-bottom:24px;font-size:.9rem;line-height:1.5;color:var(--ink)}
+.pie-flag-ico{flex:none;width:26px;height:26px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-weight:800;font-style:italic}
+.pie-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+@media(max-width:760px){.pie-cols{grid-template-columns:1fr}}
+.pie-block{border:1px solid var(--line);border-radius:12px;padding:20px}
+.pie-block-t{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.pie-bar-row{display:grid;grid-template-columns:74px 1fr 48px;align-items:center;gap:12px;margin-bottom:12px}
+.pie-bar-n{font-size:.82rem;font-weight:600;color:var(--ink)}
+.pie-bar{height:10px;background:var(--wash);border-radius:5px;overflow:hidden}
+.pie-bar-fill{display:block;height:100%;border-radius:5px;width:0;transition:width .9s cubic-bezier(.4,0,.2,1)}
+.pie-bar-fill.up{background:var(--green)} .pie-bar-fill.down{background:var(--red)}
+.pie-bar-v{font-size:.82rem;font-weight:700;text-align:right;color:var(--muted)}
+.pie-bar-v.up{color:var(--green)} .pie-bar-v.down{color:var(--red)}
+.pie-insight{background:var(--blue-deep);color:#fff;border-radius:16px;padding:38px 34px;text-align:center;position:relative;overflow:hidden}
+.pie-insight::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--teal),var(--yellow))}
+.pie-insight-badge{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+.pie-insight-h{font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;font-size:1.7rem;line-height:1.05;margin-bottom:12px}
+.pie-insight-p{font-size:.98rem;line-height:1.6;color:rgba(255,255,255,.85);max-width:46ch;margin:0 auto 24px}
+.pie-insight-p b{color:var(--yellow)}
+.pie-impact{background:rgba(255,255,255,.08);border-radius:12px;padding:20px;margin:0 auto 20px;max-width:340px}
+.pie-impact-l{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.pie-impact-v{font-family:var(--display);font-style:italic;font-weight:800;font-size:2.8rem;color:var(--yellow);line-height:1.1;font-variant-numeric:tabular-nums}
+.pie-insight-sub{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.92rem;color:#fff;margin:0}
+.pie-next,.pie-restart{margin-top:4px}
+.pie-restart{margin-top:22px;display:block;margin-left:auto;margin-right:auto}

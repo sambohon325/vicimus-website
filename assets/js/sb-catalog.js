@@ -22,13 +22,13 @@ window.SB_CATALOG = {
       }
     },
     "bumper-bi": {
-      "name": "Bumper BI",
-      "blurb": "Bumper BI consolidates sales, service, parts, inventory, and financial metrics into one intuitive platform — giving leadership a clean, high-level view of what's happenin",
+      "name": "Pie",
+      "blurb": "Pie consolidates sales, service, parts, inventory, and financial performance into one intelligent view — giving leadership a clean, high-level picture of what's happening",
       "family": "b",
       "path": "products/bumper-bi.html",
       "roi": {
         "kind": "qual",
-        "metric": "Decisions on one connected dataset"
+        "metric": "Automated insight on one dataset"
       }
     },
     "bumper-finance": {

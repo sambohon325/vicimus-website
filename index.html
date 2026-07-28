@@ -96,7 +96,7 @@
         <h4>Products</h4>
         <a class="sub" href="products/bumper-retention.html">Bumper Retention</a>
         <a class="sub" href="products/bumper-inventory-ads.html">Bumper Inventory Ads</a>
-        <a class="sub" href="products/bumper-bi.html">Bumper BI</a>
+        <a class="sub" href="products/bumper-bi.html">Pie</a>
         <a class="sub" href="products/bumper-finance.html">Bumper Finance</a>
         <a class="sub" href="products/accessory-accelerator.html">Accessory Accelerator</a>
         <a class="sub" href="products/glovebox-websites.html">GloveBox Websites</a>
@@ -187,7 +187,7 @@
           <div class="chips" id="chips">
             <button class="chip b is-on" data-k="r"   onmouseenter="showInfo('r')"   onclick="toggleChip(this,'r')">Bumper Retention</button>
             <button class="chip b"       data-k="a"   onmouseenter="showInfo('a')"   onclick="toggleChip(this,'a')">Bumper Ads</button>
-            <button class="chip b"       data-k="bi"  onmouseenter="showInfo('bi')"  onclick="toggleChip(this,'bi')">Bumper BI</button>
+            <button class="chip b"       data-k="bi"  onmouseenter="showInfo('bi')"  onclick="toggleChip(this,'bi')">Pie</button>
             <button class="chip b"       data-k="bf"  onmouseenter="showInfo('bf')"  onclick="toggleChip(this,'bf')">Bumper Finance</button>
             <button class="chip b"       data-k="ac"  onmouseenter="showInfo('ac')"  onclick="toggleChip(this,'ac')">Accessory Accelerator</button>
             <button class="chip t"       data-k="gb"  onmouseenter="showInfo('gb')"  onclick="toggleChip(this,'gb')">GloveBox Websites</button>
@@ -321,8 +321,8 @@
         <p>VIN-specific Meta advertising, auto-synced to your live inventory. No manual updates required.</p>
       </a>
       <a href="products/bumper-bi.html" class="product" style="text-decoration:none">
-        <div class="product__logo"><img src="assets/logos/bumper-bi.svg" alt="Bumper BI"></div>
-        <h3 class="product__name">Bumper BI</h3>
+        <div class="product__logo"><img src="assets/logos/pie.svg" alt="Pie"></div>
+        <h3 class="product__name">Pie</h3>
         <p>Sales, service, parts, inventory, and financial reporting in one dashboard with VIN-level attribution.</p>
       </a>
       <a href="products/glovebox-websites.html" class="product fam-t" style="text-decoration:none">
@@ -523,7 +523,7 @@
         <ul>
           <li><a href="products/bumper-retention.html">Bumper Retention</a></li>
           <li><a href="products/bumper-inventory-ads.html">Bumper Inventory Ads</a></li>
-          <li><a href="products/bumper-bi.html">Bumper BI</a></li>
+          <li><a href="products/bumper-bi.html">Pie</a></li>
           <li><a href="products/glovebox-websites.html">GloveBox Websites</a></li>
           <li><a href="products/odometer-voip.html">Odometer VoIP</a></li>
           <li><a href="products/powersports-independent.html">Powersports Independent (PSI)</a></li>
@@ -568,7 +568,7 @@ let market='us', menuOpen=false;
 const productInfo={
   r:{n:'Bumper Retention',d:'Full lifecycle automation — email, SMS, ringless voicemail, direct mail — driven by your DMS and CRM data. Dedicated performance manager and monthly strategy sessions included.'},
   a:{n:'Bumper Ads',d:'VIN-specific Meta advertising that auto-syncs with your live inventory. Every ad always current — no manual updates required.'},
-  bi:{n:'Bumper BI',d:'Sales, service, parts, inventory, and financial reporting unified in one dashboard with VIN-level attribution across all departments.'},
+  bi:{n:'Pie',d:'Sales, service, parts, inventory, and financial performance unified in one intelligent view, with automated insights that surface the why behind every trend.'},
   bf:{n:'Bumper Finance',d:'Lifecycle campaigns targeting equity-positive customers and lease-maturity windows before they visit a competing dealer.'},
   ac:{n:'Accessory Accelerator',d:'Targeted upsell and accessory campaigns delivered to new-vehicle owners at the right point in the ownership cycle.'},
   gb:{n:'GloveBox Websites',d:'Professional dealership websites with virtual rep, lead capture, and real-time CRM integration built in from day one.'},
@@ -578,7 +578,7 @@ const productInfo={
   od:{n:'Odometer VoIP',d:'Business phone system with call tracking, recording, and campaign attribution built in — know exactly which campaigns drive calls.'},
   psi:{n:'Powersports Independent (PSI)',d:'The full Bumper stack purpose-built for powersports dealers — seasonal campaigns, off-season engagement, and brand-specific lifecycle flows.'}
 };
-const productNames={r:'Bumper Retention',a:'Bumper Ads',bi:'Bumper BI',bf:'Bumper Finance',ac:'Accessory Accelerator',gb:'GloveBox Websites',cod:'Calls on Demand',rv:'Ringless Voicemail',dm:'Direct Mail',od:'Odometer VoIP',psi:'PSI'};
+const productNames={r:'Bumper Retention',a:'Bumper Ads',bi:'Pie',bf:'Bumper Finance',ac:'Accessory Accelerator',gb:'GloveBox Websites',cod:'Calls on Demand',rv:'Ringless Voicemail',dm:'Direct Mail',od:'Odometer VoIP',psi:'PSI'};
 const selected={r:true,a:false,bi:false,bf:false,ac:false,gb:false,cod:false,rv:false,dm:false,od:false,psi:false};
 
 /* ============================================================
@@ -645,7 +645,7 @@ function calcRows(ro,rv){
   if(selected.rv)  add('Ringless Voicemail — reach lift', svc*0.025);
   if(selected.od)  add('Odometer — call attribution', ro*0.2*rv*0.15);
   if(selected.bf)  add('Bumper Finance — equity campaigns', svc*0.03);
-  if(selected.bi)  add('Bumper BI — reporting efficiency', svc*0.015);
+  if(selected.bi)  add('Pie — reporting efficiency', svc*0.015);
   if(selected.ac)  add('Accessory Accelerator — upsell', svc*0.02);
   if(selected.psi) add('PSI — seasonal engagement', svc*0.05);
   return {tot,rows};

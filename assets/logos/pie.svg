@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 58" role="img" aria-label="Pie">
+  <!-- pie-chart mark -->
+  <g transform="translate(29,29)">
+    <circle r="22" fill="#0D2D5C"/>
+    <path d="M0 0 L0 -22 A22 22 0 0 1 19.05 11 Z" fill="#FBCF09"/>
+    <path d="M0 0 L19.05 11 A22 22 0 0 1 -19.05 11 Z" fill="#3EBDC4"/>
+    <circle r="6.5" fill="#fff"/>
+  </g>
+  <!-- wordmark -->
+  <text x="62" y="39"
+        font-family="Archivo, 'Arial Black', sans-serif"
+        font-size="34" font-weight="800" font-style="italic"
+        letter-spacing="-0.5" fill="#0D2D5C">Pie</text>
+</svg>

@@ -46,7 +46,7 @@ SB_ROI = {
     "calls-on-demand":        {"kind": "qual",                                                                   "metric": "~20% of missed calls recovered"},
     "bumper-retention":       {"kind": "qual",                                                                   "metric": "Repeat & service retention lift"},
     "bumper-inventory-ads":   {"kind": "qual",                                                                   "metric": "More qualified inventory leads"},
-    "bumper-bi":              {"kind": "qual",                                                                   "metric": "Decisions on one connected dataset"},
+    "bumper-bi":              {"kind": "qual",                                                                   "metric": "Automated insight on one dataset"},
     "glovebox-websites":      {"kind": "qual",                                                                   "metric": "Higher website conversion"},
     "powersports-independent":{"kind": "qual",                                                                   "metric": "Flexible, a-la-carte bundle"},
 }
@@ -269,6 +269,155 @@ def retention_journey():
   }})();
   </script>
 </section>'''
+
+
+def pie_dashboard_demo():
+    """"One question. One answer." — an interactive GM drill-down for Pie.
+    Concern -> metrics -> why (advisor breakdown) -> generated insight."""
+    return '''<section class="section section--tight">
+  <div class="wrap centered">
+    <p class="eyebrow" style="color:var(--teal)">See it work</p>
+    <h2 class="h2" style="margin-bottom:8px">One question. One answer.</h2>
+    <p class="lede">Stop digging through reports. Step into the GM's chair &mdash; pick a concern and watch Pie trace it from symptom to source to dollar impact.</p>
+  </div>
+  <div class="wrap">
+    <div class="pie" id="pie">
+
+      <!-- STEP 1 -->
+      <div class="pie-panel is-active" data-s="0">
+        <div class="pie-q">What's your biggest concern today?</div>
+        <div class="pie-concerns">
+          <button class="pie-concern" data-c="service"><span class="pie-emoji">&#128295;</span> Service</button>
+          <button class="pie-concern" data-c="sales"><span class="pie-emoji">&#128200;</span> Sales</button>
+          <button class="pie-concern" data-c="inventory"><span class="pie-emoji">&#128663;</span> Inventory</button>
+          <button class="pie-concern" data-c="profit"><span class="pie-emoji">&#128176;</span> Profitability</button>
+          <button class="pie-concern" data-c="multi"><span class="pie-emoji">&#127970;</span> Multi-Store</button>
+        </div>
+        <p class="pie-note">Try <b>Service</b> &mdash; the others are along for the ride in this demo.</p>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="pie-panel" data-s="1">
+        <div class="pie-crumb"><button class="pie-back" data-go="0">&larr; Concern</button> <span>Service performance</span></div>
+        <div class="pie-kpis">
+          <div class="pie-kpi pie-up"><div class="pie-kpi-l">Service Revenue</div><div class="pie-kpi-v">&#8593; 12%</div></div>
+          <div class="pie-kpi pie-down"><div class="pie-kpi-l">Customer-Pay RO</div><div class="pie-kpi-v">&#8595; 4%</div></div>
+          <div class="pie-kpi pie-up"><div class="pie-kpi-l">Appointments</div><div class="pie-kpi-v">&#8593; 8%</div></div>
+        </div>
+        <div class="pie-flag">
+          <span class="pie-flag-ico">!</span>
+          <div><b>Pie flagged a concern:</b> revenue is up, but Customer-Pay RO is trending down &mdash; a signal that volume is masking a problem.</div>
+        </div>
+        <button class="btn btn-blue pie-next" data-go="2">Why is this happening? &rarr;</button>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="pie-panel" data-s="2">
+        <div class="pie-crumb"><button class="pie-back" data-go="1">&larr; Service metrics</button> <span>Root-cause analysis</span></div>
+        <div class="pie-cols">
+          <div class="pie-block">
+            <div class="pie-block-t">Advisor performance &middot; CPRO</div>
+            <div class="pie-bar-row"><span class="pie-bar-n">Advisor A</span><span class="pie-bar"><span class="pie-bar-fill up" style="width:88%"></span></span><span class="pie-bar-v up">+18%</span></div>
+            <div class="pie-bar-row"><span class="pie-bar-n">Advisor B</span><span class="pie-bar"><span class="pie-bar-fill down" style="width:52%"></span></span><span class="pie-bar-v down">-11%</span></div>
+            <div class="pie-bar-row"><span class="pie-bar-n">Advisor C</span><span class="pie-bar"><span class="pie-bar-fill down" style="width:44%"></span></span><span class="pie-bar-v down">-14%</span></div>
+          </div>
+          <div class="pie-block">
+            <div class="pie-block-t">Appointment show rate</div>
+            <div class="pie-bar-row"><span class="pie-bar-n">Advisor A</span><span class="pie-bar"><span class="pie-bar-fill up" style="width:92%"></span></span><span class="pie-bar-v">92%</span></div>
+            <div class="pie-bar-row"><span class="pie-bar-n">Advisor B</span><span class="pie-bar"><span class="pie-bar-fill down" style="width:81%"></span></span><span class="pie-bar-v">81%</span></div>
+            <div class="pie-bar-row"><span class="pie-bar-n">Advisor C</span><span class="pie-bar"><span class="pie-bar-fill down" style="width:76%"></span></span><span class="pie-bar-v">76%</span></div>
+          </div>
+        </div>
+        <button class="btn btn-blue pie-next" data-go="3">Generate the insight &rarr;</button>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="pie-panel" data-s="3">
+        <div class="pie-insight">
+          <div class="pie-insight-badge">&#10022; Insight generated</div>
+          <div class="pie-insight-h">Revenue-loss source identified</div>
+          <p class="pie-insight-p">Two advisors account for <b>79%</b> of the Customer-Pay RO decline &mdash; driven by lower appointment show rates and reduced per-RO value.</p>
+          <div class="pie-impact">
+            <div class="pie-impact-l">Estimated monthly impact</div>
+            <div class="pie-impact-v" data-num="24700">$0</div>
+          </div>
+          <p class="pie-insight-sub">Find issues before they become problems.</p>
+        </div>
+        <button class="btn btn-yellow pie-restart">&#8635; Ask another question</button>
+      </div>
+
+    </div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById('pie'); if(!root) return;
+    var panels=[].slice.call(root.querySelectorAll('.pie-panel'));
+    function show(i){
+      panels.forEach(function(p){ p.classList.toggle('is-active', parseInt(p.getAttribute('data-s'))===i); });
+      if(i===2) animateBars();
+      if(i===3) countImpact();
+    }
+    function animateBars(){
+      root.querySelectorAll('.pie-bar-fill').forEach(function(f){
+        var w=f.style.width; f.style.width='0'; requestAnimationFrame(function(){ setTimeout(function(){ f.style.width=w; },40); });
+      });
+    }
+    function countImpact(){
+      var el=root.querySelector('.pie-impact-v'); if(!el) return;
+      var target=parseInt(el.getAttribute('data-num')), t0=performance.now();
+      function tick(now){ var k=Math.min(1,(now-t0)/1100); var v=target*(0.5-Math.cos(k*Math.PI)/2);
+        el.textContent='$'+Math.round(v).toLocaleString(); if(k<1) requestAnimationFrame(tick); }
+      requestAnimationFrame(tick);
+    }
+    root.querySelectorAll('.pie-concern').forEach(function(b){ b.addEventListener('click',function(){ show(1); }); });
+    root.querySelectorAll('.pie-next,.pie-back').forEach(function(b){ b.addEventListener('click',function(){ show(parseInt(b.getAttribute('data-go'))); }); });
+    root.querySelector('.pie-restart').addEventListener('click',function(){ show(0); });
+  })();
+  </script>
+</section>'''
+
+
+def pie_comparison():
+    """Pie vs AutoAlert vs Generic BI — unified card comparison (shared matrix)."""
+    rows = [
+        ("Sales analytics", ("yes",), ("partial",), ("yes",)),
+        ("Service analytics", ("yes",), ("partial",), ("yes",)),
+        ("Parts analytics", ("yes",), ("no",), ("partial",)),
+        ("Inventory analytics", ("yes",), ("partial",), ("yes",)),
+        ("Financial reporting", ("yes",), ("no",), ("partial",)),
+        ("Single-dealership view", ("yes",), ("yes",), ("yes",)),
+        ("Multi-store reporting", ("yes",), ("partial",), ("yes",)),
+        ("Executive KPI dashboard", ("yes",), ("partial",), ("no",)),
+        ("Department scorecards", ("yes",), ("no",), ("no",)),
+        ("Trend analysis", ("yes",), ("partial",), ("yes",)),
+        ("Drill-down reporting", ("yes",), ("partial",), ("yes",)),
+        ("Automated insights", ("yes",), ("no",), ("no",)),
+        ("Dealer-specific metrics", ("yes",), ("yes",), ("no",)),
+        ("One platform for the entire store", ("yes",), ("no",), ("no",)),
+        ("Designed for dealers", ("yes",), ("yes",), ("no",)),
+    ]
+
+    def col(idx):
+        return [(row[idx + 1][0], row[0], row[idx + 1][1] if len(row[idx + 1]) > 1 else "") for row in rows]
+
+    cards = [
+        {"name": "Pie", "badge": "Intelligent analytics", "highlight": True, "items": col(0)},
+        {"name": "AutoAlert", "badge": "Equity mining", "items": col(1)},
+        {"name": "Generic BI", "badge": "Tableau / Power BI", "items": col(2)},
+    ]
+    disclaimer = ("Comparison reflects Vicimus's understanding of publicly available information about AutoAlert "
+                  "and general-purpose BI tools (e.g. Tableau, Power BI) as of 2026, prepared in good faith. "
+                  "\u201cGeneric BI\u201d denotes general-purpose business-intelligence platforms not purpose-built for "
+                  "dealerships. Capabilities change and vary by plan and configuration; product and company names "
+                  "are trademarks of their respective owners, used for identification only. Verify current "
+                  "capabilities with each vendor.")
+    return comparison_section(
+        "How it stacks up",
+        "Why dealerships choose Pie.",
+        "General BI tools can chart anything but understand nothing about a dealership. Pie is built for the "
+        "store &mdash; every department, every metric, with the why built in.",
+        cards, disclaimer,
+    )
 
 
 def comparison_section(eyebrow, headline, lede, cards, disclaimer):
@@ -602,6 +751,9 @@ def build_product(p, lang):
     elif p["slug"] == "bumper-inventory-ads":
         extra_after_capabilities = inventory_campaign_builder()
         extra_after_shots = inventory_comparison()
+    elif p["slug"] == "bumper-bi":
+        extra_after_capabilities = pie_dashboard_demo()
+        extra_after_shots = pie_comparison()
     else:
         extra_after_capabilities = ""
         extra_after_shots = ""
