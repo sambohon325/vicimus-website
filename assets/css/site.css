@@ -765,3 +765,68 @@ button.btn{margin:0;background-image:none}
   .sb-overlay.is-open{opacity:1;pointer-events:auto}
 }
 @media(min-width:821px){ .sb-overlay{display:none} }
+
+/* ============================================================
+   RETENTION JOURNEY SIMULATOR (Bumper Retention page)
+   ============================================================ */
+.jsim{margin-top:44px;display:grid;grid-template-columns:300px 1fr;gap:34px;align-items:start}
+@media(max-width:820px){.jsim{grid-template-columns:1fr;gap:24px}}
+.jsim-track{position:relative}
+.jsim-line{position:absolute;left:19px;top:20px;bottom:20px;width:3px;background:var(--line);border-radius:3px;overflow:hidden}
+.jsim-line-fill{position:absolute;left:0;top:0;width:100%;height:0;background:linear-gradient(var(--blue),var(--teal));transition:height .6s cubic-bezier(.4,0,.2,1)}
+.jsim-nodes{position:relative;display:flex;flex-direction:column;gap:8px}
+.jsim-node{display:flex;align-items:center;gap:14px;background:none;border:0;padding:8px 6px;cursor:pointer;text-align:left;border-radius:8px;transition:background .15s}
+.jsim-node:hover{background:var(--wash)}
+.jsim-dot{flex:none;width:40px;height:40px;border-radius:50%;background:#fff;border:2px solid var(--line);display:grid;place-items:center;transition:all .3s;position:relative;z-index:2}
+.jsim-node.is-done .jsim-dot{border-color:var(--teal);background:var(--teal)}
+.jsim-node.is-active .jsim-dot{border-color:var(--blue);background:var(--blue);box-shadow:0 0 0 5px rgba(43,104,171,.16);transform:scale(1.08)}
+.jsim-node-lbl{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.78rem;letter-spacing:.02em;color:var(--muted);transition:color .2s;line-height:1.15}
+.jsim-node.is-active .jsim-node-lbl{color:var(--ink)}
+.jsim-node.is-done .jsim-node-lbl{color:var(--ink)}
+.jsim-ico{width:18px;height:18px;display:block;background:var(--muted);transition:background .3s;-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center}
+.jsim-node.is-active .jsim-ico,.jsim-node.is-done .jsim-ico{background:#fff}
+.jsim-ico--wrench{-webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M22 6.5a5 5 0 0 1-6.7 4.7L6 20.5 3.5 18l9.3-9.3A5 5 0 0 1 19 2l-3 3 1.5 2.5L20 9l2-2.5Z'/></svg>");mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M22 6.5a5 5 0 0 1-6.7 4.7L6 20.5 3.5 18l9.3-9.3A5 5 0 0 1 19 2l-3 3 1.5 2.5L20 9l2-2.5Z'/></svg>")}
+.jsim-ico--signal{-webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='3' fill='black'/><path fill='black' d='M5.6 5.6 4.2 4.2a11 11 0 0 0 0 15.6l1.4-1.4a9 9 0 0 1 0-12.8Zm12.8 0a9 9 0 0 1 0 12.8l1.4 1.4a11 11 0 0 0 0-15.6Z'/></svg>");mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='3' fill='black'/><path fill='black' d='M5.6 5.6 4.2 4.2a11 11 0 0 0 0 15.6l1.4-1.4a9 9 0 0 1 0-12.8Zm12.8 0a9 9 0 0 1 0 12.8l1.4 1.4a11 11 0 0 0 0-15.6Z'/></svg>")}
+.jsim-ico--sms{-webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M4 4h16v12H7l-3 3Z'/></svg>");mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M4 4h16v12H7l-3 3Z'/></svg>")}
+.jsim-ico--mail{-webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M3 5h18v14H3Zm2 2 7 5 7-5' stroke='black' fill='none' stroke-width='2'/></svg>");mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M3 5h18v14H3Zm2 2 7 5 7-5' stroke='black' fill='none' stroke-width='2'/></svg>")}
+.jsim-ico--cursor{-webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M5 3l14 7-6 2-2 6Z'/></svg>");mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M5 3l14 7-6 2-2 6Z'/></svg>")}
+.jsim-ico--car{-webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M5 11l1.5-4.5h11L19 11h1a1 1 0 0 1 1 1v4h-2a2 2 0 0 1-4 0H9a2 2 0 0 1-4 0H3v-4a1 1 0 0 1 1-1Z'/></svg>");mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M5 11l1.5-4.5h11L19 11h1a1 1 0 0 1 1 1v4h-2a2 2 0 0 1-4 0H9a2 2 0 0 1-4 0H3v-4a1 1 0 0 1 1-1Z'/></svg>")}
+
+.jsim-cards{position:relative;min-height:230px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:34px 32px;overflow:hidden}
+.jsim-card{position:absolute;inset:34px 32px auto 32px;opacity:0;transform:translateY(14px);transition:opacity .4s,transform .4s;pointer-events:none}
+.jsim-card.is-active{opacity:1;transform:translateY(0);pointer-events:auto;position:relative;inset:auto}
+.jsim-card-step{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.jsim-card-title{font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;font-size:1.5rem;line-height:1.05;margin:0 0 12px;color:var(--ink)}
+.jsim-card-desc{font-size:.92rem;line-height:1.65;color:var(--muted);margin:0 0 22px;max-width:52ch}
+.jsim-stat{display:flex;align-items:baseline;gap:12px;border-top:1px solid var(--line);padding-top:18px}
+.jsim-stat-num{font-family:var(--display);font-style:italic;font-weight:800;font-size:2.6rem;line-height:1;color:var(--blue);font-variant-numeric:tabular-nums}
+.jsim-stat-lbl{font-size:.82rem;color:var(--muted);max-width:22ch;line-height:1.35}
+.jsim-controls{display:flex;align-items:center;gap:14px;margin-top:20px}
+.jsim-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--blue);font-size:1rem;cursor:pointer;transition:all .15s}
+.jsim-btn:hover{border-color:var(--blue);background:var(--wash)}
+.jsim-play{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);cursor:pointer;user-select:none}
+.jsim-play-ico{width:0;height:0;border-left:9px solid var(--teal);border-top:6px solid transparent;border-bottom:6px solid transparent}
+.jsim.is-playing .jsim-play-ico{width:9px;height:10px;border:0;border-left:3px solid var(--teal);border-right:3px solid var(--teal);box-sizing:border-box}
+
+/* ============================================================
+   CAPABILITY COMPARISON TABLE (Bumper Retention page)
+   ============================================================ */
+.cmp-legend{display:flex;justify-content:center;flex-wrap:wrap;gap:22px;margin:34px 0 18px;font-size:.78rem;color:var(--muted)}
+.cmp-legend>span{display:inline-flex;align-items:center;gap:7px}
+.cmp-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:#fff}
+.cmp{width:100%;border-collapse:collapse;min-width:620px}
+.cmp th,.cmp td{padding:14px 16px;text-align:center;border-bottom:1px solid var(--line)}
+.cmp thead th{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.8rem;letter-spacing:.03em;color:var(--ink);background:var(--wash);position:sticky;top:0}
+.cmp thead th.cmp-col-hl{color:#fff;background:var(--blue)}
+.cmp tbody th{text-align:left;font-weight:600;font-size:.86rem;color:var(--ink);max-width:340px}
+.cmp tbody tr:hover td,.cmp tbody tr:hover th{background:rgba(236,245,252,.5)}
+.cmp td.cmp-col-hl{background:rgba(43,104,171,.06)}
+.cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:0}
+.cmp-mark{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;vertical-align:middle}
+.cmp-mark svg{width:16px;height:16px;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.cmp-yes{background:rgba(22,163,74,.12)}.cmp-yes svg{stroke:var(--green)}
+.cmp-part{background:rgba(251,207,9,.16)}.cmp-part svg{stroke:var(--yellow-ink);fill:var(--yellow-ink);stroke-width:1.5}
+.cmp-part svg circle{fill:none;stroke:var(--yellow-ink)}
+.cmp-no{background:rgba(110,110,108,.1)}.cmp-no svg{stroke:var(--faint)}
+.cmp-lbl{display:block;font-size:.64rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.cmp-disc{font-size:.72rem;line-height:1.55;color:var(--faint);margin-top:16px;max-width:80ch}

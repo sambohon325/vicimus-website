@@ -173,6 +173,163 @@ def product_shots(p):
 </section>'''
 
 
+def retention_journey():
+    """Customer Retention Journey Simulator — an interactive, CSS/JS-driven
+    lifecycle timeline. Bumper Retention only. Self-contained (styles are in
+    site.css under .jsim-*; behaviour is the inline script below)."""
+    stages = [
+        ("Service Visit", "A customer comes in for routine service. Every RO, every touchpoint is captured automatically from your DMS.",
+         "wrench", 1, "", "repair order logged"),
+        ("Intent Signal Detected", "Bumper mines the data — equity position, mileage, lease maturity — and flags this customer as in-market before they start shopping.",
+         "signal", 92, "%", "purchase-intent confidence"),
+        ("Smart Message Sent", "The right message goes out on the customer's preferred channel — here, an SMS, timed to the moment of intent.",
+         "sms", 98, "%", "SMS open rate"),
+        ("Email Opened", "A personalized lifecycle email lands with an offer built around their vehicle and equity — not a generic blast.",
+         "mail", 3, "x", "higher engagement vs. batch email"),
+        ("Offer Engaged", "The customer clicks through and books. Behavioral tracking attributes every step back to the campaign.",
+         "cursor", 100, "%", "attributed to the campaign"),
+        ("Vehicle Purchased", "A retained customer becomes a repeat sale — and re-enters the lifecycle for service, F&I, and their next vehicle.",
+         "car", 800, "", "avg. added gross per retained deal"),
+    ]
+    nodes = ""
+    for i, (title, desc, icon, num, suf, lbl) in enumerate(stages):
+        nodes += f'''<button class="jsim-node" data-i="{i}" data-num="{num}" data-suf="{suf}" aria-label="{title}">
+  <span class="jsim-dot"><span class="jsim-ico jsim-ico--{icon}"></span></span>
+  <span class="jsim-node-lbl">{title}</span>
+</button>'''
+    # detail cards
+    cards = ""
+    for i, (title, desc, icon, num, suf, lbl) in enumerate(stages):
+        cards += f'''<div class="jsim-card" data-i="{i}">
+  <div class="jsim-card-step">Stage {i+1} of {len(stages)}</div>
+  <h3 class="jsim-card-title">{title}</h3>
+  <p class="jsim-card-desc">{desc}</p>
+  <div class="jsim-stat"><span class="jsim-stat-num" data-num="{num}" data-suf="{suf}">0{suf}</span><span class="jsim-stat-lbl">{lbl}</span></div>
+</div>'''
+    return f'''<section class="section section--tight">
+  <div class="wrap centered">
+    <p class="eyebrow" style="color:var(--teal)">See it work</p>
+    <h2 class="h2" style="margin-bottom:8px">From service visit to repeat sale.</h2>
+    <p class="lede">Watch how one customer moves through the retention lifecycle &mdash; intent mining, smart messaging, and personalization turning a routine visit into revenue.</p>
+  </div>
+  <div class="wrap">
+    <div class="jsim" id="jsim">
+      <div class="jsim-track">
+        <div class="jsim-line"><span class="jsim-line-fill" id="jsim-fill"></span></div>
+        <div class="jsim-nodes">{nodes}</div>
+      </div>
+      <div class="jsim-cards" id="jsim-cards">{cards}</div>
+      <div class="jsim-controls">
+        <button class="jsim-btn" id="jsim-prev" aria-label="Previous stage">&larr;</button>
+        <div class="jsim-play" id="jsim-play"><span class="jsim-play-ico"></span> <span id="jsim-play-lbl">Playing</span></div>
+        <button class="jsim-btn" id="jsim-next" aria-label="Next stage">&rarr;</button>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){{
+    var root=document.getElementById('jsim'); if(!root) return;
+    var nodes=[].slice.call(root.querySelectorAll('.jsim-node'));
+    var cards=[].slice.call(root.querySelectorAll('.jsim-card'));
+    var fill=document.getElementById('jsim-fill');
+    var N=nodes.length, cur=-1, timer=null, playing=false, started=false;
+    function countTo(el){{
+      var target=parseFloat(el.getAttribute('data-num'))||0, suf=el.getAttribute('data-suf')||'';
+      var dur=700, t0=performance.now();
+      function tick(now){{
+        var k=Math.min(1,(now-t0)/dur); var val=target*(0.5-Math.cos(k*Math.PI)/2);
+        var out = target>=100 ? Math.round(val) : (target%1===0? Math.round(val): val.toFixed(0));
+        el.textContent=(target>=1000?Math.round(val).toLocaleString():out)+suf;
+        if(k<1) requestAnimationFrame(tick);
+      }}
+      requestAnimationFrame(tick);
+    }}
+    function go(i){{
+      if(i<0)i=0; if(i>N-1)i=N-1; cur=i;
+      nodes.forEach(function(n,idx){{n.classList.toggle('is-active',idx===i);n.classList.toggle('is-done',idx<i);}});
+      cards.forEach(function(c,idx){{c.classList.toggle('is-active',idx===i);}});
+      fill.style.height=(i/(N-1)*100)+'%'; fill.style.width=(i/(N-1)*100)+'%';
+      var active=cards[i].querySelector('.jsim-stat-num'); if(active) countTo(active);
+    }}
+    function next(){{ if(cur>=N-1){{ go(0); }} else {{ go(cur+1); }} }}
+    function play(){{ playing=true; root.classList.add('is-playing'); clearInterval(timer); timer=setInterval(next,2200); document.getElementById('jsim-play-lbl').textContent='Playing'; }}
+    function pause(){{ playing=false; root.classList.remove('is-playing'); clearInterval(timer); document.getElementById('jsim-play-lbl').textContent='Paused'; }}
+    nodes.forEach(function(n){{ n.addEventListener('click',function(){{ pause(); go(parseInt(n.getAttribute('data-i'))); }}); }});
+    document.getElementById('jsim-next').addEventListener('click',function(){{ pause(); go(cur+1); }});
+    document.getElementById('jsim-prev').addEventListener('click',function(){{ pause(); go(cur-1); }});
+    document.getElementById('jsim-play').addEventListener('click',function(){{ playing?pause():play(); }});
+    // autoplay when scrolled into view
+    if('IntersectionObserver' in window){{
+      new IntersectionObserver(function(es){{ es.forEach(function(e){{
+        if(e.isIntersecting && !started){{ started=true; go(0); play(); }}
+      }});}},{{threshold:.35}}).observe(root);
+    }} else {{ go(0); play(); }}
+  }})();
+  </script>
+</section>'''
+
+
+def retention_comparison():
+    """Credible capability comparison. Bumper Retention only.
+    Cells: 'yes' | 'partial' | 'no', with optional short label."""
+    cols = ["Bumper Retention", "AutoAlert", "automotiveMastermind"]
+    # (capability, bumper, autoalert, mastermind); each cell = (mark, label?)
+    rows = [
+        ("Intent Mining / Purchase Signals", ("yes",), ("yes",), ("yes",)),
+        ("Sales, Service &amp; Unsold Prospect Database Activation", ("yes",), ("partial",), ("partial",)),
+        ("Automated Lifecycle Campaigns", ("yes",), ("partial",), ("yes",)),
+        ("Email Marketing", ("yes",), ("yes",), ("yes",)),
+        ("SMS Marketing", ("yes",), ("yes",), ("partial",)),
+        ("Ringless Voicemail", ("yes",), ("no",), ("no",)),
+        ("Direct Mail Campaigns", ("yes",), ("yes",), ("yes",)),
+        ("Customer Preferred-Channel Learning", ("yes",), ("no",), ("no",)),
+        ("Behavioral Tracking Across Campaigns", ("yes",), ("yes",), ("yes",)),
+        ("Personalized Messaging at Scale", ("yes",), ("yes",), ("yes",)),
+        ("Service Retention Campaigns", ("yes",), ("yes",), ("yes",)),
+        ("Dedicated Performance Manager", ("yes", "Included"), ("partial", "Varies"), ("yes",)),
+        ("Fully Managed Campaign Deployment", ("yes",), ("no",), ("partial",)),
+        ("Unlimited Campaign Creation", ("yes",), ("no",), ("no",)),
+        ("Transparent Campaign Reporting", ("yes",), ("yes",), ("yes",)),
+        ("Sales, Service, Parts, F&amp;I Marketing in One Platform", ("yes",), ("partial",), ("partial",)),
+    ]
+    MARK = {
+        "yes": '<span class="cmp-mark cmp-yes" title="Yes"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>',
+        "partial": '<span class="cmp-mark cmp-part" title="Partial"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 0 18Z"/><circle cx="12" cy="12" r="9"/></svg></span>',
+        "no": '<span class="cmp-mark cmp-no" title="Not offered"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></span>',
+    }
+    def cell(c, highlight=False):
+        mark = MARK[c[0]]
+        label = f'<span class="cmp-lbl">{c[1]}</span>' if len(c) > 1 else ""
+        return f'<td class="{"cmp-col-hl" if highlight else ""}">{mark}{label}</td>'
+
+    body = ""
+    for cap, b, a, m in rows:
+        body += f'<tr><th scope="row">{cap}</th>{cell(b, True)}{cell(a)}{cell(m)}</tr>'
+
+    heads = f'<th class="cmp-col-hl">{cols[0]}</th><th>{cols[1]}</th><th>{cols[2]}</th>'
+    return f'''<section class="section section--wash">
+  <div class="wrap centered">
+    <p class="eyebrow">How it stacks up</p>
+    <h2 class="h2" style="margin-bottom:8px">Bumper Retention vs. the field.</h2>
+    <p class="lede">Where dealer retention actually gets won &mdash; identifying opportunities, activating customers, communicating across every channel, and executing it for you.</p>
+  </div>
+  <div class="wrap">
+    <div class="cmp-legend">
+      <span><span class="cmp-mark cmp-yes"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span> Full</span>
+      <span><span class="cmp-mark cmp-part"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 0 18Z"/><circle cx="12" cy="12" r="9"/></svg></span> Partial / varies</span>
+      <span><span class="cmp-mark cmp-no"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></span> Not offered</span>
+    </div>
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead><tr><th scope="col">Capability</th>{heads}</tr></thead>
+        <tbody>{body}</tbody>
+      </table>
+    </div>
+    <p class="cmp-disc">Comparison reflects Vicimus's understanding of publicly available information about AutoAlert and automotiveMastermind as of 2026, prepared in good faith. Competitor offerings change and may vary by plan, region, and configuration; product and company names are trademarks of their respective owners, used here for identification only. Verify current capabilities with each vendor.</p>
+  </div>
+</section>'''
+
+
 def build_product(p, lang):
     pp = "../"                      # product pages live one level under lang root
     ap = ap_for(lang, pp)
@@ -188,6 +345,10 @@ def build_product(p, lang):
 
     html = head(p["seo_title"], p["seo_desc"], ap, lang)
     html += header(pp, ap, lang)
+    # Per-product custom sections (Bumper Retention gets the journey simulator
+    # under Key Capabilities and a capability comparison after the screenshots).
+    extra_after_capabilities = retention_journey() if p["slug"] == "bumper-retention" else ""
+    extra_after_shots = retention_comparison() if p["slug"] == "bumper-retention" else ""
     html += f'''
 <section class="subhero">
   <img class="subhero__bg" src="{ap}assets/img/hero.jpg" alt="">
@@ -224,7 +385,11 @@ def build_product(p, lang):
   </div>
 </section>
 
+{extra_after_capabilities}
+
 {product_shots(p)}
+
+{extra_after_shots}
 
 <section class="band">
   <div class="band__inner">
