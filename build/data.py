@@ -51,9 +51,10 @@ PRODUCTS = [
         "seo_desc": "Automated, customizable inventory ads across Facebook and the Google Display Network, with real-time lead distribution and behavioral tracking.",
     },
     {
-        "slug": "bumper-bi",
+        "slug": "pie",
         "name": "Pie",
-        "logo": "pie.svg",
+        "logo": "pie-dark.png",
+        "logo_light": "pie.png",
         "family": "b",
         "eyebrow": "Pie Intelligent Analytics",
         "hero_h": "Stop digging through reports. Start getting answers.",
@@ -259,7 +260,7 @@ SOLUTIONS = [
             ("Conquest and retention live in silos", "Prospecting new buyers and re-engaging your database are usually two disconnected efforts. Connected messaging keeps them working together."),
             ("You can't see what's actually working", "Without real-time, VIN-level response tracking, budget gets spread evenly instead of flowing to the ads and vehicles that convert."),
         ],
-        "products": ["bumper-inventory-ads", "glovebox-websites", "bumper-bi"],
+        "products": ["bumper-inventory-ads", "glovebox-websites", "pie"],
         "outcomes": [
             ("b", "Live", "inventory sync — ads always reflect current stock"),
             ("t", "2", "platforms — Facebook and the Google Display Network"),
@@ -301,7 +302,7 @@ SOLUTIONS = [
             ("Legacy phone systems cost too much", "Analog and outdated systems quietly drain over a thousand dollars a month while offering none of the oversight a modern store needs."),
             ("No visibility into how calls are handled", "Missed calls, hold times, and how staff handle live opportunities stay invisible without department- and individual-level reporting."),
         ],
-        "products": ["odometer-voip", "calls-on-demand", "bumper-bi"],
+        "products": ["odometer-voip", "calls-on-demand", "pie"],
         "outcomes": [
             ("b", "70%", "typical reduction in monthly phone expense"),
             ("t", "Every", "call tracked by department, number, and individual"),
@@ -329,7 +330,7 @@ MARKETS = [
             ("Tool sprawl across the rooftop", "DMS, CRM, ad vendors, website, phones — franchise stores juggle a dozen systems that don't talk. Our stack layers on and connects, rather than adding another silo."),
             ("Every department carries a target", "Sales, service, F&I, parts, and accessories all need to perform. Retention, finance, and accessory tools lift revenue across all of them from the customers you already have."),
         ],
-        "products": ["bumper-retention", "bumper-finance", "accessory-accelerator", "bumper-bi"],
+        "products": ["bumper-retention", "bumper-finance", "accessory-accelerator", "pie"],
         "outcomes": [
             ("b", "$800", "average PVR lift with a modern F&I menu experience"),
             ("t", "1", "connected dashboard across every department"),
@@ -371,7 +372,7 @@ MARKETS = [
             ("Communication has to be constant and personal", "Payment reminders, service, and check-ins all matter. Automated, personalized outreach across SMS, voicemail, and calls keeps every customer engaged without adding staff."),
             ("You need eyes on the whole portfolio", "Understanding trends across your accounts and customers — who's due, who's at risk, who's ready to upgrade — takes connected reporting, not spreadsheets."),
         ],
-        "products": ["bumper-retention", "calls-on-demand", "odometer-voip", "bumper-bi"],
+        "products": ["bumper-retention", "calls-on-demand", "odometer-voip", "pie"],
         "outcomes": [
             ("b", "Repeat", "business driven by consistent lifecycle contact"),
             ("t", "Multi", "channel — SMS, voicemail, and live BDC calls"),
@@ -392,7 +393,7 @@ MARKETS = [
             ("Marketing consistency across stores is hard", "Keeping messaging, campaigns, and standards aligned across many locations is a full-time job. Centralized tooling makes it manageable."),
             ("Local performance still matters", "Group scale can't come at the cost of the individual store. Each rooftop keeps a dedicated performance manager and locally relevant campaigns."),
         ],
-        "products": ["bumper-bi", "bumper-retention", "bumper-inventory-ads", "glovebox-websites"],
+        "products": ["pie", "bumper-retention", "bumper-inventory-ads", "glovebox-websites"],
         "outcomes": [
             ("b", "1", "unified reporting layer across every rooftop"),
             ("t", "Group", "wide retention and advertising, centrally managed"),

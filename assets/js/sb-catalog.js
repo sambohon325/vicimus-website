@@ -21,11 +21,11 @@ window.SB_CATALOG = {
         "metric": "More qualified inventory leads"
       }
     },
-    "bumper-bi": {
+    "pie": {
       "name": "Pie",
       "blurb": "Pie consolidates sales, service, parts, inventory, and financial performance into one intelligent view — giving leadership a clean, high-level picture of what's happening",
       "family": "b",
-      "path": "products/bumper-bi.html",
+      "path": "products/pie.html",
       "roi": {
         "kind": "qual",
         "metric": "Automated insight on one dataset"

@@ -1,0 +1,3 @@
+# Preview site — not for indexing.
+User-agent: *
+Disallow: /

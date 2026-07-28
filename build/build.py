@@ -46,7 +46,7 @@ SB_ROI = {
     "calls-on-demand":        {"kind": "qual",                                                                   "metric": "~20% of missed calls recovered"},
     "bumper-retention":       {"kind": "qual",                                                                   "metric": "Repeat & service retention lift"},
     "bumper-inventory-ads":   {"kind": "qual",                                                                   "metric": "More qualified inventory leads"},
-    "bumper-bi":              {"kind": "qual",                                                                   "metric": "Automated insight on one dataset"},
+    "pie":              {"kind": "qual",                                                                   "metric": "Automated insight on one dataset"},
     "glovebox-websites":      {"kind": "qual",                                                                   "metric": "Higher website conversion"},
     "powersports-independent":{"kind": "qual",                                                                   "metric": "Flexible, a-la-carte bundle"},
 }
@@ -751,7 +751,7 @@ def build_product(p, lang):
     elif p["slug"] == "bumper-inventory-ads":
         extra_after_capabilities = inventory_campaign_builder()
         extra_after_shots = inventory_comparison()
-    elif p["slug"] == "bumper-bi":
+    elif p["slug"] == "pie":
         extra_after_capabilities = pie_dashboard_demo()
         extra_after_shots = pie_comparison()
     else:
@@ -761,7 +761,7 @@ def build_product(p, lang):
 <section class="subhero">
   <img class="subhero__bg" src="{ap}assets/img/hero.jpg" alt="">
   <div class="subhero__inner">
-    <img class="subhero__logo" src="{ap}{LOGODIR}/{p['logo']}" alt="{p['name']}">
+    <img class="subhero__logo" src="{ap}{LOGODIR}/{p.get('logo_light', p['logo'])}" alt="{p['name']}">
     <p class="eyebrow" translate="no">{p['eyebrow']}</p>
     <h1 class="h1">{p['hero_h']}</h1>
     <p class="subhero__lead">{p['hero_p']}</p>
@@ -1545,6 +1545,10 @@ def main():
     built += build_home_translations()
     build_sb_catalog()
     print("  wrote assets/js/sb-catalog.js")
+    # Preview site — keep it out of search engines entirely.
+    with open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8") as f:
+        f.write("# Preview site — not for indexing.\nUser-agent: *\nDisallow: /\n")
+    print("  wrote robots.txt")
 
     by_lang = {}
     for b in built:
