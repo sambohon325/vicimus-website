@@ -218,11 +218,13 @@ def retention_journey():
         <div class="jsim-line"><span class="jsim-line-fill" id="jsim-fill"></span></div>
         <div class="jsim-nodes">{nodes}</div>
       </div>
-      <div class="jsim-cards" id="jsim-cards">{cards}</div>
-      <div class="jsim-controls">
-        <button class="jsim-btn" id="jsim-prev" aria-label="Previous stage">&larr;</button>
-        <div class="jsim-play" id="jsim-play"><span class="jsim-play-ico"></span> <span id="jsim-play-lbl">Playing</span></div>
-        <button class="jsim-btn" id="jsim-next" aria-label="Next stage">&rarr;</button>
+      <div class="jsim-main">
+        <div class="jsim-cards" id="jsim-cards">{cards}</div>
+        <div class="jsim-controls">
+          <button class="jsim-btn" id="jsim-prev" aria-label="Previous stage">&larr;</button>
+          <div class="jsim-play" id="jsim-play"><span class="jsim-play-ico"></span> <span id="jsim-play-lbl">Playing</span></div>
+          <button class="jsim-btn" id="jsim-next" aria-label="Next stage">&rarr;</button>
+        </div>
       </div>
     </div>
   </div>
@@ -537,43 +539,25 @@ def inventory_comparison():
     <p class="lede">Most inventory advertising stops at the click. Bumper connects the same ad spend to intent mining, retention audiences, and the full customer lifecycle.</p>
   </div>
   <div class="wrap">
-    <div class="icmp" id="icmp">
-      <div class="icmp-tabs">
-        <button class="icmp-tab is-active" data-c="bumper">Bumper</button>
-        <button class="icmp-tab" data-c="dealercom">Dealer.com</button>
-        <button class="icmp-tab" data-c="purecars">PureCars</button>
+    <div class="icmp">
+      <div class="icmp-card icmp-card--hl">
+        <div class="icmp-name">Bumper Inventory Ads</div>
+        <div class="icmp-badge">Connected lifecycle</div>
+        <ul class="cmp-ilist">{bumper}</ul>
       </div>
-      <div class="icmp-panels">
-        <div class="icmp-panel is-active" data-c="bumper">
-          <div class="icmp-name">Bumper Inventory Ads <span class="icmp-badge">Connected lifecycle</span></div>
-          <ul class="cmp-ilist">{bumper}</ul>
-        </div>
-        <div class="icmp-panel" data-c="dealercom">
-          <div class="icmp-name">Dealer.com</div>
-          <ul class="cmp-ilist">{dealercom}</ul>
-        </div>
-        <div class="icmp-panel" data-c="purecars">
-          <div class="icmp-name">PureCars</div>
-          <ul class="cmp-ilist">{purecars}</ul>
-        </div>
+      <div class="icmp-card">
+        <div class="icmp-name">Dealer.com</div>
+        <div class="icmp-badge icmp-badge--muted">Website ecosystem</div>
+        <ul class="cmp-ilist">{dealercom}</ul>
+      </div>
+      <div class="icmp-card">
+        <div class="icmp-name">PureCars</div>
+        <div class="icmp-badge icmp-badge--muted">Advertising platform</div>
+        <ul class="cmp-ilist">{purecars}</ul>
       </div>
     </div>
     <p class="cmp-disc">Comparison reflects Vicimus's understanding of publicly available information about Dealer.com and PureCars as of 2026, prepared in good faith. Competitor offerings change and may vary by plan, region, and configuration; product and company names are trademarks of their respective owners, used here for identification only. Verify current capabilities with each vendor.</p>
   </div>
-  <script>
-  (function(){{
-    var root=document.getElementById('icmp'); if(!root) return;
-    var tabs=[].slice.call(root.querySelectorAll('.icmp-tab'));
-    var panels=[].slice.call(root.querySelectorAll('.icmp-panel'));
-    tabs.forEach(function(t){{
-      t.addEventListener('click',function(){{
-        var c=t.getAttribute('data-c');
-        tabs.forEach(function(x){{ x.classList.toggle('is-active',x===t); }});
-        panels.forEach(function(pnl){{ pnl.classList.toggle('is-active',pnl.getAttribute('data-c')===c); }});
-      }});
-    }});
-  }})();
-  </script>
 </section>'''
 
 
