@@ -271,65 +271,101 @@ def retention_journey():
 </section>'''
 
 
-def retention_comparison():
-    """Credible capability comparison. Bumper Retention only.
-    Cells: 'yes' | 'partial' | 'no', with optional short label."""
-    cols = ["Bumper Retention", "AutoAlert", "automotiveMastermind"]
-    # (capability, bumper, autoalert, mastermind); each cell = (mark, label?)
-    rows = [
-        ("Intent Mining / Purchase Signals", ("yes",), ("yes",), ("yes",)),
-        ("Sales, Service &amp; Unsold Prospect Database Activation", ("yes",), ("partial",), ("partial",)),
-        ("Automated Lifecycle Campaigns", ("yes",), ("partial",), ("yes",)),
-        ("Email Marketing", ("yes",), ("yes",), ("yes",)),
-        ("SMS Marketing", ("yes",), ("yes",), ("partial",)),
-        ("Ringless Voicemail", ("yes",), ("no",), ("no",)),
-        ("Direct Mail Campaigns", ("yes",), ("yes",), ("yes",)),
-        ("Customer Preferred-Channel Learning", ("yes",), ("no",), ("no",)),
-        ("Behavioral Tracking Across Campaigns", ("yes",), ("yes",), ("yes",)),
-        ("Personalized Messaging at Scale", ("yes",), ("yes",), ("yes",)),
-        ("Service Retention Campaigns", ("yes",), ("yes",), ("yes",)),
-        ("Dedicated Performance Manager", ("yes", "Included"), ("partial", "Varies"), ("yes",)),
-        ("Fully Managed Campaign Deployment", ("yes",), ("no",), ("partial",)),
-        ("Unlimited Campaign Creation", ("yes",), ("no",), ("no",)),
-        ("Transparent Campaign Reporting", ("yes",), ("yes",), ("yes",)),
-        ("Sales, Service, Parts, F&amp;I Marketing in One Platform", ("yes",), ("partial",), ("partial",)),
-    ]
-    MARK = {
-        "yes": '<span class="cmp-mark cmp-yes" title="Yes"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>',
-        "partial": '<span class="cmp-mark cmp-part" title="Partial"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 0 18Z"/><circle cx="12" cy="12" r="9"/></svg></span>',
-        "no": '<span class="cmp-mark cmp-no" title="Not offered"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></span>',
+def comparison_section(eyebrow, headline, lede, cards, disclaimer):
+    """Unified feature-comparison used across all product pages, so every
+    comparison shares one design. Renders N side-by-side cards (first is the
+    highlighted Bumper card). Each card: name, optional badge, and a list of
+    (mark, label[, note]) items where mark is 'yes' | 'partial' | 'no'.
+    For a head-to-head matrix, pass every card the same labels in the same
+    order (rows line up across cards); for highlight lists, pass each its own."""
+    SYM = {
+        "yes": "&#10003;",
+        "no": "&times;",
+        "partial": '<svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 0 18Z"/><circle cx="12" cy="12" r="9"/></svg>',
     }
-    def cell(c, highlight=False):
-        mark = MARK[c[0]]
-        label = f'<span class="cmp-lbl">{c[1]}</span>' if len(c) > 1 else ""
-        return f'<td class="{"cmp-col-hl" if highlight else ""}">{mark}{label}</td>'
+    CLS = {"yes": "cmp-i-yes", "no": "cmp-i-no", "partial": "cmp-i-part"}
 
-    body = ""
-    for cap, b, a, m in rows:
-        body += f'<tr><th scope="row">{cap}</th>{cell(b, True)}{cell(a)}{cell(m)}</tr>'
+    def item(it):
+        mark, label = it[0], it[1]
+        note = it[2] if len(it) > 2 else ""
+        note_html = f'<span class="cmp-note">{note}</span>' if note else ""
+        return (f'<li class="{CLS[mark]}"><span class="cmp-i-mark">{SYM[mark]}</span>'
+                f'<span class="cmp-i-txt">{label}{note_html}</span></li>')
 
-    heads = f'<th class="cmp-col-hl">{cols[0]}</th><th>{cols[1]}</th><th>{cols[2]}</th>'
+    cards_html = ""
+    for c in cards:
+        hl = " icmp-card--hl" if c.get("highlight") else ""
+        badge = ""
+        if c.get("badge"):
+            bcls = "icmp-badge" + ("" if c.get("highlight") else " icmp-badge--muted")
+            badge = f'<div class="{bcls}">{c["badge"]}</div>'
+        items = "".join(item(it) for it in c["items"])
+        cards_html += (f'<div class="icmp-card{hl}"><div class="icmp-name">{c["name"]}</div>'
+                       f'{badge}<ul class="cmp-ilist">{items}</ul></div>')
+
     return f'''<section class="section section--wash">
   <div class="wrap centered">
-    <p class="eyebrow">How it stacks up</p>
-    <h2 class="h2" style="margin-bottom:8px">Bumper Retention vs. the field.</h2>
-    <p class="lede">Where dealer retention actually gets won &mdash; identifying opportunities, activating customers, communicating across every channel, and executing it for you.</p>
+    <p class="eyebrow">{eyebrow}</p>
+    <h2 class="h2" style="margin-bottom:8px">{headline}</h2>
+    <p class="lede">{lede}</p>
   </div>
   <div class="wrap">
-    <div class="cmp-legend">
-      <span><span class="cmp-mark cmp-yes"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span> Full</span>
-      <span><span class="cmp-mark cmp-part"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 0 18Z"/><circle cx="12" cy="12" r="9"/></svg></span> Partial / varies</span>
-      <span><span class="cmp-mark cmp-no"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></span> Not offered</span>
-    </div>
-    <div class="cmp-wrap">
-      <table class="cmp">
-        <thead><tr><th scope="col">Capability</th>{heads}</tr></thead>
-        <tbody>{body}</tbody>
-      </table>
-    </div>
-    <p class="cmp-disc">Comparison reflects Vicimus's understanding of publicly available information about AutoAlert and automotiveMastermind as of 2026, prepared in good faith. Competitor offerings change and may vary by plan, region, and configuration; product and company names are trademarks of their respective owners, used here for identification only. Verify current capabilities with each vendor.</p>
+    <div class="icmp icmp--{len(cards)}">{cards_html}</div>
+    <p class="cmp-disc">{disclaimer}</p>
   </div>
 </section>'''
+
+
+def retention_comparison():
+    """Credible capability comparison, rendered in the unified card design.
+    All three cards share the same 16 capabilities (rows line up), each with
+    that competitor's mark, so the head-to-head matrix detail is preserved."""
+    # (capability, bumper, autoalert, mastermind); each cell = (mark,) or (mark, note)
+    rows = [
+        ("Intent mining / purchase signals", ("yes",), ("yes",), ("yes",)),
+        ("Sales, service &amp; unsold prospect activation", ("yes",), ("partial",), ("partial",)),
+        ("Automated lifecycle campaigns", ("yes",), ("partial",), ("yes",)),
+        ("Email marketing", ("yes",), ("yes",), ("yes",)),
+        ("SMS marketing", ("yes",), ("yes",), ("partial",)),
+        ("Ringless voicemail", ("yes",), ("no",), ("no",)),
+        ("Direct mail campaigns", ("yes",), ("yes",), ("yes",)),
+        ("Customer preferred-channel learning", ("yes",), ("no",), ("no",)),
+        ("Behavioral tracking across campaigns", ("yes",), ("yes",), ("yes",)),
+        ("Personalized messaging at scale", ("yes",), ("yes",), ("yes",)),
+        ("Service retention campaigns", ("yes",), ("yes",), ("yes",)),
+        ("Dedicated performance manager", ("yes", "Included"), ("partial", "Varies"), ("yes",)),
+        ("Fully managed campaign deployment", ("yes",), ("no",), ("partial",)),
+        ("Unlimited campaign creation", ("yes",), ("no",), ("no",)),
+        ("Transparent campaign reporting", ("yes",), ("yes",), ("yes",)),
+        ("Sales, service, parts &amp; F&amp;I in one platform", ("yes",), ("partial",), ("partial",)),
+    ]
+
+    def col(idx):
+        out = []
+        for row in rows:
+            cap = row[0]
+            cell = row[idx + 1]
+            note = cell[1] if len(cell) > 1 else ""
+            out.append((cell[0], cap, note))
+        return out
+
+    cards = [
+        {"name": "Bumper Retention", "badge": "Connected lifecycle", "highlight": True, "items": col(0)},
+        {"name": "AutoAlert", "badge": "Equity mining", "items": col(1)},
+        {"name": "automotiveMastermind", "badge": "Predictive analytics", "items": col(2)},
+    ]
+    disclaimer = ("Comparison reflects Vicimus's understanding of publicly available information about "
+                  "AutoAlert and automotiveMastermind as of 2026, prepared in good faith. Competitor "
+                  "offerings change and may vary by plan, region, and configuration; product and company "
+                  "names are trademarks of their respective owners, used here for identification only. "
+                  "Verify current capabilities with each vendor.")
+    return comparison_section(
+        "How it stacks up",
+        "Bumper Retention vs. the field.",
+        "Where dealer retention actually gets won &mdash; identifying opportunities, activating customers, "
+        "communicating across every channel, and executing it for you.",
+        cards, disclaimer,
+    )
 
 
 def inventory_campaign_builder():
@@ -502,63 +538,44 @@ def inventory_campaign_builder():
 
 
 def inventory_comparison():
-    """Interactive competitor comparison — click a competitor to reveal its
-    capability breakdown against Bumper. Bumper Inventory Ads only."""
-    def li(items):
-        return "".join(
-            f'<li class="{("cmp-i-yes" if yes else "cmp-i-no")}">'
-            f'<span class="cmp-i-mark">{"&#10003;" if yes else "&times;"}</span>{txt}</li>'
-            for yes, txt in items
-        )
-    dealercom = li([
-        (True, "Large website + digital ecosystem"),
-        (True, "Inventory advertising"),
-        (False, "Customer intent mining"),
-        (False, "Retention automation"),
-        (False, "Connected customer lifecycle marketing"),
-    ])
-    purecars = li([
-        (True, "Advertising platform"),
-        (True, "Conquest campaigns"),
-        (False, "Ringless voicemail"),
-        (False, "Lifecycle campaigns"),
-        (False, "Customer intent mining"),
-    ])
-    bumper = li([
-        (True, "Inventory advertising"),
-        (True, "Facebook &amp; Google campaigns"),
-        (True, "Retention audiences"),
-        (True, "Intent-mining integration"),
-        (True, "Customer lifecycle activation"),
-        (True, "Dedicated performance manager"),
-    ])
-    return f'''<section class="section section--wash">
-  <div class="wrap centered">
-    <p class="eyebrow">How it stacks up</p>
-    <h2 class="h2" style="margin-bottom:8px">More than an ad platform.</h2>
-    <p class="lede">Most inventory advertising stops at the click. Bumper connects the same ad spend to intent mining, retention audiences, and the full customer lifecycle.</p>
-  </div>
-  <div class="wrap">
-    <div class="icmp">
-      <div class="icmp-card icmp-card--hl">
-        <div class="icmp-name">Bumper Inventory Ads</div>
-        <div class="icmp-badge">Connected lifecycle</div>
-        <ul class="cmp-ilist">{bumper}</ul>
-      </div>
-      <div class="icmp-card">
-        <div class="icmp-name">Dealer.com</div>
-        <div class="icmp-badge icmp-badge--muted">Website ecosystem</div>
-        <ul class="cmp-ilist">{dealercom}</ul>
-      </div>
-      <div class="icmp-card">
-        <div class="icmp-name">PureCars</div>
-        <div class="icmp-badge icmp-badge--muted">Advertising platform</div>
-        <ul class="cmp-ilist">{purecars}</ul>
-      </div>
-    </div>
-    <p class="cmp-disc">Comparison reflects Vicimus's understanding of publicly available information about Dealer.com and PureCars as of 2026, prepared in good faith. Competitor offerings change and may vary by plan, region, and configuration; product and company names are trademarks of their respective owners, used here for identification only. Verify current capabilities with each vendor.</p>
-  </div>
-</section>'''
+    """Competitor comparison in the unified card design. Each card carries its
+    own capability highlights (not a shared matrix)."""
+    cards = [
+        {"name": "Bumper Inventory Ads", "badge": "Connected lifecycle", "highlight": True, "items": [
+            ("yes", "Inventory advertising"),
+            ("yes", "Facebook &amp; Google campaigns"),
+            ("yes", "Retention audiences"),
+            ("yes", "Intent-mining integration"),
+            ("yes", "Customer lifecycle activation"),
+            ("yes", "Dedicated performance manager"),
+        ]},
+        {"name": "Dealer.com", "badge": "Website ecosystem", "items": [
+            ("yes", "Large website + digital ecosystem"),
+            ("yes", "Inventory advertising"),
+            ("no", "Customer intent mining"),
+            ("no", "Retention automation"),
+            ("no", "Connected customer lifecycle marketing"),
+        ]},
+        {"name": "PureCars", "badge": "Advertising platform", "items": [
+            ("yes", "Advertising platform"),
+            ("yes", "Conquest campaigns"),
+            ("no", "Ringless voicemail"),
+            ("no", "Lifecycle campaigns"),
+            ("no", "Customer intent mining"),
+        ]},
+    ]
+    disclaimer = ("Comparison reflects Vicimus's understanding of publicly available information about "
+                  "Dealer.com and PureCars as of 2026, prepared in good faith. Competitor offerings change "
+                  "and may vary by plan, region, and configuration; product and company names are "
+                  "trademarks of their respective owners, used here for identification only. Verify current "
+                  "capabilities with each vendor.")
+    return comparison_section(
+        "How it stacks up",
+        "More than an ad platform.",
+        "Most inventory advertising stops at the click. Bumper connects the same ad spend to intent mining, "
+        "retention audiences, and the full customer lifecycle.",
+        cards, disclaimer,
+    )
 
 
 def build_product(p, lang):

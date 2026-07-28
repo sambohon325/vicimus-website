@@ -811,26 +811,8 @@ button.btn{margin:0;background-image:none}
 .jsim.is-playing .jsim-play-ico{width:9px;height:10px;border:0;border-left:3px solid var(--teal);border-right:3px solid var(--teal);box-sizing:border-box}
 
 /* ============================================================
-   CAPABILITY COMPARISON TABLE (Bumper Retention page)
+   FEATURE COMPARISON — shared disclaimer (see unified cards below)
    ============================================================ */
-.cmp-legend{display:flex;justify-content:center;flex-wrap:wrap;gap:22px;margin:34px 0 18px;font-size:.78rem;color:var(--muted)}
-.cmp-legend>span{display:inline-flex;align-items:center;gap:7px}
-.cmp-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:#fff}
-.cmp{width:100%;border-collapse:collapse;min-width:620px}
-.cmp th,.cmp td{padding:14px 16px;text-align:center;border-bottom:1px solid var(--line)}
-.cmp thead th{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.8rem;letter-spacing:.03em;color:var(--ink);background:var(--wash);position:sticky;top:0}
-.cmp thead th.cmp-col-hl{color:#fff;background:var(--blue)}
-.cmp tbody th{text-align:left;font-weight:600;font-size:.86rem;color:var(--ink);max-width:340px}
-.cmp tbody tr:hover td,.cmp tbody tr:hover th{background:rgba(236,245,252,.5)}
-.cmp td.cmp-col-hl{background:rgba(43,104,171,.06)}
-.cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:0}
-.cmp-mark{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;vertical-align:middle}
-.cmp-mark svg{width:16px;height:16px;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.cmp-yes{background:rgba(22,163,74,.12)}.cmp-yes svg{stroke:var(--green)}
-.cmp-part{background:rgba(251,207,9,.16)}.cmp-part svg{stroke:var(--yellow-ink);fill:var(--yellow-ink);stroke-width:1.5}
-.cmp-part svg circle{fill:none;stroke:var(--yellow-ink)}
-.cmp-no{background:rgba(110,110,108,.1)}.cmp-no svg{stroke:var(--faint)}
-.cmp-lbl{display:block;font-size:.64rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-top:3px}
 .cmp-disc{font-size:.72rem;line-height:1.55;color:var(--faint);margin-top:16px;max-width:80ch}
 
 /* ============================================================
@@ -890,22 +872,30 @@ button.btn{margin:0;background-image:none}
 .cb-metric-l{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:8px}
 
 /* ============================================================
-   INTERACTIVE COMPARISON (Bumper Inventory Ads page)
-   Three cards side by side; Bumper highlighted.
+   FEATURE COMPARISON — unified cards (all product pages)
+   Side-by-side cards, first highlighted. Supports yes/partial/no
+   marks and a shared-matrix layout (identical labels line up).
    ============================================================ */
-.icmp{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+.icmp{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
 @media(max-width:860px){.icmp{grid-template-columns:1fr;max-width:520px;margin-left:auto;margin-right:auto}}
-.icmp-card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:26px 24px}
+.icmp-card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:26px 24px;display:flex;flex-direction:column}
 .icmp-card--hl{border-color:var(--blue);box-shadow:0 8px 26px rgba(43,104,171,.12);position:relative}
 .icmp-card--hl::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:14px 14px 0 0}
 .icmp-name{font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;font-size:1.15rem;color:var(--ink);line-height:1.1}
-.icmp-badge{display:inline-block;font-family:var(--body);font-style:normal;font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(62,189,196,.15);color:#178791;padding:4px 12px;border-radius:20px;margin:10px 0 18px}
+.icmp-badge{display:inline-block;align-self:flex-start;font-family:var(--body);font-style:normal;font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(62,189,196,.15);color:#178791;padding:4px 12px;border-radius:20px;margin:10px 0 18px}
 .icmp-badge--muted{background:var(--wash);color:var(--muted)}
 .cmp-ilist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
-.cmp-ilist li{display:flex;align-items:center;gap:12px;padding:11px 4px;font-size:.9rem;font-weight:500;border-bottom:1px solid var(--line)}
+.cmp-ilist li{display:flex;align-items:flex-start;gap:12px;padding:11px 4px;font-size:.9rem;font-weight:500;border-bottom:1px solid var(--line);min-height:47px}
 .cmp-ilist li:last-child{border-bottom:0}
+.cmp-i-txt{padding-top:2px;line-height:1.3}
 .cmp-i-mark{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:.86rem;font-weight:700}
 .cmp-i-yes{color:var(--ink)}
 .cmp-i-yes .cmp-i-mark{background:rgba(22,163,74,.14);color:var(--green)}
 .cmp-i-no{color:var(--faint)}
 .cmp-i-no .cmp-i-mark{background:rgba(110,110,108,.1);color:var(--faint)}
+.cmp-i-part{color:var(--ink)}
+.cmp-i-part .cmp-i-mark{background:rgba(251,207,9,.18)}
+.cmp-i-part .cmp-i-mark svg{width:15px;height:15px}
+.cmp-i-part .cmp-i-mark svg path{fill:var(--yellow-ink)}
+.cmp-i-part .cmp-i-mark svg circle{fill:none;stroke:var(--yellow-ink);stroke-width:2}
+.cmp-note{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-left:6px;vertical-align:middle}
