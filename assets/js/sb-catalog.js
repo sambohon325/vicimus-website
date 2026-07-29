@@ -45,7 +45,7 @@ window.SB_CATALOG = {
     },
     "accessory-accelerator": {
       "name": "Accessory Accelerator",
-      "blurb": "The aftermarket parts and accessory business is a $7B industry annually. Give your customers every opportunity to spend that money with you — we have the tool and the pro",
+      "blurb": "Every vehicle purchase and every service appointment is a chance to sell accessories. Accessory Accelerator automatically presents personalized upgrade options at the mom",
       "family": "b",
       "path": "products/accessory-accelerator.html",
       "roi": {

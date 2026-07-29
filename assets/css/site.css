@@ -1183,3 +1183,48 @@ button.btn{margin:0;background-image:none}
 .cb-kpi-v{font-family:var(--display);font-style:italic;font-weight:800;font-size:1.9rem;color:var(--yellow);font-variant-numeric:tabular-nums;line-height:1}
 .cb-kpi-l{font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:8px}
 .cb-restart{margin:22px auto 0;display:block}
+
+/* ============================================================
+   ACCESSORY ACCELERATOR — hero animation + demo
+   ============================================================ */
+/* shared car silhouette */
+.acc-car{width:100%;height:auto;color:rgba(255,255,255,.85);display:block}
+.accd-vehicle .acc-car{color:var(--ink)}
+.acc-mk{opacity:0;transform:translateY(4px);transition:opacity .4s ease,transform .4s ease}
+.acc-mk.on{opacity:1;transform:translateY(0)}
+/* hero */
+.ahero{display:grid;gap:18px}
+.ahero-vehicle{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:20px 20px 14px;backdrop-filter:blur(4px)}
+.ahero-name{text-align:center;font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.9rem;color:#fff;margin-top:6px}
+.ahero-tally{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:20px 22px;backdrop-filter:blur(4px)}
+.ahero-line{display:flex;justify-content:space-between;align-items:baseline;font-size:.9rem;color:rgba(255,255,255,.7);padding:7px 0}
+.ahero-line b{color:#fff;font-weight:700;font-variant-numeric:tabular-nums}
+.ahero-add b{color:var(--teal)}
+.ahero-total{border-top:1px solid rgba(255,255,255,.14);margin-top:4px;padding-top:12px}
+.ahero-total b{font-family:var(--display);font-style:italic;font-weight:800;font-size:1.3rem;color:#fff}
+.ahero-gross{display:flex;justify-content:space-between;align-items:center;background:rgba(251,207,9,.1);border:1px solid rgba(251,207,9,.35);border-radius:10px;padding:12px 16px;margin-top:14px;font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.ahero-gross b{font-family:var(--display);font-style:italic;font-weight:800;font-size:1.5rem;color:var(--yellow);text-transform:none;letter-spacing:0;font-variant-numeric:tabular-nums}
+/* demo */
+.accd{margin-top:44px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
+.accd-toggle{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line);background:var(--wash)}
+.accd-dept{padding:16px 10px;border:0;background:none;cursor:pointer;font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.8rem;letter-spacing:.02em;color:var(--muted);border-bottom:3px solid transparent;transition:all .18s}
+.accd-dept:hover{color:var(--ink)}
+.accd-dept.is-on{color:var(--blue);border-bottom-color:var(--blue);background:#fff}
+.accd-body{display:grid;grid-template-columns:1.1fr .9fr;gap:0}
+@media(max-width:760px){.accd-body{grid-template-columns:1fr}}
+.accd-left{padding:30px;border-right:1px solid var(--line)}
+@media(max-width:760px){.accd-left{border-right:0;border-bottom:1px solid var(--line)}}
+.accd-vehicle{background:var(--wash);border-radius:12px;padding:20px;margin-bottom:18px}
+.accd-recs{display:flex;flex-direction:column;gap:8px}
+.accd-rec{display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;padding:12px 15px;border:1px solid var(--line);border-radius:10px;background:#fff;font-weight:600;font-size:.88rem;color:var(--ink);opacity:0;transform:translateX(-8px);transition:opacity .35s,transform .35s}
+.accd-rec.in{opacity:1;transform:translateX(0)}
+.accd-rec span{color:var(--teal);font-weight:700;font-size:.82rem}
+.accd-right{padding:30px;display:flex;flex-direction:column;justify-content:center}
+.accd-context{font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.accd-rows{display:flex;flex-direction:column;gap:2px;margin-bottom:16px}
+.accd-row{display:flex;justify-content:space-between;font-size:.92rem;color:var(--muted);padding:9px 0}
+.accd-row b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.accd-inc b{color:var(--green)}
+.accd-total{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--line);padding-top:16px}
+.accd-total span{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.92rem;color:var(--ink)}
+.accd-total b{font-family:var(--display);font-style:italic;font-weight:800;font-size:2rem;color:var(--blue);font-variant-numeric:tabular-nums}

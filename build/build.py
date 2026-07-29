@@ -1245,6 +1245,190 @@ def finance_comparison():
     )
 
 
+def _accessory_car_svg(idprefix):
+    """Clean SUV/truck-ish silhouette with accessory markers that toggle on.
+    Schematic (not a real vehicle image). idprefix keeps element ids unique."""
+    return f'''<svg class="acc-car" viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- body -->
+  <path class="acc-body" d="M28 104 L40 104 C44 88 56 80 72 80 L206 80 C224 80 236 70 252 66 L286 60 C300 58 306 66 306 78 L306 100 C306 103 304 104 301 104 L292 104" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  <path class="acc-body" d="M40 104 L292 104" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <!-- cabin -->
+  <path class="acc-body" d="M92 80 L104 54 C106 50 109 48 114 48 L188 48 C193 48 197 50 200 56 L214 80" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+  <line class="acc-body" x1="152" y1="49" x2="152" y2="80" stroke="currentColor" stroke-width="2.5"/>
+  <!-- wheels -->
+  <circle class="acc-wheel" cx="86" cy="112" r="20" fill="none" stroke="currentColor" stroke-width="3"/>
+  <circle class="acc-wheel" cx="248" cy="112" r="20" fill="none" stroke="currentColor" stroke-width="3"/>
+  <!-- ACCESSORY MARKERS (hidden until toggled) -->
+  <g class="acc-mk" data-mk="roof"><rect x="108" y="38" width="86" height="7" rx="3" fill="var(--teal)"/><rect x="112" y="32" width="4" height="8" rx="2" fill="var(--teal)"/><rect x="186" y="32" width="4" height="8" rx="2" fill="var(--teal)"/></g>
+  <g class="acc-mk" data-mk="boards"><rect x="96" y="106" width="118" height="7" rx="3" fill="var(--yellow)"/></g>
+  <g class="acc-mk" data-mk="wheels"><circle cx="86" cy="112" r="13" fill="none" stroke="var(--yellow)" stroke-width="4"/><circle cx="248" cy="112" r="13" fill="none" stroke="var(--yellow)" stroke-width="4"/></g>
+  <g class="acc-mk" data-mk="lift"><path d="M70 130 L102 130 M232 130 L264 130" stroke="var(--teal)" stroke-width="4" stroke-linecap="round"/></g>
+  <g class="acc-mk" data-mk="guards"><path d="M60 100 l8 8 M60 108 l8 -8" stroke="var(--yellow)" stroke-width="3" stroke-linecap="round"/></g>
+</svg>'''
+
+
+def accessory_hero_animation():
+    """Hero: accessories auto-appear on the vehicle while revenue ticks up. Loops."""
+    return f'''<div class="ahero" id="ahero">
+  <div class="ahero-vehicle">
+    {_accessory_car_svg("ah")}
+    <div class="ahero-name">2025 Jeep Wrangler</div>
+  </div>
+  <div class="ahero-tally">
+    <div class="ahero-line"><span>Vehicle sale</span><b>$42,995</b></div>
+    <div class="ahero-line ahero-add"><span>Accessories added</span><b id="ahero-acc">+$0</b></div>
+    <div class="ahero-line ahero-total"><span>Total revenue</span><b id="ahero-total">$42,995</b></div>
+    <div class="ahero-gross"><span>Dealer accessory gross</span><b id="ahero-gross">+$0</b></div>
+  </div>
+  <script>
+  (function(){{
+    var root=document.getElementById("ahero"); if(!root) return;
+    var mks=[].slice.call(root.querySelectorAll(".acc-mk"));
+    var accEl=document.getElementById("ahero-acc"), totEl=document.getElementById("ahero-total"), grEl=document.getElementById("ahero-gross");
+    var items=[{{mk:"boards",p:645}},{{mk:"roof",p:812}},{{mk:"wheels",p:910}}];
+    var base=42995, seen=false, timers=[];
+    function clr(){{ timers.forEach(clearTimeout); timers=[]; }}
+    function at(ms,fn){{ timers.push(setTimeout(fn,ms)); }}
+    function money(n){{ return "$"+Math.round(n).toLocaleString(); }}
+    function run(){{
+      clr();
+      mks.forEach(function(m){{ m.classList.remove("on"); }});
+      accEl.textContent="+$0"; totEl.textContent=money(base); grEl.textContent="+$0";
+      var acc=0, d=900;
+      items.forEach(function(it){{
+        at(d,function(){{
+          var mk=root.querySelector('.acc-mk[data-mk="'+it.mk+'"]'); if(mk) mk.classList.add("on");
+          acc+=it.p; accEl.textContent="+"+money(acc); totEl.textContent=money(base+acc);
+          grEl.textContent="+"+money(acc*0.51);
+        }});
+        d+=850;
+      }});
+      at(d+2200, run);
+    }}
+    if("IntersectionObserver" in window){{ new IntersectionObserver(function(es){{es.forEach(function(e){{if(e.isIntersecting&&!seen){{seen=true;run();}}}});}},{{threshold:.3}}).observe(root); }} else run();
+  }})();
+  </script>
+</div>'''
+
+
+def accessory_demo():
+    """"One customer, multiple profit opportunities" — 3-stage interactive journey
+    with a NEW / USED / SERVICE department toggle that changes recommendations."""
+    return f'''<section class="section section--tight">
+  <div class="wrap centered">
+    <p class="eyebrow" style="color:var(--teal)">See it work</p>
+    <h2 class="h2" style="margin-bottom:8px">One customer. Multiple profit opportunities.</h2>
+    <p class="lede">Every purchase and every service visit is an accessory opportunity. Pick a department and watch the incremental revenue add up.</p>
+  </div>
+  <div class="wrap">
+    <div class="accd" id="accd">
+      <div class="accd-toggle">
+        <button class="accd-dept is-on" data-dept="new">New vehicle</button>
+        <button class="accd-dept" data-dept="used">Used vehicle</button>
+        <button class="accd-dept" data-dept="service">Service visit</button>
+      </div>
+      <div class="accd-body">
+        <div class="accd-left">
+          <div class="accd-vehicle">{_accessory_car_svg("ad")}</div>
+          <div class="accd-recs" id="accd-recs"></div>
+        </div>
+        <div class="accd-right">
+          <div class="accd-context" id="accd-context"></div>
+          <div class="accd-rows" id="accd-rows"></div>
+          <div class="accd-total"><span>Total incremental revenue</span><b id="accd-total">+$0</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){{
+    var root=document.getElementById("accd"); if(!root) return;
+    var DATA={{
+      "new":{{ context:"New vehicle purchase &middot; base sale $42,995",
+        recs:[{{mk:"boards",n:"Running boards",p:645}},{{mk:"roof",n:"Roof rack",p:812}},{{mk:"guards",n:"Splash guards",p:388}}],
+        install:312 }},
+      "used":{{ context:"Used vehicle purchase &middot; base sale $28,400",
+        recs:[{{mk:"wheels",n:"Wheel package",p:1290}},{{mk:"boards",n:"All-weather mats",p:214}}],
+        install:180 }},
+      "service":{{ context:"Service visit &middot; customer already in the lane",
+        recs:[{{mk:"lift",n:"Leveling kit",p:1150}},{{mk:"guards",n:"Mud guards",p:240}}],
+        install:420 }}
+    }};
+    var recsBox=document.getElementById("accd-recs"), rowsBox=document.getElementById("accd-rows");
+    var ctxEl=document.getElementById("accd-context"), totEl=document.getElementById("accd-total");
+    var mks=[].slice.call(root.querySelectorAll(".acc-mk"));
+    function money(n){{ return "$"+Math.round(n).toLocaleString(); }}
+    function animTotal(to){{ var t0=performance.now(); (function tick(now){{ var k=Math.min(1,(now-t0)/700);
+      totEl.textContent="+"+money(to*(0.5-Math.cos(k*Math.PI)/2)); if(k<1)requestAnimationFrame(tick); }})(performance.now()); }}
+    function render(dept){{
+      var d=DATA[dept]; ctxEl.innerHTML=d.context;
+      mks.forEach(function(m){{ m.classList.remove("on"); }});
+      recsBox.innerHTML=""; rowsBox.innerHTML="";
+      var accSum=0, delay=0;
+      d.recs.forEach(function(r){{
+        accSum+=r.p;
+        var chip=document.createElement("button"); chip.className="accd-rec"; chip.innerHTML="&#10003; "+r.n+" <span>+"+money(r.p)+"</span>";
+        recsBox.appendChild(chip);
+        (function(mk,el){{ setTimeout(function(){{ var m=root.querySelector('.acc-mk[data-mk="'+mk+'"]'); if(m)m.classList.add("on"); el.classList.add("in"); }}, delay+=260); }})(r.mk,chip);
+      }});
+      // revenue rows
+      var baseTxt = dept==="service" ? null : (dept==="used"?28400:42995);
+      var rows=[];
+      if(baseTxt) rows.push(["Base sale", money(baseTxt), false]);
+      rows.push(["Accessory revenue", "+"+money(accSum), true]);
+      rows.push(["Service installation", "+"+money(d.install), true]);
+      rowsBox.innerHTML=rows.map(function(r){{ return "<div class=\\"accd-row"+(r[2]?" accd-inc":"")+"\\"><span>"+r[0]+"</span><b>"+r[1]+"</b></div>"; }}).join("");
+      animTotal(accSum + d.install);
+    }}
+    root.querySelectorAll(".accd-dept").forEach(function(btn){{
+      btn.addEventListener("click",function(){{
+        root.querySelectorAll(".accd-dept").forEach(function(x){{x.classList.remove("is-on");}});
+        btn.classList.add("is-on"); render(btn.getAttribute("data-dept"));
+      }});
+    }});
+    var seen=false;
+    if("IntersectionObserver" in window){{ new IntersectionObserver(function(es){{es.forEach(function(e){{if(e.isIntersecting&&!seen){{seen=true;render("new");}}}});}},{{threshold:.3}}).observe(root); }} else render("new");
+  }})();
+  </script>
+</section>'''
+
+
+def accessory_comparison():
+    """Accessory Accelerator vs Traditional Accessory Sales (experience matrix)."""
+    rows = [
+        ("Personalized recommendations", ("yes",), ("no",)),
+        ("Every customer receives offers", ("yes",), ("no",)),
+        ("Vehicle-specific accessory matching", ("yes",), ("partial",)),
+        ("New-vehicle opportunities", ("yes",), ("yes",)),
+        ("Used-vehicle opportunities", ("yes",), ("no",)),
+        ("Service-lane opportunities", ("yes",), ("no",)),
+        ("Digital accessory presentation", ("yes",), ("no",)),
+        ("Visual product previews", ("yes",), ("no",)),
+        ("Consistent process every time", ("yes",), ("no",)),
+        ("Automated delivery", ("yes",), ("no",)),
+        ("Revenue tracking", ("yes",), ("partial",)),
+        ("Multi-department deployment", ("yes",), ("no",)),
+    ]
+
+    def col(idx):
+        return [(row[idx + 1][0], row[0], row[idx + 1][1] if len(row[idx + 1]) > 1 else "") for row in rows]
+
+    cards = [
+        {"name": "Accessory Accelerator", "badge": "Every interaction", "highlight": True, "items": col(0)},
+        {"name": "Traditional Accessory Sales", "badge": "The old way", "items": col(1)},
+    ]
+    disclaimer = ("Illustrative comparison of a digital, automated accessory-merchandising approach versus a "
+                  "traditional manual accessory-sales process. Outcomes vary by store, staff, and process; revenue "
+                  "figures elsewhere on this page are directional and should be validated against your numbers.")
+    return comparison_section(
+        "How it stacks up",
+        "Why dealerships choose Accessory Accelerator.",
+        "The accessories aren't new &mdash; the opportunity capture is. Every customer, every department, every time "
+        "&mdash; instead of whenever someone remembers to ask.",
+        cards, disclaimer,
+    )
+
+
 def build_product(p, lang):
     pp = "../"                      # product pages live one level under lang root
     ap = ap_for(lang, pp)
@@ -1275,6 +1459,9 @@ def build_product(p, lang):
     elif p["slug"] == "bumper-finance":
         extra_after_capabilities = finance_package_builder()
         extra_after_shots = finance_comparison() + finance_penetration_roi()
+    elif p["slug"] == "accessory-accelerator":
+        extra_after_capabilities = accessory_demo()
+        extra_after_shots = accessory_comparison()
     else:
         extra_after_capabilities = ""
         extra_after_shots = ""
@@ -1284,6 +1471,7 @@ def build_product(p, lang):
         "bumper-retention": retention_hero_animation,
         "bumper-inventory-ads": inventory_hero_animation,
         "pie": pie_hero_animation,
+        "accessory-accelerator": accessory_hero_animation,
     }
     if p["slug"] in HERO_DEMOS:
         subhero = f'''<section class="subhero subhero--split">
