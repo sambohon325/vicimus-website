@@ -1251,7 +1251,7 @@ def _accessory_car_svg(ap=""):
     is set by JS via the .lvl-N class on the wrapper. ap = asset path prefix."""
     names = ["plain", "roof", "boards", "all"]
     imgs = "".join(
-        f'<img class="acc-jeep acc-jeep--{i}" src="{ap}assets/img/jeep-{i}-{names[i]}.png" alt="">'
+        f'<img class="acc-jeep acc-jeep--{i}" src="{ap}assets/img/jeep-{i}-{names[i]}.jpg" alt="">'
         for i in range(4)
     )
     return f'<div class="acc-carwrap lvl-0">{imgs}</div>'

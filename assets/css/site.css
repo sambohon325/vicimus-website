@@ -114,7 +114,7 @@ button.btn{margin:0;background-image:none}
 .step:nth-child(3).is-active{color:var(--yellow-ink)} .step:nth-child(3).is-active .step__num{background:var(--yellow);color:var(--ink)}
 .step:nth-child(4).is-active{color:var(--red)} .step:nth-child(4).is-active .step__num{background:var(--red);color:#fff}
 
-.panel{display:none;padding:40px 0 52px;animation:fade .25s ease}
+.panel{display:none;padding:40px 0 52px;animation:fade .25s ease;min-height:440px}
 .panel.is-active{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:44px;align-items:start}
@@ -282,9 +282,9 @@ button.btn{margin:0;background-image:none}
    ============================================================ */
 .stories{padding:74px 0 80px;background:#fff;overflow:hidden}
 .stories .eyebrow{color:var(--red)}
-.rail{display:flex;gap:26px;margin-top:56px;padding-inline:calc((100vw - 520px)/2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.rail{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:56px;max-width:var(--container);margin-left:auto;margin-right:auto;padding-inline:var(--gutter)}
 .rail::-webkit-scrollbar{display:none}
-.story{flex:0 0 520px;scroll-snap-align:center;text-align:center}
+.story{scroll-snap-align:center;text-align:center}
 .story__quote{position:relative;background:var(--wash);border-radius:10px;padding:26px 28px;margin:0;text-align:left;font-size:.82rem;line-height:1.55;text-transform:uppercase;letter-spacing:.01em;color:var(--ink)}
 .story__quote::after{content:"";position:absolute;left:40px;bottom:-8px;width:18px;height:18px;background:var(--wash);transform:rotate(45deg)}
 .story__role{margin-top:30px;color:var(--red);font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.09em;font-size:.76rem}
@@ -375,7 +375,7 @@ button.btn{margin:0;background-image:none}
   .about{grid-template-columns:1fr}
   .about__panel{padding:52px 32px}
   .about__media{min-height:340px}
-  .rail{padding-inline:24px}
+  .rail{grid-template-columns:1fr;padding-inline:24px}
   .story{flex-basis:min(520px,86vw)}
   .site-footer__grid{grid-template-columns:1fr 1fr}
   .mega__grid{grid-template-columns:1fr 1fr}
@@ -1192,8 +1192,8 @@ button.btn{margin:0;background-image:none}
    ACCESSORY ACCELERATOR — hero animation + demo
    ============================================================ */
 /* Jeep image stack — cumulative build (plain->roof->boards->all) */
-.acc-carwrap{position:relative;width:100%;max-width:400px;margin:0 auto;aspect-ratio:1000/740}
-.acc-jeep{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .5s ease}
+.acc-carwrap{position:relative;width:100%;max-width:400px;margin:0 auto;aspect-ratio:1000/600}
+.acc-jeep{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:10px;opacity:0;transition:opacity .5s ease}
 /* show only the image matching the current cumulative level */
 .acc-carwrap.lvl-0 .acc-jeep--0{opacity:1}
 .acc-carwrap.lvl-1 .acc-jeep--1{opacity:1}

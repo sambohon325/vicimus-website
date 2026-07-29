@@ -621,7 +621,16 @@ function goStep(n){
     p.classList.toggle('is-done',i<n);
   }
   if(n===2) calc();
-  document.getElementById('top').scrollIntoView({behavior:'smooth',block:'start'});
+  // Only scroll if the step pills have scrolled out of view — and never slam the
+  // hero under the fixed nav. Keeps the panel from "jumping to the nav edge" each click.
+  var pills=document.querySelector('.hero .steps');
+  if(pills){
+    var r=pills.getBoundingClientRect();
+    if(r.top<0 || r.bottom>window.innerHeight){
+      var y=window.scrollY+r.top-90; // 90px clearance for the sticky header
+      window.scrollTo({top:Math.max(0,y),behavior:'smooth'});
+    }
+  }
 }
 function showInfo(k){
   const p=productInfo[k]; if(!p) return;
