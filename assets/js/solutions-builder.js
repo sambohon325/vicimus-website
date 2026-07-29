@@ -17,13 +17,13 @@
   // Complementary products — what to recommend alongside a selection.
   var COMPLEMENTS = {
     "bumper-retention": ["odometer-voip", "calls-on-demand"],
-    "bumper-inventory-ads": ["glovebox-websites", "bumper-bi"],
+    "bumper-inventory-ads": ["glovebox-websites", "pie"],
     "glovebox-websites": ["calls-on-demand", "bumper-retention"],
-    "odometer-voip": ["calls-on-demand", "bumper-bi"],
-    "bumper-finance": ["accessory-accelerator", "bumper-bi"],
+    "odometer-voip": ["calls-on-demand", "pie"],
+    "bumper-finance": ["accessory-accelerator", "pie"],
     "accessory-accelerator": ["bumper-finance"],
     "calls-on-demand": ["odometer-voip", "bumper-retention"],
-    "bumper-bi": ["bumper-retention", "bumper-inventory-ads"],
+    "pie": ["bumper-retention", "bumper-inventory-ads"],
     "powersports-independent": ["glovebox-websites", "odometer-voip"]
   };
   // Which products each solution / market implies (seeds recommendations).
@@ -35,7 +35,7 @@
     "franchise-retail": ["bumper-retention", "bumper-finance", "accessory-accelerator"],
     "independent-retail": ["powersports-independent", "glovebox-websites"],
     "bhph": ["bumper-retention", "calls-on-demand", "odometer-voip"],
-    "enterprise": ["bumper-bi", "bumper-retention", "bumper-inventory-ads"]
+    "enterprise": ["pie", "bumper-retention", "bumper-inventory-ads"]
   };
 
   var state = load();

@@ -11,7 +11,7 @@ Two different prefixes are threaded through every page:
                        For English == pp. For es/fr == "../" + pp,
                        since those pages sit one folder deeper.
 
-`page` is the path within a language tree (e.g. "products/bumper-bi.html")
+`page` is the path within a language tree (e.g. "products/pie.html")
 and is the same in every language; the picker swaps only the language
 prefix in front of it.
 """
@@ -55,6 +55,7 @@ def head(title, desc, ap="", lang="en"):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -100,7 +101,7 @@ def header(pp="", ap="", lang="en"):
         <h4>Products</h4>
         <a class="sub" href="{pp}products/bumper-retention.html">Bumper Retention</a>
         <a class="sub" href="{pp}products/bumper-inventory-ads.html">Bumper Inventory Ads</a>
-        <a class="sub" href="{pp}products/bumper-bi.html">Pie</a>
+        <a class="sub" href="{pp}products/pie.html">Pie</a>
         <a class="sub" href="{pp}products/bumper-finance.html">Bumper Finance</a>
         <a class="sub" href="{pp}products/accessory-accelerator.html">Accessory Accelerator</a>
         <a class="sub" href="{pp}products/glovebox-websites.html">GloveBox Websites</a>
@@ -143,7 +144,7 @@ def footer(pp="", ap="", lang="en", page="index.html"):
         <ul>
           <li><a href="{pp}products/bumper-retention.html">Bumper Retention</a></li>
           <li><a href="{pp}products/bumper-inventory-ads.html">Bumper Inventory Ads</a></li>
-          <li><a href="{pp}products/bumper-bi.html">Pie</a></li>
+          <li><a href="{pp}products/pie.html">Pie</a></li>
           <li><a href="{pp}products/glovebox-websites.html">GloveBox Websites</a></li>
           <li><a href="{pp}products/odometer-voip.html">Odometer VoIP</a></li>
           <li><a href="{pp}products/powersports-independent.html">Powersports Independent (PSI)</a></li>
