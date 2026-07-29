@@ -1107,13 +1107,17 @@ button.btn{margin:0;background-image:none}
 .ihero-ad-p{font-family:var(--display);font-style:italic;font-weight:800;color:var(--blue);font-size:1.05rem;margin-top:2px}
 .ihero-cap{text-align:center;font-size:.84rem;color:rgba(255,255,255,.7);margin-top:16px;line-height:1.4}
 
-/* --- Pie: Dealership Health Monitor (auto-playing) --- */
+/* --- Pie: Dealership Health Monitor (fixed height, in-place swap) --- */
 .phero{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:24px;backdrop-filter:blur(4px)}
 .phero-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.12)}
 .phero-head-l{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.8rem;letter-spacing:.04em;color:rgba(255,255,255,.75)}
 .phero-score{font-family:var(--display);font-style:italic;font-weight:800;font-size:2.6rem;color:var(--teal);line-height:1;font-variant-numeric:tabular-nums}
 .phero-score small{font-size:1rem;color:rgba(255,255,255,.5);font-weight:600}
-.phero-depts{display:flex;flex-direction:column;gap:2px;margin-top:14px}
+/* fixed-height stage; the two panels share the same space and crossfade */
+.phero-body{position:relative;height:320px;margin-top:16px}
+.phero-panel{position:absolute;inset:0;opacity:0;transform:translateY(6px);pointer-events:none;transition:opacity .45s ease,transform .45s ease}
+.phero-panel.is-active{opacity:1;transform:translateY(0);pointer-events:auto}
+.phero-depts{display:flex;flex-direction:column;gap:2px;justify-content:center}
 .phero-dept{display:flex;align-items:center;gap:10px;font-size:.9rem;color:#fff;padding:9px 4px;border-radius:8px;transition:background .3s}
 .phero-dept.warn{background:rgba(251,207,9,.12)}
 .phero-dot{width:9px;height:9px;border-radius:50%;flex:none;transition:background .3s}
@@ -1122,16 +1126,17 @@ button.btn{margin:0;background-image:none}
 .phero-tag{margin-left:auto;font-family:var(--body);font-style:normal;font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 10px;border-radius:14px;transition:all .3s}
 .phero-tag.ok{background:rgba(62,189,196,.16);color:var(--teal)}
 .phero-tag.warn{background:rgba(251,207,9,.2);color:var(--yellow)}
-.phero-insight{max-height:0;overflow:hidden;transition:max-height .5s ease,margin .5s ease}
-.phero.expanded .phero-insight{max-height:340px;margin-top:16px}
-.phero-ins-step{opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s;padding:12px 16px;border-radius:10px;background:rgba(255,255,255,.06);margin-bottom:8px}
+/* diagnostics panel */
+.phero-diag{display:flex;flex-direction:column;gap:8px}
+.phero-diag-head{display:flex;align-items:center;gap:9px;font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.72rem;letter-spacing:.04em;color:rgba(255,255,255,.6);margin-bottom:2px}
+.phero-ins-step{opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s;padding:11px 15px;border-radius:10px;background:rgba(255,255,255,.06)}
 .phero-ins-step.on{opacity:1;transform:translateY(0)}
-.phero-ins-flag{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.92rem;color:var(--yellow)}
-.phero-ins-label{font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:4px}
+.phero-ins-flag{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.9rem;color:var(--yellow)}
+.phero-ins-label{font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:3px}
 .phero-ins-label.phero-pos{color:var(--teal)}
-.phero-ins-big{font-family:var(--display);font-style:italic;font-weight:800;font-size:1.5rem;color:#fff;line-height:1.05}
-.phero-ins-big small{font-size:.85rem;color:rgba(255,255,255,.5);font-weight:600}
-.phero-ins-sub{font-size:.82rem;color:rgba(255,255,255,.65);margin-top:2px}
+.phero-ins-big{font-family:var(--display);font-style:italic;font-weight:800;font-size:1.32rem;color:#fff;line-height:1.05}
+.phero-ins-big small{font-size:.8rem;color:rgba(255,255,255,.5);font-weight:600}
+.phero-ins-sub{font-size:.8rem;color:rgba(255,255,255,.65);margin-top:2px}
 .phero-neg{color:#F6957F!important}
 /* ============================================================
    CAMPAIGN BUILDER — v2 in-depth additions
