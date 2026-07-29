@@ -98,7 +98,6 @@
   <div class="subhero__split">
     <div class="subhero__col">
       <img class="subhero__logo" src="../../assets/logos/bumper-ads.svg" alt="Bumper Inventory Ads">
-      <p class="eyebrow" translate="no">Inventory Ads</p>
       <h1 class="h1">Automated, customizable inventory ads on demand.</h1>
       <p class="subhero__lead">Run Facebook and Google ad campaigns in minutes. Engage thousands of prospects and customers, extend your reach, and generate more leads at a lower cost — or let our white-glove team handle it for you.</p>
       <div class="subhero__actions">
@@ -199,7 +198,7 @@
   <div class="wrap centered">
     <p class="eyebrow" style="color:var(--teal)">See it work</p>
     <h2 class="h2" style="margin-bottom:8px">Launch a campaign in 30 seconds.</h2>
-    <p class="lede">Pick inventory, choose who should see it, and Bumper builds the ads and reports the results &mdash; automatically, across Facebook and Google.</p>
+    <p class="lede">Filter your inventory, target the right shoppers, and Bumper builds and optimizes the ads across Facebook, Instagram, and Google &mdash; then reports every result back.</p>
   </div>
   <div class="wrap">
     <div class="cb" id="cb">
@@ -214,16 +213,22 @@
         <!-- STEP 1 -->
         <div class="cb-panel is-active" data-s="0">
           <div class="cb-cols">
-            <div class="cb-inv">
-              <div class="cb-inv-row" data-v="38">2024 Ford F-150</div>
-              <div class="cb-inv-row" data-v="24">2023 Chevy Tahoe</div>
-              <div class="cb-inv-row" data-v="31">2025 Honda Civic</div>
-              <div class="cb-inv-row" data-v="34">2024 Toyota RAV4</div>
+            <div>
+              <p class="cb-hint" style="text-align:left;margin-bottom:14px">Filter by segment &mdash; Bumper syncs matching vehicles from your DMS in real time.</p>
+              <div class="cb-filters">
+                <button class="cb-filter is-on" data-seg="all">All inventory</button>
+                <button class="cb-filter" data-seg="truck">Trucks</button>
+                <button class="cb-filter" data-seg="suv">SUVs</button>
+                <button class="cb-filter" data-seg="car">Cars</button>
+              </div>
+              <div class="cb-inv" id="cb-inv"></div>
             </div>
             <div class="cb-side">
-              <div class="cb-side-lbl">Selected inventory</div>
+              <div class="cb-side-lbl">Matched inventory</div>
               <div class="cb-counter" id="cb-veh">0</div>
-              <div class="cb-side-sub">vehicles, synced live from your DMS</div>
+              <div class="cb-side-sub">vehicles ready to advertise</div>
+              <div class="cb-side-meta"><span>Avg. age</span><b id="cb-age">— days</b></div>
+              <div class="cb-side-meta"><span>Avg. price</span><b id="cb-price">—</b></div>
               <button class="btn btn-blue cb-next" data-go="1">Choose audience &rarr;</button>
             </div>
           </div>
@@ -232,17 +237,21 @@
         <!-- STEP 2 -->
         <div class="cb-panel" data-s="1">
           <div class="cb-cols">
-            <div class="cb-auds">
-              <button class="cb-aud" data-size="12480">Past Customers</button>
-              <button class="cb-aud" data-size="9260">Service Customers</button>
-              <button class="cb-aud" data-size="4310">Lease Maturity</button>
-              <button class="cb-aud" data-size="11890">In-Market Shoppers</button>
-              <button class="cb-aud" data-size="4621">Equity Positive</button>
+            <div>
+              <p class="cb-hint" style="text-align:left;margin-bottom:14px">Layer in first-party and in-market audiences &mdash; each shows estimated reach and match quality.</p>
+              <div class="cb-auds">
+                <button class="cb-aud" data-size="12480" data-q="94">Past Customers <span class="cb-aud-meta">12,480 &middot; <b>94% match</b></span></button>
+                <button class="cb-aud" data-size="9260" data-q="88">Service Customers <span class="cb-aud-meta">9,260 &middot; <b>88% match</b></span></button>
+                <button class="cb-aud" data-size="4310" data-q="91">Lease Maturity <span class="cb-aud-meta">4,310 &middot; <b>91% match</b></span></button>
+                <button class="cb-aud" data-size="11890" data-q="72">In-Market Shoppers <span class="cb-aud-meta">11,890 &middot; <b>72% match</b></span></button>
+                <button class="cb-aud" data-size="4621" data-q="83">Equity Positive <span class="cb-aud-meta">4,621 &middot; <b>83% match</b></span></button>
+              </div>
             </div>
             <div class="cb-side">
-              <div class="cb-side-lbl">Audience size</div>
+              <div class="cb-side-lbl">Total reach</div>
               <div class="cb-counter" id="cb-aud">0</div>
-              <div class="cb-side-sub">matched, de-duplicated reach</div>
+              <div class="cb-side-sub">de-duplicated, matched shoppers</div>
+              <div class="cb-side-meta"><span>Blended match</span><b id="cb-match">—</b></div>
               <button class="btn btn-blue cb-next" data-go="2">Build the ads &rarr;</button>
             </div>
           </div>
@@ -250,49 +259,35 @@
 
         <!-- STEP 3 -->
         <div class="cb-panel" data-s="2">
-          <p class="cb-hint">Bumper generates platform-ready ads for every selected vehicle &mdash; no manual work.</p>
-          <div class="cb-ads">
-            <div class="cb-ad cb-ad--fb">
-              <div class="cb-ad-tag">Facebook</div>
-              <div class="cb-ad-img"><span class="cb-ico-car"></span></div>
-              <div class="cb-ad-body">
-                <div class="cb-ad-t">2024 Ford F-150 XLT</div>
-                <div class="cb-ad-p">$599/mo</div>
-                <div class="cb-ad-cta">Shop Now</div>
-              </div>
-            </div>
-            <div class="cb-ad cb-ad--gg">
-              <div class="cb-ad-tag">Google Vehicle Ad</div>
-              <div class="cb-ad-img"><span class="cb-ico-car"></span></div>
-              <div class="cb-ad-body">
-                <div class="cb-ad-t">2024 Ford F-150 XLT</div>
-                <div class="cb-ad-dealer">Lakeview Ford &middot; Dallas, TX</div>
-                <div class="cb-ad-price">$54,995</div>
-              </div>
-            </div>
-            <div class="cb-ad cb-ad--fb">
-              <div class="cb-ad-tag">Facebook</div>
-              <div class="cb-ad-img"><span class="cb-ico-car"></span></div>
-              <div class="cb-ad-body">
-                <div class="cb-ad-t">2023 Chevy Tahoe LT</div>
-                <div class="cb-ad-p">$679/mo</div>
-                <div class="cb-ad-cta">Shop Now</div>
-              </div>
-            </div>
+          <p class="cb-hint">Bumper generates platform-ready creative for every vehicle and splits budget across the channels you run.</p>
+          <div class="cb-plats">
+            <button class="cb-plat is-on" data-plat="fb">Facebook</button>
+            <button class="cb-plat is-on" data-plat="ig">Instagram</button>
+            <button class="cb-plat is-on" data-plat="gg">Google</button>
           </div>
+          <div class="cb-budget"><div class="cb-budget-bar" id="cb-budget"></div></div>
+          <div class="cb-ads" id="cb-ads"></div>
           <button class="btn btn-blue cb-next" data-go="3" style="margin-top:22px">See the results &rarr;</button>
         </div>
 
         <!-- STEP 4 -->
         <div class="cb-panel" data-s="3">
-          <p class="cb-hint">Real-time performance, tracked down to the VDP view and the individual lead.</p>
-          <div class="cb-results">
-            <div class="cb-metric"><div class="cb-metric-n" data-num="487412">0</div><div class="cb-metric-l">Reach</div></div>
-            <div class="cb-metric"><div class="cb-metric-n" data-num="6423">0</div><div class="cb-metric-l">Clicks</div></div>
-            <div class="cb-metric"><div class="cb-metric-n" data-num="187">0</div><div class="cb-metric-l">Leads</div></div>
-            <div class="cb-metric"><div class="cb-metric-n" data-num="11329">0</div><div class="cb-metric-l">VDP Views</div></div>
+          <p class="cb-hint">Real-time performance, tracked as a funnel &mdash; from impression to individual lead.</p>
+          <div class="cb-funnel" id="cb-funnel">
+            <div class="cb-fstage"><div class="cb-fbar" style="--w:100%"><span class="cb-fbar-fill"></span></div><div class="cb-fmeta"><b class="cb-fn" data-num="487412">0</b><span>Reach</span></div></div>
+            <div class="cb-fconv" data-conv="1.3">1.3% CTR</div>
+            <div class="cb-fstage"><div class="cb-fbar" style="--w:64%"><span class="cb-fbar-fill"></span></div><div class="cb-fmeta"><b class="cb-fn" data-num="6423">0</b><span>Clicks</span></div></div>
+            <div class="cb-fconv" data-conv="176">1.76 pages/click</div>
+            <div class="cb-fstage"><div class="cb-fbar" style="--w:44%"><span class="cb-fbar-fill"></span></div><div class="cb-fmeta"><b class="cb-fn" data-num="11329">0</b><span>VDP Views</span></div></div>
+            <div class="cb-fconv" data-conv="1.65">1.65% to lead</div>
+            <div class="cb-fstage"><div class="cb-fbar" style="--w:22%"><span class="cb-fbar-fill cb-fbar-lead"></span></div><div class="cb-fmeta"><b class="cb-fn" data-num="187">0</b><span>Leads</span></div></div>
           </div>
-          <button class="btn btn-yellow cb-restart" style="margin-top:22px">&#8635; Run it again</button>
+          <div class="cb-kpis">
+            <div class="cb-kpi"><div class="cb-kpi-v" id="cb-cpl">$0</div><div class="cb-kpi-l">Cost per lead</div></div>
+            <div class="cb-kpi"><div class="cb-kpi-v" id="cb-spend">$0</div><div class="cb-kpi-l">Ad spend</div></div>
+            <div class="cb-kpi"><div class="cb-kpi-v" id="cb-roas">0x</div><div class="cb-kpi-l">Est. ROAS</div></div>
+          </div>
+          <button class="btn btn-yellow cb-restart">&#8635; Run it again</button>
         </div>
 
       </div>
@@ -303,59 +298,133 @@
     var root=document.getElementById('cb'); if(!root) return;
     var steps=[].slice.call(root.querySelectorAll('.cb-step'));
     var panels=[].slice.call(root.querySelectorAll('.cb-panel'));
-    var cur=0, invDone=false, audTotal=0, started=false;
+    var cur=0, started=false;
 
-    function animCount(el,target,dur){
-      dur=dur||900; var t0=performance.now();
-      function tick(now){ var k=Math.min(1,(now-t0)/dur); var v=target*(0.5-Math.cos(k*Math.PI)/2);
-        el.textContent=Math.round(v).toLocaleString(); if(k<1) requestAnimationFrame(tick); }
-      requestAnimationFrame(tick);
+    // ---- inventory data ----
+    var INV={
+      truck:[{n:"2024 Ford F-150 XLT",v:38,age:22,p:54995},{n:"2023 RAM 1500 Big Horn",v:19,age:41,p:47500},{n:"2024 Chevy Silverado LT",v:24,age:17,p:51200}],
+      suv:[{n:"2023 Chevy Tahoe LT",v:24,age:35,p:58900},{n:"2024 Toyota RAV4 XLE",v:34,age:12,p:33400},{n:"2024 Honda CR-V EX",v:21,age:28,p:34950}],
+      car:[{n:"2025 Honda Civic Sport",v:31,age:9,p:28600},{n:"2024 Toyota Camry SE",v:26,age:19,p:30100}]
+    };
+    function seg(sel){ if(sel==="all") return INV.truck.concat(INV.suv,INV.car); return INV[sel]||[]; }
+    var curSeg="all";
+    function money(n){ return "$"+Math.round(n).toLocaleString(); }
+    function animCount(el,target,dur){ dur=dur||700; var t0=performance.now();
+      (function tick(now){ var k=Math.min(1,(now-t0)/dur); var v=target*(0.5-Math.cos(k*Math.PI)/2);
+        el.textContent=Math.round(v).toLocaleString(); if(k<1) requestAnimationFrame(tick); })(performance.now()); }
+
+    // ---- STEP 1: inventory ----
+    function renderInv(){
+      var list=seg(curSeg), box=document.getElementById("cb-inv");
+      box.innerHTML="";
+      var total=0, ageSum=0, priceSum=0, d=0;
+      list.forEach(function(r){
+        total+=r.v; ageSum+=r.age*r.v; priceSum+=r.p*r.v;
+        var row=document.createElement("div"); row.className="cb-inv-row";
+        row.innerHTML=r.n+" <span class='cb-inv-v'>"+r.v+" units</span>";
+        box.appendChild(row);
+        setTimeout(function(){ row.classList.add("is-sel"); }, d+=90);
+      });
+      animCount(document.getElementById("cb-veh"),total,500);
+      document.getElementById("cb-age").textContent=(total?Math.round(ageSum/total):0)+" days";
+      document.getElementById("cb-price").textContent=total?money(priceSum/total):"—";
     }
+    root.querySelectorAll(".cb-filter").forEach(function(f){
+      f.addEventListener("click",function(){
+        root.querySelectorAll(".cb-filter").forEach(function(x){x.classList.remove("is-on");});
+        f.classList.add("is-on"); curSeg=f.getAttribute("data-seg"); renderInv();
+      });
+    });
+
+    // ---- STEP 2: audiences ----
+    var audTotal=0, qAccum=0, qCount=0;
+    root.querySelectorAll(".cb-aud").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        var sz=parseInt(btn.getAttribute("data-size")), q=parseInt(btn.getAttribute("data-q"));
+        if(btn.classList.toggle("is-on")){ audTotal+=sz; qAccum+=q; qCount++; }
+        else { audTotal-=sz; qAccum-=q; qCount--; }
+        animCount(document.getElementById("cb-aud"),audTotal,500);
+        document.getElementById("cb-match").textContent=qCount?Math.round(qAccum/qCount)+"% avg":"—";
+      });
+    });
+
+    // ---- STEP 3: platforms + budget + ads ----
+    var PLAT={fb:{label:"Facebook",cls:"cb-ad--fb"},ig:{label:"Instagram",cls:"cb-ad--ig"},gg:{label:"Google Vehicle Ad",cls:"cb-ad--gg"}};
+    function activePlats(){ return [].slice.call(root.querySelectorAll(".cb-plat.is-on")).map(function(p){return p.getAttribute("data-plat");}); }
+    function renderBudget(){
+      var plats=activePlats(), bar=document.getElementById("cb-budget"); bar.innerHTML="";
+      if(!plats.length) return;
+      var share=(100/plats.length);
+      plats.forEach(function(p){
+        var seg=document.createElement("span"); seg.className="cb-budget-seg cb-bud-"+p;
+        seg.style.width=share+"%"; seg.textContent=PLAT[p].label+" "+Math.round(share)+"%";
+        bar.appendChild(seg);
+      });
+    }
+    function buildAds(){
+      var box=document.getElementById("cb-ads"); box.innerHTML="";
+      var list=seg(curSeg).slice(0,2), plats=activePlats(), d=0, made=0;
+      list.forEach(function(veh){
+        plats.forEach(function(pl){
+          if(made>=3) return; made++;
+          var ad=document.createElement("div"); ad.className="cb-ad "+PLAT[pl].cls;
+          var priceMo=Math.round(veh.p/90/10)*10;
+          ad.innerHTML="<div class='cb-ad-tag'>"+PLAT[pl].label+"</div>"+
+            "<div class='cb-ad-img'><span class='cb-ico-car'></span></div>"+
+            "<div class='cb-ad-body'><div class='cb-ad-t'>"+veh.n+"</div>"+
+            (pl==="gg"?"<div class='cb-ad-dealer'>Lakeview Motors &middot; Dallas, TX</div><div class='cb-ad-price'>"+money(veh.p)+"</div>":
+              "<div class='cb-ad-p'>$"+priceMo+"/mo</div><div class='cb-ad-cta'>Shop Now</div>")+"</div>";
+          box.appendChild(ad);
+          setTimeout(function(){ ad.classList.add("is-in"); }, d+=260);
+        });
+      });
+    }
+    root.querySelectorAll(".cb-plat").forEach(function(p){
+      p.addEventListener("click",function(){
+        if(activePlats().length===1 && p.classList.contains("is-on")) return; // keep at least one
+        p.classList.toggle("is-on"); renderBudget(); buildAds();
+      });
+    });
+
+    // ---- STEP 4: funnel + KPIs ----
+    function rollResults(){
+      root.querySelectorAll(".cb-fn").forEach(function(el,i){
+        setTimeout(function(){ animCount(el,parseInt(el.getAttribute("data-num")),1100); }, i*160);
+      });
+      root.querySelectorAll(".cb-fbar-fill").forEach(function(f){ f.style.width="0"; requestAnimationFrame(function(){ setTimeout(function(){ f.style.width="100%"; },60); }); });
+      var spend=8940, leads=187;
+      setTimeout(function(){
+        animCountMoney(document.getElementById("cb-cpl"), spend/leads, 900, true);
+        animCountMoney(document.getElementById("cb-spend"), spend, 900);
+        var roas=document.getElementById("cb-roas"), t0=performance.now();
+        (function tick(now){ var k=Math.min(1,(now-t0)/900); roas.textContent=(6.2*(0.5-Math.cos(k*Math.PI)/2)).toFixed(1)+"x"; if(k<1)requestAnimationFrame(tick); })(performance.now());
+      }, 400);
+    }
+    function animCountMoney(el,target,dur,cents){ var t0=performance.now();
+      (function tick(now){ var k=Math.min(1,(now-t0)/dur); var v=target*(0.5-Math.cos(k*Math.PI)/2);
+        el.textContent="$"+(cents?v.toFixed(0):Math.round(v).toLocaleString()); if(k<1)requestAnimationFrame(tick); })(performance.now()); }
+
     function show(i){
       cur=i;
-      steps.forEach(function(s,idx){ s.classList.toggle('is-active',idx===i); s.classList.toggle('is-done',idx<i); });
-      panels.forEach(function(p,idx){ p.classList.toggle('is-active',idx===i); });
-      if(i===0 && !invDone){ runInventory(); }
-      if(i===2){ buildAds(); }
-      if(i===3){ rollResults(); }
+      steps.forEach(function(s,idx){ s.classList.toggle("is-active",idx===i); s.classList.toggle("is-done",idx<i); });
+      panels.forEach(function(p,idx){ p.classList.toggle("is-active",idx===i); });
+      if(i===0) renderInv();
+      if(i===2){ renderBudget(); buildAds(); }
+      if(i===3) rollResults();
     }
-    function runInventory(){
-      if(invDone) return;
-      invDone=true;
-      var rows=[].slice.call(root.querySelectorAll('.cb-inv-row')); var total=0, d=0;
-      document.getElementById('cb-veh').textContent='0';
-      rows.forEach(function(r){ setTimeout(function(){ r.classList.add('is-sel'); total+=parseInt(r.getAttribute('data-v')); animCount(document.getElementById('cb-veh'),total,500); }, d+=260); });
-    }
-    // step 2 audience toggles
-    root.querySelectorAll('.cb-aud').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        var sz=parseInt(btn.getAttribute('data-size'));
-        if(btn.classList.toggle('is-on')){ audTotal+=sz; } else { audTotal-=sz; }
-        animCount(document.getElementById('cb-aud'),audTotal,500);
-      });
-    });
-    function buildAds(){
-      var ads=[].slice.call(root.querySelectorAll('.cb-ad')); var d=0;
-      ads.forEach(function(a){ a.classList.remove('is-in'); });
-      ads.forEach(function(a){ setTimeout(function(){ a.classList.add('is-in'); }, d+=280); });
-    }
-    function rollResults(){
-      root.querySelectorAll('.cb-metric-n').forEach(function(el,i){
-        setTimeout(function(){ animCount(el,parseInt(el.getAttribute('data-num')),1100); }, i*180);
-      });
-    }
-    steps.forEach(function(s){ s.addEventListener('click',function(){ show(parseInt(s.getAttribute('data-s'))); }); });
-    root.querySelectorAll('.cb-next').forEach(function(b){ b.addEventListener('click',function(){ show(parseInt(b.getAttribute('data-go'))); }); });
-    root.querySelector('.cb-restart').addEventListener('click',function(){
-      invDone=false; audTotal=0;
-      root.querySelectorAll('.cb-inv-row').forEach(function(r){ r.classList.remove('is-sel'); });
-      root.querySelectorAll('.cb-aud').forEach(function(a){ a.classList.remove('is-on'); });
-      document.getElementById('cb-veh').textContent='0'; document.getElementById('cb-aud').textContent='0';
+    steps.forEach(function(s){ s.addEventListener("click",function(){ show(parseInt(s.getAttribute("data-s"))); }); });
+    root.querySelectorAll(".cb-next").forEach(function(b){ b.addEventListener("click",function(){ show(parseInt(b.getAttribute("data-go"))); }); });
+    root.querySelector(".cb-restart").addEventListener("click",function(){
+      curSeg="all"; audTotal=0; qAccum=0; qCount=0;
+      root.querySelectorAll(".cb-filter").forEach(function(x){x.classList.toggle("is-on",x.getAttribute("data-seg")==="all");});
+      root.querySelectorAll(".cb-aud").forEach(function(a){a.classList.remove("is-on");});
+      root.querySelectorAll(".cb-plat").forEach(function(p){p.classList.add("is-on");});
+      document.getElementById("cb-aud").textContent="0"; document.getElementById("cb-match").textContent="—";
       show(0);
     });
-    if('IntersectionObserver' in window){
-      new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && !started){ started=true; runInventory(); } }); },{threshold:.35}).observe(root);
-    } else { runInventory(); }
+    if("IntersectionObserver" in window){
+      new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && !started){ started=true; renderInv(); } }); },{threshold:.35}).observe(root);
+    } else { renderInv(); }
   })();
   </script>
 </section>
