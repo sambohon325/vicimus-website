@@ -1245,15 +1245,13 @@ def finance_comparison():
     )
 
 
-def _accessory_car_svg(ap="", white=False):
-    """Stacked Jeep images (cumulative accessory build). Four states cross-fade:
-    plain -> roof -> boards/wheels -> all. The active image is set by JS via the
-    .lvl-N class on the wrapper. ap is the asset path prefix; white=True uses the
-    white-line variants for dark backgrounds (the hero)."""
+def _accessory_car_svg(ap=""):
+    """Stacked realistic Jeep photos (cumulative accessory build). Four states
+    cross-fade: standard -> +sidestep -> +rack -> fully loaded. The active image
+    is set by JS via the .lvl-N class on the wrapper. ap = asset path prefix."""
     names = ["plain", "roof", "boards", "all"]
-    suffix = "-w" if white else ""
     imgs = "".join(
-        f'<img class="acc-jeep acc-jeep--{i}" src="{ap}assets/img/jeep-{i}-{names[i]}{suffix}.png" alt="">'
+        f'<img class="acc-jeep acc-jeep--{i}" src="{ap}assets/img/jeep-{i}-{names[i]}.png" alt="">'
         for i in range(4)
     )
     return f'<div class="acc-carwrap lvl-0">{imgs}</div>'
@@ -1263,7 +1261,7 @@ def accessory_hero_animation(ap="../"):
     """Hero: accessories auto-appear on the vehicle while revenue ticks up. Loops."""
     return f'''<div class="ahero" id="ahero">
   <div class="ahero-vehicle">
-    {_accessory_car_svg(ap, white=True)}
+    {_accessory_car_svg(ap)}
     <div class="ahero-name">2025 Jeep Wrangler</div>
   </div>
   <div class="ahero-tally">
