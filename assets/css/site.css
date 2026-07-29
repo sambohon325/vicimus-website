@@ -314,6 +314,8 @@ button.btn{margin:0;background-image:none}
 .partner-row{display:flex;align-items:center;justify-content:space-between;gap:40px;margin-top:60px;padding:0 24px;flex-wrap:wrap}
 .partner-row span{font-family:var(--display);font-weight:700;letter-spacing:.04em;font-size:1.3rem;color:#B7C2CD;transition:color .2s}
 .partner-row span:hover{color:var(--muted)}
+.partner-logo{height:34px;width:auto;max-width:170px;object-fit:contain;opacity:.55;filter:grayscale(1);transition:opacity .25s,filter .25s}
+.partner-logo:hover{opacity:1;filter:grayscale(0)}
 
 /* ============================================================
    CTA BANNER
@@ -1198,6 +1200,9 @@ button.btn{margin:0;background-image:none}
 /* hero */
 .ahero{display:grid;gap:18px}
 .ahero-vehicle{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:20px 20px 14px;backdrop-filter:blur(4px)}
+/* translucent white panel behind the hero Jeep so the dark line-art reads */
+.ahero-vehicle .acc-carwrap::before{content:"";position:absolute;left:-4%;right:-4%;top:2%;bottom:2%;background:rgba(255,255,255,.82);border-radius:14px;z-index:0}
+.ahero-vehicle .acc-jeep{z-index:1}
 .ahero-name{text-align:center;font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.9rem;color:#fff;margin-top:6px}
 .ahero-tally{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:20px 22px;backdrop-filter:blur(4px)}
 .ahero-line{display:flex;justify-content:space-between;align-items:baseline;font-size:.9rem;color:rgba(255,255,255,.7);padding:7px 0}
