@@ -79,7 +79,7 @@ PRODUCTS = [
         "name": "Bumper Finance",
         "logo": "bumper.svg",
         "family": "b",
-        "eyebrow": "Bumper Finance",
+        "eyebrow": "Modern F&I Retailing",
         "hero_h": "A modern retailing finance experience.",
         "hero_p": "Bridge the gap between handshake and F&I. Empower customers to customize their vehicle and payment while they wait — with gamification, video learning, and menu selection that ensures 100% product presentation.",
         "intro_h": "Embrace the educated customer.",

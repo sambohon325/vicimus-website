@@ -727,6 +727,262 @@ def inventory_comparison():
     )
 
 
+def finance_hero_animation():
+    """Before/After waiting-room animation for the Finance hero right column."""
+    return '''<div class="fhero" id="fhero">
+  <div class="fhero-card fhero-before">
+    <div class="fhero-tag">Before Bumper Finance</div>
+    <div class="fhero-timer">&#9201; <span>22:00</span> waiting</div>
+    <ul class="fhero-list">
+      <li class="miss">No engagement</li>
+      <li class="miss">No education</li>
+      <li class="miss">No product exposure</li>
+    </ul>
+  </div>
+  <div class="fhero-card fhero-after">
+    <div class="fhero-tag fhero-tag--on">With Bumper Finance</div>
+    <div class="fhero-timer">&#9201; <span>22:00</span> engaged</div>
+    <div class="fhero-bar"><span class="fhero-bar-fill" id="fhero-fill"></span></div>
+    <ul class="fhero-list">
+      <li data-step="1">Exploring products</li>
+      <li data-step="2">Building a package</li>
+      <li data-step="3">Watching videos</li>
+      <li data-step="4">Learning benefits</li>
+      <li data-step="5">Ready for F&amp;I</li>
+    </ul>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById('fhero'); if(!root) return;
+    var items=[].slice.call(root.querySelectorAll('.fhero-after li'));
+    var fill=document.getElementById('fhero-fill');
+    var i=0, timer=null;
+    function reset(){ items.forEach(function(x){x.classList.remove('on');}); fill.style.width='0'; i=0; }
+    function step(){
+      if(i<items.length){ items[i].classList.add('on'); i++; fill.style.width=(i/items.length*100)+'%'; }
+      else { clearInterval(timer); setTimeout(function(){ reset(); run(); }, 2200); }
+    }
+    function run(){ clearInterval(timer); timer=setInterval(step, 900); }
+    if('IntersectionObserver' in window){
+      var seen=false;
+      new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && !seen){ seen=true; run(); } }); },{threshold:.3}).observe(root);
+    } else { run(); }
+  })();
+  </script>
+</div>'''
+
+
+def finance_package_builder():
+    """"Build your protection package" — 4-step customer-journey demo."""
+    return '''<section class="section section--tight">
+  <div class="wrap centered">
+    <p class="eyebrow" style="color:var(--teal)">See it work</p>
+    <h2 class="h2" style="margin-bottom:8px">Build your protection package.</h2>
+    <p class="lede">Customers explore protection products while they wait &mdash; arriving at the F&amp;I office educated, engaged, and ready to buy.</p>
+  </div>
+  <div class="wrap">
+    <div class="fpb" id="fpb">
+      <div class="fpb-steps">
+        <button class="fpb-step is-active" data-s="0"><span class="fpb-step-n">1</span> Vehicle</button>
+        <button class="fpb-step" data-s="1"><span class="fpb-step-n">2</span> Explore</button>
+        <button class="fpb-step" data-s="2"><span class="fpb-step-n">3</span> Build package</button>
+        <button class="fpb-step" data-s="3"><span class="fpb-step-n">4</span> F&amp;I handoff</button>
+      </div>
+      <div class="fpb-stage">
+
+        <!-- STEP 1 -->
+        <div class="fpb-panel is-active" data-s="0">
+          <div class="fpb-vehicle">
+            <div class="fpb-vehicle-badge">&#10003; Vehicle selected</div>
+            <div class="fpb-vehicle-name">2025 Ford F-150 XLT</div>
+            <div class="fpb-vehicle-price">$58,495</div>
+            <div class="fpb-waiting">Waiting for finance approval&hellip; <span class="fpb-dots"><i></i><i></i><i></i></span></div>
+          </div>
+          <button class="btn btn-blue fpb-next" data-go="1">Start exploring &rarr;</button>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="fpb-panel" data-s="1">
+          <p class="fpb-hint">While they wait, customers explore protection products at their own pace &mdash; each with plain-language coverage, cost, and real claim examples.</p>
+          <div class="fpb-products">
+            <div class="fpb-prod"><div class="fpb-prod-t">Extended Warranty</div><div class="fpb-prod-d">Covers major components after the factory warranty ends.</div><div class="fpb-prod-c">~$38/mo &middot; e.g. transmission, $4,200 claim</div></div>
+            <div class="fpb-prod"><div class="fpb-prod-t">Tire &amp; Wheel</div><div class="fpb-prod-d">Road-hazard repair or replacement for tires and wheels.</div><div class="fpb-prod-c">~$14/mo &middot; e.g. bent wheel, $680 claim</div></div>
+            <div class="fpb-prod"><div class="fpb-prod-t">Appearance Protection</div><div class="fpb-prod-d">Interior and exterior surface protection and repair.</div><div class="fpb-prod-c">~$12/mo &middot; e.g. seat tear, $340 claim</div></div>
+            <div class="fpb-prod"><div class="fpb-prod-t">GAP Coverage</div><div class="fpb-prod-d">Covers the gap between loan balance and payout if totaled.</div><div class="fpb-prod-c">~$9/mo &middot; e.g. total loss, $5,900 gap</div></div>
+            <div class="fpb-prod"><div class="fpb-prod-t">Maintenance Plan</div><div class="fpb-prod-d">Prepaid, scheduled maintenance at the dealership.</div><div class="fpb-prod-c">~$22/mo &middot; oil, rotation, inspections</div></div>
+          </div>
+          <button class="btn btn-blue fpb-next" data-go="2">Build my package &rarr;</button>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="fpb-panel" data-s="2">
+          <div class="fpb-build">
+            <div class="fpb-picks">
+              <p class="fpb-hint" style="text-align:left;margin-bottom:14px">Tap products to add them &mdash; watch the payment update in real time.</p>
+              <button class="fpb-pick" data-amt="38">Extended Warranty <span>+$38/mo</span></button>
+              <button class="fpb-pick" data-amt="14">Tire &amp; Wheel <span>+$14/mo</span></button>
+              <button class="fpb-pick" data-amt="12">Appearance Protection <span>+$12/mo</span></button>
+              <button class="fpb-pick" data-amt="9">GAP Coverage <span>+$9/mo</span></button>
+              <button class="fpb-pick" data-amt="22">Maintenance Plan <span>+$22/mo</span></button>
+            </div>
+            <div class="fpb-payment">
+              <div class="fpb-pay-row"><span>Vehicle payment</span><span class="fpb-pay-base">$699/mo</span></div>
+              <div class="fpb-pay-row fpb-pay-add"><span>Protection</span><span id="fpb-add">+$0/mo</span></div>
+              <div class="fpb-pay-total"><span>With protection</span><span id="fpb-total">$699/mo</span></div>
+              <p class="fpb-pay-note">Affordability stays in the customer's control &mdash; no surprises at the finance desk.</p>
+            </div>
+          </div>
+          <button class="btn btn-blue fpb-next" data-go="3">Head to F&amp;I &rarr;</button>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="fpb-panel" data-s="3">
+          <p class="fpb-hint">Same customer, two very different finance-office experiences.</p>
+          <div class="fpb-compare">
+            <div class="fpb-flow fpb-flow--old">
+              <div class="fpb-flow-h">Traditional process</div>
+              <ol><li>First time seeing products</li><li>Questions</li><li>Objections</li><li>Longer transaction</li></ol>
+            </div>
+            <div class="fpb-flow fpb-flow--new">
+              <div class="fpb-flow-h">With Bumper Finance</div>
+              <ol><li>Already educated</li><li>Package pre-selected</li><li>Confident purchase</li><li>Faster delivery</li></ol>
+            </div>
+          </div>
+          <button class="btn btn-yellow fpb-restart">&#8635; Run it again</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById('fpb'); if(!root) return;
+    var steps=[].slice.call(root.querySelectorAll('.fpb-step'));
+    var panels=[].slice.call(root.querySelectorAll('.fpb-panel'));
+    var base=699, add=0;
+    function show(i){
+      steps.forEach(function(s,idx){ s.classList.toggle('is-active',idx===i); s.classList.toggle('is-done',idx<i); });
+      panels.forEach(function(p,idx){ p.classList.toggle('is-active',idx===i); });
+      if(i===1) staggerProducts();
+    }
+    function staggerProducts(){
+      var ps=[].slice.call(root.querySelectorAll('.fpb-prod')); var d=0;
+      ps.forEach(function(x){ x.classList.remove('in'); });
+      ps.forEach(function(x){ setTimeout(function(){ x.classList.add('in'); }, d+=110); });
+    }
+    root.querySelectorAll('.fpb-pick').forEach(function(b){
+      b.addEventListener('click',function(){
+        var amt=parseInt(b.getAttribute('data-amt'));
+        if(b.classList.toggle('on')){ add+=amt; } else { add-=amt; }
+        document.getElementById('fpb-add').textContent='+$'+add+'/mo';
+        var t=document.getElementById('fpb-total'); t.textContent='$'+(base+add)+'/mo';
+        t.classList.remove('bump'); void t.offsetWidth; t.classList.add('bump');
+      });
+    });
+    steps.forEach(function(s){ s.addEventListener('click',function(){ show(parseInt(s.getAttribute('data-s'))); }); });
+    root.querySelectorAll('.fpb-next').forEach(function(b){ b.addEventListener('click',function(){ show(parseInt(b.getAttribute('data-go'))); }); });
+    root.querySelector('.fpb-restart').addEventListener('click',function(){
+      add=0; document.getElementById('fpb-add').textContent='+$0/mo'; document.getElementById('fpb-total').textContent='$699/mo';
+      root.querySelectorAll('.fpb-pick').forEach(function(x){x.classList.remove('on');});
+      show(0);
+    });
+  })();
+  </script>
+</section>'''
+
+
+def finance_penetration_roi():
+    """F&I penetration simulator — two sliders -> monthly revenue impact."""
+    return '''<section class="section section--wash">
+  <div class="wrap centered">
+    <p class="eyebrow">The opportunity</p>
+    <h2 class="h2" style="margin-bottom:8px">How much is sitting in your waiting area?</h2>
+    <p class="lede">Every educated customer is a penetration point. Move the sliders to size the monthly opportunity a self-guided experience can unlock.</p>
+  </div>
+  <div class="wrap">
+    <div class="fsim" id="fsim">
+      <div class="fsim-controls">
+        <div class="fsim-field">
+          <label>Monthly deliveries <b id="fsim-del-v">150</b></label>
+          <input type="range" id="fsim-del" min="50" max="500" step="10" value="150">
+          <div class="fsim-scale"><span>50</span><span>500</span></div>
+        </div>
+        <div class="fsim-field">
+          <label>Current product penetration <b id="fsim-pen-v">45%</b></label>
+          <input type="range" id="fsim-pen" min="20" max="80" step="1" value="45">
+          <div class="fsim-scale"><span>20%</span><span>80%</span></div>
+        </div>
+        <p class="fsim-note">Assumes a self-guided lift of ~12 penetration points at ~$540 average product gross. Directional &mdash; validate against your store.</p>
+      </div>
+      <div class="fsim-result">
+        <div class="fsim-rows">
+          <div class="fsim-row"><span>VSC revenue</span><span id="fsim-vsc">$0</span></div>
+          <div class="fsim-row"><span>GAP revenue</span><span id="fsim-gap">$0</span></div>
+          <div class="fsim-row"><span>Protection revenue</span><span id="fsim-prot">$0</span></div>
+        </div>
+        <div class="fsim-impact">
+          <div class="fsim-impact-l">Estimated monthly impact</div>
+          <div class="fsim-impact-v" id="fsim-impact">+$0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById('fsim'); if(!root) return;
+    var del=document.getElementById('fsim-del'), pen=document.getElementById('fsim-pen');
+    var LIFT=0.12, GROSS=540, mix={vsc:0.45,gap:0.20,prot:0.35};
+    function money(n){ return '$'+Math.round(n).toLocaleString(); }
+    function calc(){
+      var d=+del.value, p=+pen.value;
+      document.getElementById('fsim-del-v').textContent=d;
+      document.getElementById('fsim-pen-v').textContent=p+'%';
+      var extraUnits=d*LIFT;               // additional penetrated products/mo
+      var total=extraUnits*GROSS;
+      document.getElementById('fsim-vsc').textContent=money(total*mix.vsc);
+      document.getElementById('fsim-gap').textContent=money(total*mix.gap);
+      document.getElementById('fsim-prot').textContent=money(total*mix.prot);
+      var imp=document.getElementById('fsim-impact'); imp.textContent='+'+money(total);
+      imp.classList.remove('bump'); void imp.offsetWidth; imp.classList.add('bump');
+    }
+    del.addEventListener('input',calc); pen.addEventListener('input',calc); calc();
+  })();
+  </script>
+</section>'''
+
+
+def finance_comparison():
+    """Traditional F&I vs Bumper Finance — experience comparison (2 cards)."""
+    cards = [
+        {"name": "Bumper Finance", "badge": "Modern retailing", "highlight": True, "items": [
+            ("yes", "Customer educated before meeting F&amp;I"),
+            ("yes", "Waiting time creates engagement"),
+            ("yes", "Customers build their own package"),
+            ("yes", "Consistent presentation every time"),
+            ("yes", "Faster F&amp;I conversations"),
+            ("yes", "Full product awareness"),
+        ]},
+        {"name": "Traditional Process", "badge": "The old way", "items": [
+            ("no", "Products first seen in the finance office"),
+            ("no", "Waiting time creates friction"),
+            ("no", "Menu presented to a cold customer"),
+            ("partial", "Presentation varies by advisor"),
+            ("no", "Longer, higher-pressure transactions"),
+            ("partial", "Inconsistent product awareness"),
+        ]},
+    ]
+    disclaimer = ("Illustrative comparison of a traditional in-office F&amp;I menu process versus a self-guided, "
+                  "pre-education experience. Outcomes vary by store, staff, and process; figures elsewhere on this "
+                  "page are directional and should be validated against your numbers.")
+    return comparison_section(
+        "How it stacks up",
+        "Traditional F&amp;I vs. Bumper Finance.",
+        "The difference isn't the products &mdash; it's when the customer meets them. Education before the finance "
+        "office changes the entire conversation.",
+        cards, disclaimer,
+    )
+
+
 def build_product(p, lang):
     pp = "../"                      # product pages live one level under lang root
     ap = ap_for(lang, pp)
@@ -754,11 +1010,31 @@ def build_product(p, lang):
     elif p["slug"] == "pie":
         extra_after_capabilities = pie_dashboard_demo()
         extra_after_shots = pie_comparison()
+    elif p["slug"] == "bumper-finance":
+        extra_after_capabilities = finance_package_builder()
+        extra_after_shots = finance_comparison() + finance_penetration_roi()
     else:
         extra_after_capabilities = ""
         extra_after_shots = ""
-    html += f'''
-<section class="subhero">
+
+    if p["slug"] == "bumper-finance":
+        subhero = f'''<section class="subhero subhero--split">
+  <img class="subhero__bg" src="{ap}assets/img/hero.jpg" alt="">
+  <div class="subhero__split">
+    <div class="subhero__col">
+      <img class="subhero__logo" src="{ap}{LOGODIR}/{p.get('logo_light', p['logo'])}" alt="{p['name']}">
+      <p class="eyebrow" translate="no">{p['eyebrow']}</p>
+      <h1 class="h1">{p['hero_h']}</h1>
+      <p class="subhero__lead">{p['hero_p']}</p>
+      <div class="subhero__actions">
+        <a class="btn btn-yellow" href="{pp}book-a-demo.html">Schedule a demo &rarr;</a>
+      </div>
+    </div>
+    <div class="subhero__demo">{finance_hero_animation()}</div>
+  </div>
+</section>'''
+    else:
+        subhero = f'''<section class="subhero">
   <img class="subhero__bg" src="{ap}assets/img/hero.jpg" alt="">
   <div class="subhero__inner">
     <img class="subhero__logo" src="{ap}{LOGODIR}/{p.get('logo_light', p['logo'])}" alt="{p['name']}">
@@ -769,7 +1045,10 @@ def build_product(p, lang):
       <a class="btn btn-yellow" href="{pp}book-a-demo.html">Schedule a demo &rarr;</a>
     </div>
   </div>
-</section>
+</section>'''
+
+    html += f'''
+{subhero}
 
 <div class="crumbs"><div class="crumbs__inner">
   <a href="{pp}index.html">Home</a><span class="sep">/</span>
