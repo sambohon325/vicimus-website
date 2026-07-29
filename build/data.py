@@ -53,7 +53,7 @@ PRODUCTS = [
     {
         "slug": "pie",
         "name": "Pie",
-        "logo": "pie-dark.png",
+        "logo": "pie-compact-dark.png",
         "logo_light": "pie-light.png",
         "family": "b",
         "eyebrow": "Pie Advanced Intelligence",
