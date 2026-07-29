@@ -899,36 +899,75 @@ def inventory_hero_animation():
 
 
 def pie_hero_animation():
-    """Hero micro-animation: scattered report fragments consolidate into one
-    clean KPI answer. (Distinct from the page's GM drill-down demo.)"""
+    """Hero animation: a living "Dealership Health Monitor" that auto-plays the
+    product story on a loop \u2014 health score, a department flags for attention,
+    then Problem -> Impact -> Cause -> Action. Distinct from the page's clickable
+    GM drill-down demo (this one plays itself and is glanceable)."""
     return '''<div class="phero" id="phero">
-  <div class="phero-scatter" id="phero-scatter">
-    <span class="phero-frag" style="--x:-90px;--y:-40px;--r:-8deg">Sales.xlsx</span>
-    <span class="phero-frag" style="--x:70px;--y:-56px;--r:6deg">Service DMS</span>
-    <span class="phero-frag" style="--x:-70px;--y:44px;--r:5deg">Parts report</span>
-    <span class="phero-frag" style="--x:96px;--y:38px;--r:-6deg">F&amp;I export</span>
-    <span class="phero-frag" style="--x:6px;--y:70px;--r:9deg">Inventory feed</span>
+  <div class="phero-head">
+    <div class="phero-head-l">Dealership health</div>
+    <div class="phero-score"><span id="phero-score">0</span><small>/100</small></div>
   </div>
-  <div class="phero-answer" id="phero-answer">
-    <div class="phero-answer-badge">&#10022; One answer</div>
-    <div class="phero-answer-h">Store health</div>
-    <div class="phero-answer-v" id="phero-score">0</div>
-    <div class="phero-answer-sub">consolidated performance index</div>
+  <div class="phero-depts">
+    <div class="phero-dept" data-d="sales"><span class="phero-dot ok"></span>Sales<b class="phero-tag ok">Strong</b></div>
+    <div class="phero-dept" data-d="service"><span class="phero-dot ok"></span>Service<b class="phero-tag ok">Healthy</b></div>
+    <div class="phero-dept" data-d="inventory"><span class="phero-dot ok"></span>Inventory<b class="phero-tag ok">Healthy</b></div>
+    <div class="phero-dept" data-d="parts"><span class="phero-dot ok"></span>Parts<b class="phero-tag ok">Healthy</b></div>
+    <div class="phero-dept" data-d="fi"><span class="phero-dot ok"></span>F&amp;I<b class="phero-tag ok">Strong</b></div>
+  </div>
+  <div class="phero-insight" id="phero-insight">
+    <div class="phero-ins-step" data-k="0">
+      <div class="phero-ins-flag">&#9888; Service profitability declining</div>
+    </div>
+    <div class="phero-ins-step" data-k="1">
+      <div class="phero-ins-label">Impact</div>
+      <div class="phero-ins-big phero-neg">&minus;$18,400<small>/mo</small></div>
+      <div class="phero-ins-sub">CPRO down 6%</div>
+    </div>
+    <div class="phero-ins-step" data-k="2">
+      <div class="phero-ins-label">Root cause</div>
+      <div class="phero-ins-big">Advisor utilization</div>
+      <div class="phero-ins-sub phero-neg">down 11%</div>
+    </div>
+    <div class="phero-ins-step" data-k="3">
+      <div class="phero-ins-label phero-pos">&#10022; Recommended focus</div>
+      <div class="phero-ins-big">Service advisor team</div>
+    </div>
   </div>
   <script>
   (function(){
-    var root=document.getElementById('phero'); if(!root) return;
-    var scatter=document.getElementById('phero-scatter'), answer=document.getElementById('phero-answer');
-    var scoreEl=document.getElementById('phero-score'), seen=false;
-    function count(to){ var t0=performance.now(); (function tick(now){ var k=Math.min(1,(now-t0)/1000);
+    var root=document.getElementById("phero"); if(!root) return;
+    var scoreEl=document.getElementById("phero-score");
+    var svc=root.querySelector(\'.phero-dept[data-d="service"]\');
+    var steps=[].slice.call(root.querySelectorAll(".phero-ins-step"));
+    var seen=false, timers=[];
+    function clearAll(){ timers.forEach(clearTimeout); timers=[]; }
+    function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
+    function count(to){ var t0=performance.now(); (function tick(now){ var k=Math.min(1,(now-t0)/1100);
       scoreEl.textContent=Math.round(to*(0.5-Math.cos(k*Math.PI)/2)); if(k<1)requestAnimationFrame(tick); })(performance.now()); }
-    function run(){
-      scatter.classList.remove('merged'); answer.classList.remove('on'); scoreEl.textContent='0';
-      setTimeout(function(){ scatter.classList.add('merged'); }, 700);
-      setTimeout(function(){ answer.classList.add('on'); count(87); }, 1500);
-      setTimeout(run, 4600);
+    function reset(){
+      svc.classList.remove("warn");
+      svc.querySelector(".phero-dot").className="phero-dot ok";
+      svc.querySelector(".phero-tag").className="phero-tag ok"; svc.querySelector(".phero-tag").textContent="Healthy";
+      steps.forEach(function(s){ s.classList.remove("on"); });
+      root.classList.remove("expanded");
     }
-    if('IntersectionObserver' in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;run();}});},{threshold:.3}).observe(root); } else run();
+    function run(){
+      clearAll(); reset(); count(92);
+      // service flags for attention
+      at(1600,function(){
+        svc.classList.add("warn");
+        svc.querySelector(".phero-dot").className="phero-dot warn";
+        var t=svc.querySelector(".phero-tag"); t.className="phero-tag warn"; t.textContent="Attention";
+      });
+      // Problem -> Impact -> Cause -> Action
+      at(2400,function(){ root.classList.add("expanded"); steps[0].classList.add("on"); });
+      at(3500,function(){ steps[1].classList.add("on"); });
+      at(4700,function(){ steps[2].classList.add("on"); });
+      at(5900,function(){ steps[3].classList.add("on"); });
+      at(9000, run); // loop
+    }
+    if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;run();}});},{threshold:.3}).observe(root); } else run();
   })();
   </script>
 </div>'''
