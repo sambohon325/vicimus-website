@@ -1187,11 +1187,22 @@ button.btn{margin:0;background-image:none}
 /* ============================================================
    ACCESSORY ACCELERATOR — hero animation + demo
    ============================================================ */
-/* shared car silhouette */
-.acc-car{width:100%;height:auto;color:rgba(255,255,255,.85);display:block}
+/* shared car silhouette (real Wrangler) */
+.acc-carwrap{position:relative;width:100%;max-width:340px;margin:0 auto;aspect-ratio:754/396}
+.acc-car{width:100%;height:100%;color:rgba(255,255,255,.9);display:block}
 .accd-vehicle .acc-car{color:var(--ink)}
-.acc-mk{opacity:0;transform:translateY(4px);transition:opacity .4s ease,transform .4s ease}
+.acc-marks{position:absolute;inset:0;pointer-events:none}
+.acc-mk{position:absolute;opacity:0;transform:translateY(4px);transition:opacity .4s ease,transform .4s ease}
 .acc-mk.on{opacity:1;transform:translateY(0)}
+/* marker positions over the wrangler (tuned to traced geometry) */
+.acc-mk[data-mk="roof"]{left:23%;top:11%;width:34%;height:6px;border-radius:4px;background:var(--teal);box-shadow:0 0 0 2px rgba(0,0,0,.15)}
+.acc-mk[data-mk="boards"]{left:24%;top:66%;width:44%;height:7px;border-radius:4px;background:var(--yellow)}
+.acc-mk[data-mk="wheels"]{left:0;top:0;width:100%;height:100%}
+.acc-mk[data-mk="wheels"] i{position:absolute;width:13%;aspect-ratio:1;border:4px solid var(--yellow);border-radius:50%;box-sizing:border-box}
+.acc-mk[data-mk="wheels"] i:first-child{left:20.5%;top:60%}
+.acc-mk[data-mk="wheels"] i:last-child{left:66%;top:60%}
+.acc-mk[data-mk="lift"]{left:20%;top:83%;width:50%;height:4px;border-radius:3px;background:var(--teal)}
+.acc-mk[data-mk="guards"]{left:60%;top:52%;width:7%;height:15%;border-radius:3px;background:rgba(251,207,9,.85)}
 /* hero */
 .ahero{display:grid;gap:18px}
 .ahero-vehicle{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:20px 20px 14px;backdrop-filter:blur(4px)}
