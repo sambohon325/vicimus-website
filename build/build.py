@@ -727,6 +727,142 @@ def inventory_comparison():
     )
 
 
+def retention_hero_animation():
+    """Hero micro-animation: a customer about to churn, re-engaged and retained,
+    with lifetime value ticking up. (Distinct from the page's lifecycle demo.)"""
+    return '''<div class="rhero" id="rhero">
+  <div class="rhero-status">
+    <div class="rhero-avatar">&#128100;</div>
+    <div class="rhero-stat">
+      <div class="rhero-state rhero-state--risk" id="rhero-state">At risk of leaving</div>
+      <div class="rhero-sub" id="rhero-sub">No service visit in 14 months</div>
+    </div>
+    <div class="rhero-pulse" id="rhero-pulse"></div>
+  </div>
+  <div class="rhero-flow">
+    <div class="rhero-chip" data-step="1">Intent detected</div>
+    <div class="rhero-chip" data-step="2">Smart outreach sent</div>
+    <div class="rhero-chip" data-step="3">Customer re-engaged</div>
+  </div>
+  <div class="rhero-ltv">
+    <div class="rhero-ltv-l">Customer lifetime value</div>
+    <div class="rhero-ltv-v" id="rhero-ltv">$0</div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById('rhero'); if(!root) return;
+    var chips=[].slice.call(root.querySelectorAll('.rhero-chip'));
+    var state=document.getElementById('rhero-state'), sub=document.getElementById('rhero-sub');
+    var ltvEl=document.getElementById('rhero-ltv'), pulse=document.getElementById('rhero-pulse');
+    var seen=false;
+    function count(to,cb){ var t0=performance.now(); (function tick(now){ var k=Math.min(1,(now-t0)/900);
+      ltvEl.textContent='$'+Math.round(to*(0.5-Math.cos(k*Math.PI)/2)).toLocaleString(); if(k<1)requestAnimationFrame(tick); else if(cb)cb(); })(performance.now()); }
+    function run(){
+      chips.forEach(function(c){c.classList.remove('on');});
+      state.className='rhero-state rhero-state--risk'; state.textContent='At risk of leaving';
+      sub.textContent='No service visit in 14 months'; pulse.className='rhero-pulse'; ltvEl.textContent='$0';
+      var d=700;
+      chips.forEach(function(c,i){ setTimeout(function(){ c.classList.add('on'); }, d+i*760); });
+      setTimeout(function(){
+        state.className='rhero-state rhero-state--won'; state.textContent='Retained';
+        sub.textContent='Booked service + next vehicle'; pulse.className='rhero-pulse on';
+        count(38400);
+      }, d+3*760);
+      setTimeout(run, d+3*760+3200);
+    }
+    if('IntersectionObserver' in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;run();}});},{threshold:.3}).observe(root); } else run();
+  })();
+  </script>
+</div>'''
+
+
+def inventory_hero_animation():
+    """Hero micro-animation: an inventory tile auto-morphs into a Facebook/Google
+    ad, looping across vehicles. (Distinct from the page's campaign builder.)"""
+    return '''<div class="ihero" id="ihero">
+  <div class="ihero-stage">
+    <div class="ihero-inv" id="ihero-inv">
+      <div class="ihero-inv-badge">Live inventory</div>
+      <div class="ihero-inv-name" id="ihero-name">2024 Ford F-150</div>
+      <div class="ihero-inv-vin" id="ihero-vin">VIN &middot; 1FTFW1E58</div>
+    </div>
+    <div class="ihero-arrow">&rarr;</div>
+    <div class="ihero-ad" id="ihero-ad">
+      <div class="ihero-ad-tag" id="ihero-tag">Facebook</div>
+      <div class="ihero-ad-img"><span class="cb-ico-car"></span></div>
+      <div class="ihero-ad-body">
+        <div class="ihero-ad-t" id="ihero-ad-name">2024 Ford F-150</div>
+        <div class="ihero-ad-p" id="ihero-ad-price">$599/mo</div>
+      </div>
+    </div>
+  </div>
+  <div class="ihero-cap">Every vehicle, auto-built into ads &mdash; synced to your live stock.</div>
+  <script>
+  (function(){
+    var root=document.getElementById('ihero'); if(!root) return;
+    var cars=[
+      {n:'2024 Ford F-150', vin:'1FTFW1E58', p:'$599/mo', plat:'Facebook'},
+      {n:'2023 Chevy Tahoe', vin:'1GNSKBKC7', p:'$679/mo', plat:'Google'},
+      {n:'2025 Honda Civic', vin:'2HGFE2F5', p:'$329/mo', plat:'Facebook'}
+    ];
+    var ad=document.getElementById('ihero-ad'), inv=document.getElementById('ihero-inv');
+    var i=0, seen=false;
+    function set(c){
+      document.getElementById('ihero-name').textContent=c.n;
+      document.getElementById('ihero-vin').textContent='VIN \u00b7 '+c.vin;
+      document.getElementById('ihero-ad-name').textContent=c.n;
+      document.getElementById('ihero-ad-price').textContent=c.p;
+      var tag=document.getElementById('ihero-tag'); tag.textContent=c.plat;
+      tag.className='ihero-ad-tag '+(c.plat==='Google'?'is-google':'is-fb');
+    }
+    function cycle(){
+      var c=cars[i%cars.length]; set(c);
+      inv.classList.remove('in'); ad.classList.remove('in');
+      requestAnimationFrame(function(){ inv.classList.add('in'); setTimeout(function(){ ad.classList.add('in'); }, 550); });
+      i++; setTimeout(cycle, 2600);
+    }
+    if('IntersectionObserver' in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;cycle();}});},{threshold:.3}).observe(root); } else cycle();
+  })();
+  </script>
+</div>'''
+
+
+def pie_hero_animation():
+    """Hero micro-animation: scattered report fragments consolidate into one
+    clean KPI answer. (Distinct from the page's GM drill-down demo.)"""
+    return '''<div class="phero" id="phero">
+  <div class="phero-scatter" id="phero-scatter">
+    <span class="phero-frag" style="--x:-90px;--y:-40px;--r:-8deg">Sales.xlsx</span>
+    <span class="phero-frag" style="--x:70px;--y:-56px;--r:6deg">Service DMS</span>
+    <span class="phero-frag" style="--x:-70px;--y:44px;--r:5deg">Parts report</span>
+    <span class="phero-frag" style="--x:96px;--y:38px;--r:-6deg">F&amp;I export</span>
+    <span class="phero-frag" style="--x:6px;--y:70px;--r:9deg">Inventory feed</span>
+  </div>
+  <div class="phero-answer" id="phero-answer">
+    <div class="phero-answer-badge">&#10022; One answer</div>
+    <div class="phero-answer-h">Store health</div>
+    <div class="phero-answer-v" id="phero-score">0</div>
+    <div class="phero-answer-sub">consolidated performance index</div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById('phero'); if(!root) return;
+    var scatter=document.getElementById('phero-scatter'), answer=document.getElementById('phero-answer');
+    var scoreEl=document.getElementById('phero-score'), seen=false;
+    function count(to){ var t0=performance.now(); (function tick(now){ var k=Math.min(1,(now-t0)/1000);
+      scoreEl.textContent=Math.round(to*(0.5-Math.cos(k*Math.PI)/2)); if(k<1)requestAnimationFrame(tick); })(performance.now()); }
+    function run(){
+      scatter.classList.remove('merged'); answer.classList.remove('on'); scoreEl.textContent='0';
+      setTimeout(function(){ scatter.classList.add('merged'); }, 700);
+      setTimeout(function(){ answer.classList.add('on'); count(87); }, 1500);
+      setTimeout(run, 4600);
+    }
+    if('IntersectionObserver' in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;run();}});},{threshold:.3}).observe(root); } else run();
+  })();
+  </script>
+</div>'''
+
+
 def finance_hero_animation():
     """Before/After waiting-room animation for the Finance hero right column."""
     return '''<div class="fhero" id="fhero">
@@ -952,33 +1088,39 @@ def finance_penetration_roi():
 
 
 def finance_comparison():
-    """Traditional F&I vs Bumper Finance — experience comparison (2 cards)."""
-    cards = [
-        {"name": "Bumper Finance", "badge": "Modern retailing", "highlight": True, "items": [
-            ("yes", "Customer educated before meeting F&amp;I"),
-            ("yes", "Waiting time creates engagement"),
-            ("yes", "Customers build their own package"),
-            ("yes", "Consistent presentation every time"),
-            ("yes", "Faster F&amp;I conversations"),
-            ("yes", "Full product awareness"),
-        ]},
-        {"name": "Traditional Process", "badge": "The old way", "items": [
-            ("no", "Products first seen in the finance office"),
-            ("no", "Waiting time creates friction"),
-            ("no", "Menu presented to a cold customer"),
-            ("partial", "Presentation varies by advisor"),
-            ("no", "Longer, higher-pressure transactions"),
-            ("partial", "Inconsistent product awareness"),
-        ]},
+    """Bumper Finance vs Darwin vs MaximTrak — capability matrix in the shared cards."""
+    rows = [
+        ("Self-guided product education", ("yes",), ("yes",), ("yes",)),
+        ("Product videos &amp; explanations", ("yes",), ("yes",), ("yes",)),
+        ("Customer package builder", ("yes",), ("yes",), ("yes",)),
+        ("Mobile-friendly experience", ("yes",), ("yes",), ("yes",)),
+        ("Payment-impact visualization", ("yes",), ("yes",), ("yes",)),
+        ("Digital product presentation", ("yes",), ("yes",), ("yes",)),
+        ("Waiting-room engagement", ("yes",), ("partial",), ("partial",)),
+        ("Customer product pre-selection", ("yes",), ("yes",), ("yes",)),
+        ("Dealer branding &amp; customization", ("yes",), ("yes",), ("yes",)),
+        ("Real-time customer insights", ("yes",), ("partial",), ("partial",)),
+        ("Seamless F&amp;I handoff", ("yes",), ("yes",), ("yes",)),
+        ("Dealer-focused support", ("yes",), ("partial",), ("partial",)),
     ]
-    disclaimer = ("Illustrative comparison of a traditional in-office F&amp;I menu process versus a self-guided, "
-                  "pre-education experience. Outcomes vary by store, staff, and process; figures elsewhere on this "
-                  "page are directional and should be validated against your numbers.")
+
+    def col(idx):
+        return [(row[idx + 1][0], row[0], row[idx + 1][1] if len(row[idx + 1]) > 1 else "") for row in rows]
+
+    cards = [
+        {"name": "Bumper Finance", "badge": "Modern retailing", "highlight": True, "items": col(0)},
+        {"name": "Darwin", "badge": "Digital F&amp;I", "items": col(1)},
+        {"name": "MaximTrak", "badge": "F&amp;I menu", "items": col(2)},
+    ]
+    disclaimer = ("Comparison reflects Vicimus's understanding of publicly available information about Darwin "
+                  "Automotive and MaximTrak as of 2026, prepared in good faith. Competitor offerings change and "
+                  "may vary by plan, region, and configuration; product and company names are trademarks of their "
+                  "respective owners, used here for identification only. Verify current capabilities with each vendor.")
     return comparison_section(
         "How it stacks up",
-        "Traditional F&amp;I vs. Bumper Finance.",
-        "The difference isn't the products &mdash; it's when the customer meets them. Education before the finance "
-        "office changes the entire conversation.",
+        "Bumper Finance vs. the field.",
+        "The digital F&amp;I basics are table stakes. Where Bumper pulls ahead is turning waiting-room time into "
+        "engagement, surfacing real-time customer insight, and backing it with dealer-focused support.",
         cards, disclaimer,
     )
 
@@ -1017,7 +1159,13 @@ def build_product(p, lang):
         extra_after_capabilities = ""
         extra_after_shots = ""
 
-    if p["slug"] == "bumper-finance":
+    HERO_DEMOS = {
+        "bumper-finance": finance_hero_animation,
+        "bumper-retention": retention_hero_animation,
+        "bumper-inventory-ads": inventory_hero_animation,
+        "pie": pie_hero_animation,
+    }
+    if p["slug"] in HERO_DEMOS:
         subhero = f'''<section class="subhero subhero--split">
   <img class="subhero__bg" src="{ap}assets/img/hero.jpg" alt="">
   <div class="subhero__split">
@@ -1030,7 +1178,7 @@ def build_product(p, lang):
         <a class="btn btn-yellow" href="{pp}book-a-demo.html">Schedule a demo &rarr;</a>
       </div>
     </div>
-    <div class="subhero__demo">{finance_hero_animation()}</div>
+    <div class="subhero__demo">{HERO_DEMOS[p["slug"]]()}</div>
   </div>
 </section>'''
     else:

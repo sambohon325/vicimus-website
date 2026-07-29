@@ -93,16 +93,49 @@
     </div>
   </div>
 </header>
-<section class="subhero">
+<section class="subhero subhero--split">
   <img class="subhero__bg" src="../../assets/img/hero.jpg" alt="">
-  <div class="subhero__inner">
-    <img class="subhero__logo" src="../../assets/logos/pie-light.png" alt="Pie">
-    <p class="eyebrow" translate="no">Pie Advanced Intelligence</p>
-    <h1 class="h1">Stop digging through reports. Start getting answers.</h1>
-    <p class="subhero__lead">Pie consolidates sales, service, parts, inventory, and financial performance into one intelligent view — giving leadership a clean, high-level picture of what's happening now and where attention is needed next.</p>
-    <div class="subhero__actions">
-      <a class="btn btn-yellow" href="../book-a-demo.html">Schedule a demo &rarr;</a>
+  <div class="subhero__split">
+    <div class="subhero__col">
+      <img class="subhero__logo" src="../../assets/logos/pie-light.png" alt="Pie">
+      <p class="eyebrow" translate="no">Pie Advanced Intelligence</p>
+      <h1 class="h1">Stop digging through reports. Start getting answers.</h1>
+      <p class="subhero__lead">Pie consolidates sales, service, parts, inventory, and financial performance into one intelligent view — giving leadership a clean, high-level picture of what's happening now and where attention is needed next.</p>
+      <div class="subhero__actions">
+        <a class="btn btn-yellow" href="../book-a-demo.html">Schedule a demo &rarr;</a>
+      </div>
     </div>
+    <div class="subhero__demo"><div class="phero" id="phero">
+  <div class="phero-scatter" id="phero-scatter">
+    <span class="phero-frag" style="--x:-90px;--y:-40px;--r:-8deg">Sales.xlsx</span>
+    <span class="phero-frag" style="--x:70px;--y:-56px;--r:6deg">Service DMS</span>
+    <span class="phero-frag" style="--x:-70px;--y:44px;--r:5deg">Parts report</span>
+    <span class="phero-frag" style="--x:96px;--y:38px;--r:-6deg">F&amp;I export</span>
+    <span class="phero-frag" style="--x:6px;--y:70px;--r:9deg">Inventory feed</span>
+  </div>
+  <div class="phero-answer" id="phero-answer">
+    <div class="phero-answer-badge">&#10022; One answer</div>
+    <div class="phero-answer-h">Store health</div>
+    <div class="phero-answer-v" id="phero-score">0</div>
+    <div class="phero-answer-sub">consolidated performance index</div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById('phero'); if(!root) return;
+    var scatter=document.getElementById('phero-scatter'), answer=document.getElementById('phero-answer');
+    var scoreEl=document.getElementById('phero-score'), seen=false;
+    function count(to){ var t0=performance.now(); (function tick(now){ var k=Math.min(1,(now-t0)/1000);
+      scoreEl.textContent=Math.round(to*(0.5-Math.cos(k*Math.PI)/2)); if(k<1)requestAnimationFrame(tick); })(performance.now()); }
+    function run(){
+      scatter.classList.remove('merged'); answer.classList.remove('on'); scoreEl.textContent='0';
+      setTimeout(function(){ scatter.classList.add('merged'); }, 700);
+      setTimeout(function(){ answer.classList.add('on'); count(87); }, 1500);
+      setTimeout(run, 4600);
+    }
+    if('IntersectionObserver' in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;run();}});},{threshold:.3}).observe(root); } else run();
+  })();
+  </script>
+</div></div>
   </div>
 </section>
 

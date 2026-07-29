@@ -1061,3 +1061,63 @@ button.btn{margin:0;background-image:none}
 .fsim-impact-l{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6)}
 .fsim-impact-v{font-family:var(--display);font-style:italic;font-weight:800;font-size:3rem;color:var(--yellow);line-height:1.1;font-variant-numeric:tabular-nums}
 .fsim-impact-v.bump{animation:fpb-bump .3s ease}
+
+/* ============================================================
+   HERO MICRO-ANIMATIONS (Retention, Inventory Ads, Pie)
+   Shared look with the Finance before/after: glassy cards on
+   the dark hero, teal/yellow accents, looping, glanceable.
+   ============================================================ */
+.rhero,.ihero,.phero{color:#fff}
+
+/* --- Retention: at-risk -> retained --- */
+.rhero-status{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:20px;position:relative;overflow:hidden;backdrop-filter:blur(4px)}
+.rhero-avatar{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center;font-size:1.7rem;flex:none}
+.rhero-stat{flex:1;min-width:0}
+.rhero-state{font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;font-size:1.15rem;line-height:1.05;transition:color .4s}
+.rhero-state--risk{color:#F6957F} .rhero-state--won{color:var(--teal)}
+.rhero-sub{font-size:.82rem;color:rgba(255,255,255,.65);margin-top:3px;transition:opacity .3s}
+.rhero-pulse{width:12px;height:12px;border-radius:50%;background:#F6957F;flex:none;box-shadow:0 0 0 0 rgba(246,149,127,.6);animation:rhero-ping 1.4s infinite}
+.rhero-pulse.on{background:var(--teal);box-shadow:0 0 0 0 rgba(62,189,196,.6);animation:rhero-ping-on 1.4s infinite}
+@keyframes rhero-ping{0%{box-shadow:0 0 0 0 rgba(246,149,127,.5)}70%{box-shadow:0 0 0 12px rgba(246,149,127,0)}100%{box-shadow:0 0 0 0 rgba(246,149,127,0)}}
+@keyframes rhero-ping-on{0%{box-shadow:0 0 0 0 rgba(62,189,196,.5)}70%{box-shadow:0 0 0 12px rgba(62,189,196,0)}100%{box-shadow:0 0 0 0 rgba(62,189,196,0)}}
+.rhero-flow{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+.rhero-chip{align-self:flex-start;font-size:.82rem;font-weight:600;color:rgba(255,255,255,.85);background:rgba(62,189,196,.14);border:1px solid rgba(62,189,196,.3);border-radius:20px;padding:7px 16px;opacity:0;transform:translateX(-12px);transition:opacity .4s,transform .4s}
+.rhero-chip.on{opacity:1;transform:translateX(0)}
+.rhero-chip::before{content:"\2713  ";color:var(--teal);font-weight:700}
+.rhero-ltv{background:rgba(251,207,9,.1);border:1px solid rgba(251,207,9,.35);border-radius:14px;padding:18px 20px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.rhero-ltv-l{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.rhero-ltv-v{font-family:var(--display);font-style:italic;font-weight:800;font-size:2.1rem;color:var(--yellow);font-variant-numeric:tabular-nums}
+
+/* --- Inventory: tile -> ad morph --- */
+.ihero-stage{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px}
+@media(max-width:520px){.ihero-stage{grid-template-columns:1fr;gap:10px}.ihero-arrow{transform:rotate(90deg)}}
+.ihero-inv{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:18px;opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s;backdrop-filter:blur(4px)}
+.ihero-inv.in{opacity:1;transform:translateY(0)}
+.ihero-inv-badge{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
+.ihero-inv-name{font-weight:700;font-size:1rem;color:#fff}
+.ihero-inv-vin{font-size:.76rem;color:rgba(255,255,255,.55);margin-top:4px;font-variant-numeric:tabular-nums}
+.ihero-arrow{color:rgba(255,255,255,.5);font-size:1.5rem;font-weight:700}
+.ihero-ad{background:#fff;border-radius:12px;overflow:hidden;opacity:0;transform:translateY(10px) scale(.96);transition:opacity .5s,transform .5s}
+.ihero-ad.in{opacity:1;transform:translateY(0) scale(1)}
+.ihero-ad-tag{font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;color:#fff}
+.ihero-ad-tag.is-fb{background:#1877F2} .ihero-ad-tag.is-google{background:#34A853}
+.ihero-ad-img{height:64px;background:linear-gradient(135deg,#e6eef7,#d3e0ef);display:grid;place-items:center}
+.ihero-ad-body{padding:10px 14px}
+.ihero-ad-t{font-weight:700;font-size:.84rem;color:var(--ink)}
+.ihero-ad-p{font-family:var(--display);font-style:italic;font-weight:800;color:var(--blue);font-size:1.05rem;margin-top:2px}
+.ihero-cap{text-align:center;font-size:.84rem;color:rgba(255,255,255,.7);margin-top:16px;line-height:1.4}
+
+/* --- Pie: scattered reports -> one answer --- */
+.phero{position:relative;min-height:300px;display:flex;align-items:center;justify-content:center}
+.phero-scatter{position:absolute;inset:0}
+.phero-frag{position:absolute;top:50%;left:50%;font-size:.78rem;font-weight:600;color:rgba(255,255,255,.8);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:8px 14px;white-space:nowrap;
+  transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) rotate(var(--r));
+  transition:transform .8s cubic-bezier(.5,0,.2,1),opacity .6s}
+.phero-scatter.merged .phero-frag{transform:translate(-50%,-50%) rotate(0);opacity:0}
+.phero-answer{position:relative;z-index:2;background:var(--blue-deep);border:1px solid rgba(62,189,196,.4);border-radius:16px;padding:28px 34px;text-align:center;opacity:0;transform:scale(.9);transition:opacity .5s,transform .5s;box-shadow:0 14px 40px rgba(0,0,0,.3)}
+.phero-answer.on{opacity:1;transform:scale(1)}
+.phero-answer::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--teal),var(--yellow));border-radius:16px 16px 0 0}
+.phero-answer-badge{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
+.phero-answer-h{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.92rem;color:rgba(255,255,255,.85)}
+.phero-answer-v{font-family:var(--display);font-style:italic;font-weight:800;font-size:3.4rem;color:var(--yellow);line-height:1.05;font-variant-numeric:tabular-nums}
+.phero-answer-sub{font-size:.74rem;color:rgba(255,255,255,.6)}

@@ -93,16 +93,62 @@
     </div>
   </div>
 </header>
-<section class="subhero">
+<section class="subhero subhero--split">
   <img class="subhero__bg" src="../assets/img/hero.jpg" alt="">
-  <div class="subhero__inner">
-    <img class="subhero__logo" src="../assets/logos/bumper.svg" alt="Bumper Retention">
-    <p class="eyebrow" translate="no">The Bumper Platform</p>
-    <h1 class="h1">Data-driven retention marketing that keeps your customers yours.</h1>
-    <p class="subhero__lead">Pick from a library of campaigns to reach new and existing customers through direct mail, email, SMS, and ringless voicemail — intelligently automating your customer lifecycle across every department.</p>
-    <div class="subhero__actions">
-      <a class="btn btn-yellow" href="../book-a-demo.html">Schedule a demo &rarr;</a>
+  <div class="subhero__split">
+    <div class="subhero__col">
+      <img class="subhero__logo" src="../assets/logos/bumper.svg" alt="Bumper Retention">
+      <p class="eyebrow" translate="no">The Bumper Platform</p>
+      <h1 class="h1">Data-driven retention marketing that keeps your customers yours.</h1>
+      <p class="subhero__lead">Pick from a library of campaigns to reach new and existing customers through direct mail, email, SMS, and ringless voicemail — intelligently automating your customer lifecycle across every department.</p>
+      <div class="subhero__actions">
+        <a class="btn btn-yellow" href="../book-a-demo.html">Schedule a demo &rarr;</a>
+      </div>
     </div>
+    <div class="subhero__demo"><div class="rhero" id="rhero">
+  <div class="rhero-status">
+    <div class="rhero-avatar">&#128100;</div>
+    <div class="rhero-stat">
+      <div class="rhero-state rhero-state--risk" id="rhero-state">At risk of leaving</div>
+      <div class="rhero-sub" id="rhero-sub">No service visit in 14 months</div>
+    </div>
+    <div class="rhero-pulse" id="rhero-pulse"></div>
+  </div>
+  <div class="rhero-flow">
+    <div class="rhero-chip" data-step="1">Intent detected</div>
+    <div class="rhero-chip" data-step="2">Smart outreach sent</div>
+    <div class="rhero-chip" data-step="3">Customer re-engaged</div>
+  </div>
+  <div class="rhero-ltv">
+    <div class="rhero-ltv-l">Customer lifetime value</div>
+    <div class="rhero-ltv-v" id="rhero-ltv">$0</div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById('rhero'); if(!root) return;
+    var chips=[].slice.call(root.querySelectorAll('.rhero-chip'));
+    var state=document.getElementById('rhero-state'), sub=document.getElementById('rhero-sub');
+    var ltvEl=document.getElementById('rhero-ltv'), pulse=document.getElementById('rhero-pulse');
+    var seen=false;
+    function count(to,cb){ var t0=performance.now(); (function tick(now){ var k=Math.min(1,(now-t0)/900);
+      ltvEl.textContent='$'+Math.round(to*(0.5-Math.cos(k*Math.PI)/2)).toLocaleString(); if(k<1)requestAnimationFrame(tick); else if(cb)cb(); })(performance.now()); }
+    function run(){
+      chips.forEach(function(c){c.classList.remove('on');});
+      state.className='rhero-state rhero-state--risk'; state.textContent='At risk of leaving';
+      sub.textContent='No service visit in 14 months'; pulse.className='rhero-pulse'; ltvEl.textContent='$0';
+      var d=700;
+      chips.forEach(function(c,i){ setTimeout(function(){ c.classList.add('on'); }, d+i*760); });
+      setTimeout(function(){
+        state.className='rhero-state rhero-state--won'; state.textContent='Retained';
+        sub.textContent='Booked service + next vehicle'; pulse.className='rhero-pulse on';
+        count(38400);
+      }, d+3*760);
+      setTimeout(run, d+3*760+3200);
+    }
+    if('IntersectionObserver' in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;run();}});},{threshold:.3}).observe(root); } else run();
+  })();
+  </script>
+</div></div>
   </div>
 </section>
 
