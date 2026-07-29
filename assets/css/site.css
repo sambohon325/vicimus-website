@@ -259,6 +259,8 @@ button.btn{margin:0;background-image:none}
 .product.fam-r{border-top-color:var(--red)}
 .product:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(40,40,40,.10)}
 .product__logo{height:26px;margin-bottom:20px;display:flex;align-items:center}
+/* Pie uses the full lockup (with tagline) — give it a bit more height to stay legible */
+.product[href*="pie"] .product__logo{height:40px}
 .product__logo img{height:100%;width:auto}
 .product__name{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.86rem;margin:0 0 9px;color:var(--ink)}
 .product p{margin:0;font-size:.78rem;line-height:1.5;color:var(--muted)}
@@ -1200,8 +1202,6 @@ button.btn{margin:0;background-image:none}
 /* hero */
 .ahero{display:grid;gap:18px}
 .ahero-vehicle{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:20px 20px 14px;backdrop-filter:blur(4px)}
-/* translucent white panel behind the hero Jeep so the dark line-art reads */
-.ahero-vehicle .acc-carwrap::before{content:"";position:absolute;left:-4%;right:-4%;top:2%;bottom:2%;background:rgba(255,255,255,.82);border-radius:14px;z-index:0}
 .ahero-vehicle .acc-jeep{z-index:1}
 .ahero-name{text-align:center;font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.9rem;color:#fff;margin-top:6px}
 .ahero-tally{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:20px 22px;backdrop-filter:blur(4px)}
