@@ -963,7 +963,7 @@ button.btn{margin:0;background-image:none}
 .subhero__col .subhero__logo{margin:0 0 18px}
 .subhero__col .eyebrow{justify-content:flex-start}
 .subhero__col .subhero__actions{justify-content:flex-start}
-.subhero__demo{width:100%}
+.subhero__demo{width:100%;align-self:start;display:flex;align-items:flex-start;min-height:460px}
 
 .fhero{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media(max-width:520px){.fhero{grid-template-columns:1fr}}
@@ -1114,10 +1114,10 @@ button.btn{margin:0;background-image:none}
 .phero-score{font-family:var(--display);font-style:italic;font-weight:800;font-size:2.6rem;color:var(--teal);line-height:1;font-variant-numeric:tabular-nums}
 .phero-score small{font-size:1rem;color:rgba(255,255,255,.5);font-weight:600}
 /* fixed-height stage; the two panels share the same space and crossfade */
-.phero-body{position:relative;height:320px;margin-top:16px}
-.phero-panel{position:absolute;inset:0;opacity:0;transform:translateY(6px);pointer-events:none;transition:opacity .45s ease,transform .45s ease}
-.phero-panel.is-active{opacity:1;transform:translateY(0);pointer-events:auto}
-.phero-depts{display:flex;flex-direction:column;gap:2px;justify-content:center}
+.phero-body{position:relative;margin-top:16px;transition:height .5s cubic-bezier(.4,0,.2,1)}
+.phero-panel{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(6px);pointer-events:none;transition:opacity .45s ease,transform .45s ease}
+.phero-panel.is-active{position:relative;opacity:1;transform:translateY(0);pointer-events:auto}
+.phero-depts{display:flex;flex-direction:column;gap:2px}
 .phero-dept{display:flex;align-items:center;gap:10px;font-size:.9rem;color:#fff;padding:9px 4px;border-radius:8px;transition:background .3s}
 .phero-dept.warn{background:rgba(251,207,9,.12)}
 .phero-dot{width:9px;height:9px;border-radius:50%;flex:none;transition:background .3s}

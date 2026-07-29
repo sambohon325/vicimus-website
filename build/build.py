@@ -947,6 +947,8 @@ def pie_hero_animation():
     var seen=false, timers=[];
     function clearAll(){ timers.forEach(clearTimeout); timers=[]; }
     function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
+    var body=root.querySelector(".phero-body");
+    function fit(panel){ if(body && panel) body.style.height=panel.scrollHeight+"px"; }
     function count(to){ var t0=performance.now(); (function tick(now){ var k=Math.min(1,(now-t0)/1100);
       scoreEl.textContent=Math.round(to*(0.5-Math.cos(k*Math.PI)/2)); if(k<1)requestAnimationFrame(tick); })(performance.now()); }
     function reset(){
@@ -955,6 +957,7 @@ def pie_hero_animation():
       var t=svc.querySelector(".phero-tag"); t.className="phero-tag ok"; t.textContent="Healthy";
       steps.forEach(function(s){ s.classList.remove("on"); });
       diag.classList.remove("is-active"); depts.classList.add("is-active");
+      fit(depts);
     }
     function run(){
       clearAll(); reset(); count(92);
@@ -964,8 +967,8 @@ def pie_hero_animation():
         svc.querySelector(".phero-dot").className="phero-dot warn";
         var t=svc.querySelector(".phero-tag"); t.className="phero-tag warn"; t.textContent="Attention";
       });
-      // clear the department list, swap to diagnostics in the same space
-      at(2700,function(){ depts.classList.remove("is-active"); diag.classList.add("is-active"); });
+      // clear the department list, swap to diagnostics in the same space; box grows to fit
+      at(2700,function(){ depts.classList.remove("is-active"); diag.classList.add("is-active"); fit(diag); });
       // diagnostics load one after another: Problem -> Impact -> Cause -> Action
       at(3100,function(){ steps[0].classList.add("on"); });
       at(4100,function(){ steps[1].classList.add("on"); });
@@ -974,7 +977,7 @@ def pie_hero_animation():
       // hold on the recommendation, then loop back to the healthy overview
       at(9400, run);
     }
-    if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;run();}});},{threshold:.3}).observe(root); } else run();
+    if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;fit(depts);run();}});},{threshold:.3}).observe(root); } else { fit(depts); run(); }
   })();
   </script>
 </div>'''
