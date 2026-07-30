@@ -967,7 +967,9 @@ button.btn{margin:0;background-image:none}
 .subhero__col .subhero__logo{margin:0 0 18px}
 .subhero__col .eyebrow{justify-content:flex-start}
 .subhero__col .subhero__actions{justify-content:flex-start}
-.subhero__demo{width:100%;align-self:start;display:flex;flex-direction:column;align-items:stretch;min-height:460px}
+.subhero__demo{width:100%}
+/* Pie hero reserves vertical space so its monitor box can grow without moving the hero */
+.subhero--pie .subhero__demo{align-self:start;display:flex;flex-direction:column;align-items:stretch;min-height:460px}
 
 .fhero{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media(max-width:520px){.fhero{grid-template-columns:1fr}}

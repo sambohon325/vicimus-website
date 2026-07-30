@@ -1873,7 +1873,7 @@ def build_product(p, lang):
         "odometer-voip": odometer_hero_animation,
     }
     if p["slug"] in HERO_DEMOS:
-        subhero = f'''<section class="subhero subhero--split">
+        subhero = f'''<section class="subhero subhero--split subhero--{p['slug']}">
   <img class="subhero__bg" src="{ap}assets/img/hero.jpg" alt="">
   <div class="subhero__split">
     <div class="subhero__col">
