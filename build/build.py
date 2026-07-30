@@ -1426,6 +1426,218 @@ def accessory_comparison():
     )
 
 
+def glovebox_hero_animation(ap=""):
+    """Hero: a live website editor — headline gets edited, preview updates, then
+    the 'change request: 0 / wait: 0 days / published: now' payoff. Loops."""
+    return '''<div class="gbh" id="gbh">
+  <div class="gbh-editor">
+    <div class="gbh-editor-bar"><span class="gbh-dot"></span><span class="gbh-dot"></span><span class="gbh-dot"></span><span class="gbh-editor-t">Website editor</span></div>
+    <div class="gbh-field">
+      <label>Homepage headline</label>
+      <div class="gbh-input" id="gbh-input"><span id="gbh-typed"></span><span class="gbh-caret">|</span></div>
+    </div>
+    <button class="gbh-pub" id="gbh-pub">Publish &rarr;</button>
+  </div>
+  <div class="gbh-preview">
+    <div class="gbh-browser"><span class="gbh-url">yourdealership.com</span></div>
+    <div class="gbh-site">
+      <div class="gbh-site-hero">
+        <div class="gbh-site-h" id="gbh-site-h">Summer Sales Event</div>
+        <div class="gbh-site-sub">0% financing available</div>
+        <button class="gbh-site-cta">Shop inventory</button>
+      </div>
+      <div class="gbh-published" id="gbh-published">
+        <div class="gbh-pub-row"><span>Change requests</span><b>0</b></div>
+        <div class="gbh-pub-row"><span>Wait time</span><b>0 days</b></div>
+        <div class="gbh-pub-row gbh-pub-live"><span>Published</span><b>Now &#10003;</b></div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById("gbh"); if(!root) return;
+    var typed=document.getElementById("gbh-typed"), siteH=document.getElementById("gbh-site-h");
+    var pub=document.getElementById("gbh-pub"), published=document.getElementById("gbh-published");
+    var target="Truck Month Starts Now", seen=false, timers=[];
+    function clr(){ timers.forEach(clearTimeout); timers=[]; }
+    function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
+    function run(){
+      clr();
+      typed.textContent=""; siteH.textContent="Summer Sales Event"; siteH.classList.remove("gbh-flash");
+      pub.classList.remove("on"); published.classList.remove("on");
+      // type the new headline
+      var i=0;
+      function type(){ if(i<=target.length){ typed.textContent=target.slice(0,i); i++; at(60,type); } else afterType(); }
+      at(900, type);
+      function afterType(){
+        at(400,function(){ pub.classList.add("on"); });
+        at(1000,function(){ siteH.textContent=target; siteH.classList.add("gbh-flash"); });
+        at(1600,function(){ published.classList.add("on"); });
+        at(4200, run);
+      }
+    }
+    if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;run();}});},{threshold:.3}).observe(root); } else run();
+  })();
+  </script>
+</div>'''
+
+
+def glovebox_demo():
+    """"Build a dealer website in 30 seconds" — layout -> content -> brand,
+    with a live preview that responds to each choice."""
+    return '''<section class="section section--tight">
+  <div class="wrap centered">
+    <p class="eyebrow" style="color:var(--teal)">See it work</p>
+    <h2 class="h2" style="margin-bottom:8px">Build a dealer website in 30 seconds.</h2>
+    <p class="lede">Pick a layout, switch on the content your store needs, and brand it &mdash; the live preview updates as you go. No developers.</p>
+  </div>
+  <div class="wrap">
+    <div class="gbd" id="gbd">
+      <div class="gbd-controls">
+        <div class="gbd-step">
+          <div class="gbd-step-h"><span>1</span> Choose a layout</div>
+          <div class="gbd-layouts">
+            <button class="gbd-layout is-on" data-l="modern">Modern</button>
+            <button class="gbd-layout" data-l="inventory">Inventory-focused</button>
+            <button class="gbd-layout" data-l="luxury">Luxury</button>
+            <button class="gbd-layout" data-l="truck">Truck</button>
+          </div>
+        </div>
+        <div class="gbd-step">
+          <div class="gbd-step-h"><span>2</span> Add content</div>
+          <div class="gbd-content">
+            <button class="gbd-mod is-on" data-m="specials">Specials</button>
+            <button class="gbd-mod" data-m="financing">Financing</button>
+            <button class="gbd-mod" data-m="trade">Trade tool</button>
+            <button class="gbd-mod" data-m="service">Service scheduler</button>
+          </div>
+        </div>
+        <div class="gbd-step">
+          <div class="gbd-step-h"><span>3</span> Brand it</div>
+          <div class="gbd-brand">
+            <button class="gbd-color is-on" data-c="#2B68AB" style="--sw:#2B68AB"></button>
+            <button class="gbd-color" data-c="#16A34A" style="--sw:#16A34A"></button>
+            <button class="gbd-color" data-c="#EE3B25" style="--sw:#EE3B25"></button>
+            <button class="gbd-color" data-c="#7A3FA0" style="--sw:#7A3FA0"></button>
+            <button class="gbd-color" data-c="#0D2D5C" style="--sw:#0D2D5C"></button>
+          </div>
+        </div>
+      </div>
+      <div class="gbd-preview" id="gbd-preview">
+        <div class="gbd-browser"><span class="gbd-url">yourdealership.com</span></div>
+        <div class="gbd-site" id="gbd-site">
+          <div class="gbd-site-nav"><span class="gbd-logo">DEALER</span><span class="gbd-navlinks"><i></i><i></i><i></i></span></div>
+          <div class="gbd-site-hero" id="gbd-hero">
+            <div class="gbd-hero-tag" id="gbd-tag">Modern</div>
+            <div class="gbd-hero-h">Find your next vehicle</div>
+            <button class="gbd-hero-cta" id="gbd-cta">Shop now</button>
+          </div>
+          <div class="gbd-mods" id="gbd-mods"></div>
+          <div class="gbd-ready" id="gbd-ready"><b>&#10003; Dealer website ready</b><span>No developers required</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById("gbd"); if(!root) return;
+    var site=document.getElementById("gbd-site"), tag=document.getElementById("gbd-tag");
+    var cta=document.getElementById("gbd-cta"), modsBox=document.getElementById("gbd-mods");
+    var logo=root.querySelector(".gbd-logo"), navlinks=root.querySelectorAll(".gbd-navlinks i");
+    var LAYOUTS={
+      modern:{tag:"Modern",bg:"linear-gradient(135deg,#eaf2fb,#d6e6f6)"},
+      inventory:{tag:"Inventory-focused",bg:"linear-gradient(135deg,#eef4ea,#e0ecd8)"},
+      luxury:{tag:"Luxury",bg:"linear-gradient(135deg,#1b1b1f,#33333b)",dark:true},
+      truck:{tag:"Truck",bg:"linear-gradient(135deg,#f4ece0,#e8d9c2)"}
+    };
+    var MODNAMES={specials:"Specials",financing:"Financing",trade:"Trade tool",service:"Service scheduler"};
+    var accent="#2B68AB";
+    function renderMods(){
+      var on=[].slice.call(root.querySelectorAll(".gbd-mod.is-on")).map(function(b){return b.getAttribute("data-m");});
+      modsBox.innerHTML="";
+      on.forEach(function(m,idx){
+        var card=document.createElement("div"); card.className="gbd-mod-card";
+        card.textContent=MODNAMES[m]; card.style.borderTopColor=accent;
+        modsBox.appendChild(card);
+        setTimeout(function(){ card.classList.add("in"); }, idx*90);
+      });
+    }
+    function applyLayout(l){
+      var d=LAYOUTS[l]; var hero=document.getElementById("gbd-hero");
+      hero.style.background=d.bg; tag.textContent=d.tag;
+      site.classList.toggle("is-dark", !!d.dark);
+    }
+    function applyAccent(){
+      cta.style.background=accent; logo.style.color=accent;
+      navlinks.forEach(function(i){ i.style.background=accent; });
+      [].slice.call(modsBox.querySelectorAll(".gbd-mod-card")).forEach(function(c){ c.style.borderTopColor=accent; });
+      document.getElementById("gbd-tag").style.background=accent;
+    }
+    root.querySelectorAll(".gbd-layout").forEach(function(b){
+      b.addEventListener("click",function(){
+        root.querySelectorAll(".gbd-layout").forEach(function(x){x.classList.remove("is-on");});
+        b.classList.add("is-on"); applyLayout(b.getAttribute("data-l"));
+      });
+    });
+    root.querySelectorAll(".gbd-mod").forEach(function(b){
+      b.addEventListener("click",function(){ b.classList.toggle("is-on"); renderMods(); applyAccent(); });
+    });
+    root.querySelectorAll(".gbd-color").forEach(function(b){
+      b.addEventListener("click",function(){
+        root.querySelectorAll(".gbd-color").forEach(function(x){x.classList.remove("is-on");});
+        b.classList.add("is-on"); accent=b.getAttribute("data-c"); applyAccent();
+      });
+    });
+    var seen=false;
+    function init(){ applyLayout("modern"); renderMods(); applyAccent(); }
+    if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;init();}});},{threshold:.3}).observe(root); } else init();
+  })();
+  </script>
+</section>'''
+
+
+def glovebox_comparison():
+    """GloveBox vs Dealer.com vs Dealer Inspire — capability matrix."""
+    rows = [
+        ("Dealer-controlled website editing", ("yes",), ("partial",), ("partial",)),
+        ("Instant content updates", ("yes",), ("partial",), ("partial",)),
+        ("No developer required", ("yes",), ("partial",), ("partial",)),
+        ("Custom landing pages", ("yes",), ("yes",), ("yes",)),
+        ("Inventory integration", ("yes",), ("yes",), ("yes",)),
+        ("Mobile responsive", ("yes",), ("yes",), ("yes",)),
+        ("Specials &amp; incentive pages", ("yes",), ("yes",), ("yes",)),
+        ("Service &amp; parts pages", ("yes",), ("yes",), ("yes",)),
+        ("Fast website launches", ("yes",), ("partial",), ("partial",)),
+        ("Dealer-specific customization", ("yes",), ("yes",), ("yes",)),
+        ("Performance reporting", ("yes",), ("yes",), ("yes",)),
+        ("Dedicated support team", ("yes",), ("yes",), ("yes",)),
+        ("Integrated with Vicimus marketing products", ("yes",), ("no",), ("no",)),
+        ("Connected retention-campaign landing pages", ("yes",), ("no",), ("no",)),
+        ("Connected inventory-ad campaign pages", ("yes",), ("no",), ("no",)),
+    ]
+
+    def col(idx):
+        return [(row[idx + 1][0], row[0], row[idx + 1][1] if len(row[idx + 1]) > 1 else "") for row in rows]
+
+    cards = [
+        {"name": "GloveBox", "badge": "Dealer-controlled", "highlight": True, "items": col(0)},
+        {"name": "Dealer.com", "badge": "Website platform", "items": col(1)},
+        {"name": "Dealer Inspire", "badge": "Website platform", "items": col(2)},
+    ]
+    disclaimer = ("Comparison reflects Vicimus's understanding of publicly available information about Dealer.com and "
+                  "Dealer Inspire as of 2026, prepared in good faith. Competitor offerings change and may vary by "
+                  "plan, region, and configuration; product and company names are trademarks of their respective "
+                  "owners, used here for identification only. Verify current capabilities with each vendor.")
+    return comparison_section(
+        "How it stacks up",
+        "Why dealers choose GloveBox.",
+        "The website basics are covered everywhere. Where GloveBox pulls ahead is putting editing in the dealer's "
+        "hands &mdash; instant updates, no developer, fast launches &mdash; and wiring the site straight into your "
+        "Vicimus retention and ad campaigns.",
+        cards, disclaimer,
+    )
+
+
 def build_product(p, lang):
     pp = "../"                      # product pages live one level under lang root
     ap = ap_for(lang, pp)
@@ -1459,6 +1671,9 @@ def build_product(p, lang):
     elif p["slug"] == "accessory-accelerator":
         extra_after_capabilities = accessory_demo(ap)
         extra_after_shots = accessory_comparison()
+    elif p["slug"] == "glovebox-websites":
+        extra_after_capabilities = glovebox_demo()
+        extra_after_shots = glovebox_comparison()
     else:
         extra_after_capabilities = ""
         extra_after_shots = ""
@@ -1469,6 +1684,7 @@ def build_product(p, lang):
         "bumper-inventory-ads": inventory_hero_animation,
         "pie": pie_hero_animation,
         "accessory-accelerator": accessory_hero_animation,
+        "glovebox-websites": glovebox_hero_animation,
     }
     if p["slug"] in HERO_DEMOS:
         subhero = f'''<section class="subhero subhero--split">
