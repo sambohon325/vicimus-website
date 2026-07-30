@@ -67,7 +67,7 @@ window.SB_CATALOG = {
     },
     "odometer-voip": {
       "name": "Odometer VoIP",
-      "blurb": "From the live dashboard to scheduled reports, Odometer gives you insight into everything happening on your phone system — from missed calls to tracking numbers — while sa",
+      "blurb": "Track, record, report, and improve every customer conversation with a dealership phone system built for visibility and accountability.",
       "family": "r",
       "path": "products/odometer-voip.html",
       "roi": {

@@ -1638,6 +1638,188 @@ def glovebox_comparison():
     )
 
 
+def odometer_hero_animation(ap=""):
+    """Hero: 'The Call Journey' — ad spend -> calls -> routed to departments ->
+    a missed call flashes red -> lost sale -> Odometer activates -> final stats. Loops."""
+    return '''<div class="oh" id="oh">
+  <div class="oh-flow">
+    <div class="oh-node oh-spend"><span class="oh-lbl">Monthly ad spend</span><b>$15,000</b></div>
+    <div class="oh-arrow">&darr;</div>
+    <div class="oh-node oh-calls"><span class="oh-lbl">Phone calls generated</span><b id="oh-callnum">247</b></div>
+    <div class="oh-arrow">&darr;</div>
+    <div class="oh-depts">
+      <span class="oh-dept" data-d="0">Sales</span>
+      <span class="oh-dept" data-d="1">Service</span>
+      <span class="oh-dept" data-d="2">Parts</span>
+      <span class="oh-dept" data-d="3">BDC</span>
+    </div>
+  </div>
+  <div class="oh-right">
+    <div class="oh-alert" id="oh-alert">
+      <div class="oh-alert-flag">&#9888; Missed call</div>
+      <div class="oh-alert-sub">Potential sale lost &middot; <b>&minus;$35,000 vehicle</b></div>
+    </div>
+    <div class="oh-activate" id="oh-activate">
+      <div class="oh-act-t">Odometer activates</div>
+      <div class="oh-act" data-k="0">&#10003; Call recorded</div>
+      <div class="oh-act" data-k="1">&#10003; Call routed</div>
+      <div class="oh-act" data-k="2">&#10003; Call tracked</div>
+      <div class="oh-act" data-k="3">&#10003; Call reported</div>
+    </div>
+    <div class="oh-stats" id="oh-stats">
+      <div class="oh-stat"><b>247</b><span>Calls</span></div>
+      <div class="oh-stat oh-stat-good"><b>96%</b><span>Answer rate</span></div>
+      <div class="oh-stat"><b>8</b><span>Missed</span></div>
+      <div class="oh-stat oh-stat-rec"><b>5</b><span>Recovered</span></div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById("oh"); if(!root) return;
+    var depts=[].slice.call(root.querySelectorAll(".oh-dept"));
+    var alert=document.getElementById("oh-alert"), activate=document.getElementById("oh-activate"), stats=document.getElementById("oh-stats");
+    var acts=[].slice.call(activate.querySelectorAll(".oh-act"));
+    var seen=false, timers=[];
+    function clr(){ timers.forEach(clearTimeout); timers=[]; }
+    function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
+    function run(){
+      clr();
+      depts.forEach(function(d){ d.classList.remove("on","miss"); });
+      alert.classList.remove("on"); activate.classList.remove("on"); stats.classList.remove("on");
+      acts.forEach(function(a){ a.classList.remove("on"); });
+      // calls fan into departments
+      depts.forEach(function(d,i){ at(700+i*220,function(){ d.classList.add("on"); }); });
+      // one flashes red (Sales)
+      at(1900,function(){ depts[0].classList.add("miss"); alert.classList.add("on"); });
+      // odometer activates
+      at(3100,function(){ activate.classList.add("on"); });
+      acts.forEach(function(a,i){ at(3400+i*500,function(){ a.classList.add("on"); }); });
+      // final stats
+      at(5900,function(){ stats.classList.add("on"); });
+      at(9200, run);
+    }
+    if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;run();}});},{threshold:.3}).observe(root); } else run();
+  })();
+  </script>
+</div>'''
+
+
+def odometer_demo():
+    """Call Recovery Simulator — without vs with Odometer, sliders drive a
+    recovered-revenue payoff. The money shot."""
+    return '''<section class="section section--tight">
+  <div class="wrap centered">
+    <p class="eyebrow" style="color:var(--teal)">See it work</p>
+    <h2 class="h2" style="margin-bottom:8px">Most dealerships track leads. Odometer tracks conversations.</h2>
+    <p class="lede">Set your call volume and see what slips through &mdash; and what Odometer puts back on the board.</p>
+  </div>
+  <div class="wrap">
+    <div class="ocr" id="ocr">
+      <div class="ocr-controls">
+        <label class="ocr-slider">
+          <span class="ocr-slider-top">Monthly calls <b id="ocr-calls-v">500</b></span>
+          <input type="range" id="ocr-calls" min="100" max="2000" step="50" value="500">
+        </label>
+        <label class="ocr-slider">
+          <span class="ocr-slider-top">Missed-call rate <b id="ocr-miss-v">15%</b></span>
+          <input type="range" id="ocr-miss" min="4" max="30" step="1" value="15">
+        </label>
+        <label class="ocr-slider">
+          <span class="ocr-slider-top">Avg. revenue per recovered call <b id="ocr-val-v">$1,400</b></span>
+          <input type="range" id="ocr-val" min="400" max="3500" step="100" value="1400">
+        </label>
+      </div>
+      <div class="ocr-panels">
+        <div class="ocr-card ocr-without">
+          <div class="ocr-card-t">Without Odometer</div>
+          <div class="ocr-row"><span>Monthly calls</span><b id="ocr-w-calls">500</b></div>
+          <div class="ocr-row"><span>Missed calls</span><b id="ocr-w-miss">73</b></div>
+          <div class="ocr-row ocr-row-bad"><span>Status</span><b>Unknown</b></div>
+        </div>
+        <div class="ocr-card ocr-with">
+          <div class="ocr-card-t">With Odometer</div>
+          <div class="ocr-row"><span>Monthly calls</span><b id="ocr-c-calls">500</b></div>
+          <div class="ocr-row"><span>Missed calls</span><b id="ocr-c-miss">73</b></div>
+          <div class="ocr-row ocr-row-good"><span>Recovered</span><b id="ocr-rec">41</b></div>
+          <div class="ocr-row ocr-row-good"><span>Appointments</span><b id="ocr-appt">18</b></div>
+          <div class="ocr-row ocr-row-good"><span>Sales</span><b id="ocr-sales">7</b></div>
+        </div>
+      </div>
+      <div class="ocr-payoff">
+        <span>Recovered revenue / year</span>
+        <b id="ocr-revenue">$688,800</b>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById("ocr"); if(!root) return;
+    var calls=document.getElementById("ocr-calls"), miss=document.getElementById("ocr-miss"), val=document.getElementById("ocr-val");
+    function money(n){ return "$"+Math.round(n).toLocaleString(); }
+    function calc(){
+      var c=+calls.value, mr=+miss.value/100, v=+val.value;
+      var missed=Math.round(c*mr);
+      var recovered=Math.round(missed*0.56);   // Odometer surfaces & recovers a share
+      var appts=Math.round(recovered*0.44);
+      var sales=Math.round(appts*0.38);
+      document.getElementById("ocr-calls-v").textContent=c.toLocaleString();
+      document.getElementById("ocr-miss-v").textContent=miss.value+"%";
+      document.getElementById("ocr-val-v").textContent=money(v);
+      document.getElementById("ocr-w-calls").textContent=c.toLocaleString();
+      document.getElementById("ocr-c-calls").textContent=c.toLocaleString();
+      document.getElementById("ocr-w-miss").textContent=missed;
+      document.getElementById("ocr-c-miss").textContent=missed;
+      document.getElementById("ocr-rec").textContent=recovered;
+      document.getElementById("ocr-appt").textContent=appts;
+      document.getElementById("ocr-sales").textContent=sales;
+      var annual=recovered*v*12;
+      var el=document.getElementById("ocr-revenue"); el.textContent=money(annual);
+    }
+    [calls,miss,val].forEach(function(s){ s.addEventListener("input",calc); });
+    calc();
+  })();
+  </script>
+</section>'''
+
+
+def odometer_comparison():
+    """Odometer vs RingCentral vs Dialpad capability matrix."""
+    rows = [
+        ("VoIP calling", ("yes",), ("yes",), ("yes",)),
+        ("Call recording", ("yes",), ("yes",), ("yes",)),
+        ("Call tracking", ("yes",), ("partial",), ("partial",)),
+        ("Dealership reporting", ("yes",), ("no",), ("no",)),
+        ("Sales-department analytics", ("yes",), ("no",), ("no",)),
+        ("Service-department analytics", ("yes",), ("no",), ("no",)),
+        ("Automotive workflow focus", ("yes",), ("no",), ("no",)),
+        ("Missed-opportunity reporting", ("yes",), ("no",), ("no",)),
+        ("Multi-rooftop visibility", ("yes",), ("partial",), ("partial",)),
+        ("Dealer-specific support", ("yes",), ("no",), ("no",)),
+    ]
+
+    def col(idx):
+        return [(row[idx + 1][0], row[0], row[idx + 1][1] if len(row[idx + 1]) > 1 else "") for row in rows]
+
+    cards = [
+        {"name": "Odometer", "badge": "Built for dealers", "highlight": True, "items": col(0)},
+        {"name": "RingCentral", "badge": "General VoIP", "items": col(1)},
+        {"name": "Dialpad", "badge": "General VoIP", "items": col(2)},
+    ]
+    disclaimer = ("Comparison reflects Vicimus's understanding of publicly available information about RingCentral and "
+                  "Dialpad as of 2026, prepared in good faith. These are capable general-purpose business phone "
+                  "platforms; the contrast here is dealership-specific reporting and workflow, not overall quality. "
+                  "Offerings change and vary by plan; product and company names are trademarks of their respective "
+                  "owners, used for identification only. Verify current capabilities with each vendor.")
+    return comparison_section(
+        "How it stacks up",
+        "Why dealers choose Odometer.",
+        "General VoIP platforms make and record calls well. Odometer adds what a dealership actually needs on top: "
+        "department-level analytics, missed-opportunity reporting, and multi-rooftop visibility built for the "
+        "automotive workflow.",
+        cards, disclaimer,
+    )
+
+
 def build_product(p, lang):
     pp = "../"                      # product pages live one level under lang root
     ap = ap_for(lang, pp)
@@ -1674,6 +1856,9 @@ def build_product(p, lang):
     elif p["slug"] == "glovebox-websites":
         extra_after_capabilities = glovebox_demo()
         extra_after_shots = glovebox_comparison()
+    elif p["slug"] == "odometer-voip":
+        extra_after_capabilities = odometer_demo()
+        extra_after_shots = odometer_comparison()
     else:
         extra_after_capabilities = ""
         extra_after_shots = ""
@@ -1685,6 +1870,7 @@ def build_product(p, lang):
         "pie": pie_hero_animation,
         "accessory-accelerator": accessory_hero_animation,
         "glovebox-websites": glovebox_hero_animation,
+        "odometer-voip": odometer_hero_animation,
     }
     if p["slug"] in HERO_DEMOS:
         subhero = f'''<section class="subhero subhero--split">

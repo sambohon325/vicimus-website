@@ -1307,3 +1307,62 @@ button.btn{margin:0;background-image:none}
 .gbd-ready b{display:block;font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;font-size:1rem;color:var(--green)}
 .gbd-ready span{font-size:.8rem;color:var(--muted)}
 .gbd-site.is-dark .gbd-ready span{color:rgba(255,255,255,.6)}
+
+/* ============================================================
+   ODOMETER — Call Journey hero + Call Recovery Simulator
+   ============================================================ */
+/* hero */
+.oh{display:grid;grid-template-columns:.85fr 1.15fr;gap:20px;align-items:start}
+@media(max-width:560px){.oh{grid-template-columns:1fr}}
+.oh-flow{display:flex;flex-direction:column;align-items:center;gap:8px}
+.oh-node{width:100%;text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:12px;backdrop-filter:blur(4px)}
+.oh-node .oh-lbl{display:block;font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:3px}
+.oh-node b{font-family:var(--display);font-style:italic;font-weight:800;font-size:1.5rem;color:#fff}
+.oh-calls b{color:var(--teal)}
+.oh-arrow{color:rgba(255,255,255,.4);font-size:1.1rem;line-height:1}
+.oh-depts{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+.oh-dept{text-align:center;padding:10px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);font-size:.82rem;font-weight:700;color:rgba(255,255,255,.5);opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s,background .3s,color .3s,border-color .3s}
+.oh-dept.on{opacity:1;transform:translateY(0);color:#fff;background:rgba(62,189,196,.14);border-color:rgba(62,189,196,.4)}
+.oh-dept.miss{background:rgba(238,59,37,.16);border-color:var(--red);color:#fff;animation:oh-pulse 1s ease infinite}
+@keyframes oh-pulse{0%,100%{box-shadow:0 0 0 0 rgba(238,59,37,.4)}50%{box-shadow:0 0 0 6px rgba(238,59,37,0)}}
+.oh-right{display:flex;flex-direction:column;gap:12px}
+.oh-alert{background:rgba(238,59,37,.12);border:1px solid rgba(238,59,37,.4);border-radius:10px;padding:14px;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.oh-alert.on{opacity:1;transform:translateY(0)}
+.oh-alert-flag{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.95rem;color:#F6957F}
+.oh-alert-sub{font-size:.82rem;color:rgba(255,255,255,.7);margin-top:3px}
+.oh-alert-sub b{color:#F6957F}
+.oh-activate{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:14px;opacity:0;max-height:0;overflow:hidden;transition:opacity .4s,max-height .5s;backdrop-filter:blur(4px)}
+.oh-activate.on{opacity:1;max-height:220px}
+.oh-act-t{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.72rem;letter-spacing:.04em;color:var(--teal);margin-bottom:8px}
+.oh-act{font-size:.88rem;color:rgba(255,255,255,.5);padding:4px 0;opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .3s,color .3s}
+.oh-act.on{opacity:1;transform:translateX(0);color:#fff}
+.oh-stats{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
+.oh-stats.on{opacity:1;transform:translateY(0)}
+.oh-stat{text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:10px 4px}
+.oh-stat b{display:block;font-family:var(--display);font-style:italic;font-weight:800;font-size:1.25rem;color:#fff;line-height:1}
+.oh-stat span{font-size:.6rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.oh-stat-good b{color:var(--teal)} .oh-stat-rec b{color:var(--yellow)}
+
+/* Call Recovery Simulator demo */
+.ocr{margin-top:44px;border:1px solid var(--line);border-radius:16px;padding:28px;background:#fff}
+.ocr-controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-bottom:26px}
+@media(max-width:760px){.ocr-controls{grid-template-columns:1fr}}
+.ocr-slider{display:block}
+.ocr-slider-top{display:flex;justify-content:space-between;font-size:.8rem;font-weight:600;color:var(--muted);margin-bottom:8px}
+.ocr-slider-top b{color:var(--blue);font-family:var(--display);font-style:italic;font-weight:800;font-size:1rem}
+.ocr-slider input[type=range]{width:100%;accent-color:var(--blue)}
+.ocr-panels{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:620px){.ocr-panels{grid-template-columns:1fr}}
+.ocr-card{border:1px solid var(--line);border-radius:12px;padding:18px}
+.ocr-without{background:#fbfcfd}
+.ocr-with{background:rgba(62,189,196,.05);border-color:rgba(62,189,196,.3)}
+.ocr-card-t{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.82rem;margin-bottom:12px}
+.ocr-without .ocr-card-t{color:var(--muted)} .ocr-with .ocr-card-t{color:var(--teal)}
+.ocr-row{display:flex;justify-content:space-between;font-size:.88rem;color:var(--muted);padding:7px 0;border-top:1px solid var(--line)}
+.ocr-row:first-of-type{border-top:0}
+.ocr-row b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+.ocr-row-bad b{color:var(--red)} .ocr-row-good b{color:var(--green)}
+.ocr-payoff{margin-top:22px;display:flex;align-items:center;justify-content:space-between;background:var(--blue-deep);color:#fff;border-radius:12px;padding:18px 24px}
+.ocr-payoff span{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:.95rem}
+.ocr-payoff b{font-family:var(--display);font-style:italic;font-weight:800;font-size:2.1rem;color:var(--yellow);font-variant-numeric:tabular-nums}
+@media(max-width:520px){.ocr-payoff{flex-direction:column;gap:6px;text-align:center}}
