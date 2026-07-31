@@ -2542,11 +2542,12 @@ def build_careers(lang):
 # LAYOUT A — Solutions & Markets (problem-first). Shared renderer.
 # ----------------------------------------------------------------------
 def franchise_hero_animation(ap=""):
-    """Franchise Retail hero: 'What's your biggest challenge right now?' Six
-    selectable challenge cards; picking one plays Challenge -> Vicimus Solution
-    -> Outcome. Auto-cycles until the visitor takes over."""
+    """Franchise Retail hero: 'What are your biggest challenges right now?'
+    Six multi-selectable challenge cards; the panel resolves the union of the
+    selected challenges into Vicimus products and outcomes, and feeds those
+    products to the Solutions Builder alongside the market itself."""
     return '''<div class="fch" id="fch">
-    <div class="fch-q">What&rsquo;s your biggest challenge right now?</div>
+    <div class="fch-q">What are your biggest challenges right now? <span class="fch-hint">Pick as many as apply</span></div>
     <div class="fch-cards">
       <button class="fch-card" data-c="retention"><span class="fch-ico">&#128201;</span>Customer retention</button>
       <button class="fch-card" data-c="turn"><span class="fch-ico">&#128663;</span>Inventory turn</button>
@@ -2555,83 +2556,152 @@ def franchise_hero_animation(ap=""):
       <button class="fch-card" data-c="visibility"><span class="fch-ico">&#128202;</span>Executive visibility</button>
       <button class="fch-card" data-c="profit"><span class="fch-ico">&#128176;</span>Profitability</button>
     </div>
-    <div class="fch-out">
-      <div class="fch-step" id="fch-s1">
-        <div class="fch-step-t">Challenge identified</div>
-        <div class="fch-body" id="fch-prob"></div>
-      </div>
-      <div class="fch-arrow" id="fch-a1">&darr;</div>
-      <div class="fch-step" id="fch-s2">
-        <div class="fch-step-t">Vicimus solution</div>
-        <div class="fch-prods" id="fch-prods"></div>
-      </div>
-      <div class="fch-arrow" id="fch-a2">&darr;</div>
-      <div class="fch-step fch-step--pay" id="fch-s3">
-        <div class="fch-step-t">Outcome</div>
-        <div class="fch-body" id="fch-outcome"></div>
+    <div class="fch-panel">
+      <div class="fch-out">
+        <div class="fch-step" id="fch-s1">
+          <div class="fch-step-t" id="fch-prob-t">Challenge identified</div>
+          <div class="fch-body" id="fch-prob"></div>
+          <div class="fch-chips" id="fch-chips"></div>
+        </div>
+        <div class="fch-arrow" id="fch-a1">&darr;</div>
+        <div class="fch-step" id="fch-s2">
+          <div class="fch-step-t" id="fch-sol-t">Vicimus solution</div>
+          <div class="fch-prods" id="fch-prods"></div>
+        </div>
+        <div class="fch-arrow" id="fch-a2">&darr;</div>
+        <div class="fch-step fch-step--pay" id="fch-s3">
+          <div class="fch-step-t">Outcome</div>
+          <div class="fch-tags" id="fch-outcome"></div>
+        </div>
       </div>
     </div>
   <script>
   (function(){
     var root=document.getElementById("fch"); if(!root) return;
+    var NAMES={"bumper-retention":"Bumper Retention","bumper-inventory-ads":"Bumper Inventory Ads",
+      "pie":"Pie","bumper-finance":"Bumper Finance","accessory-accelerator":"Accessory Accelerator",
+      "glovebox-websites":"GloveBox Websites","odometer-voip":"Odometer VoIP","calls-on-demand":"Calls on Demand"};
+    var ORDER=["bumper-retention","calls-on-demand","odometer-voip","bumper-inventory-ads",
+      "glovebox-websites","accessory-accelerator","bumper-finance","pie"];
     var C={
-      retention:{ problem:"Customers are returning to market before your dealership knows about it.",
-        products:["Bumper Retention","Calls on Demand","Odometer VoIP"],
-        outcome:"More appointments. More repeat purchases. Higher lifetime customer value." },
-      turn:{ problem:"Units age past 60 days while ad spend stays flat across the whole lot.",
-        products:["Bumper Inventory Ads","GloveBox Websites","Pie"],
-        outcome:"Faster turn. Less aged inventory. Ad spend that follows the metal." },
-      fixed:{ problem:"Service customers drift to independents once the warranty runs out.",
-        products:["Bumper Retention","Accessory Accelerator","Odometer VoIP"],
-        outcome:"More RO count. Higher CPRO. Service share you actually keep." },
-      leads:{ problem:"Calls ring out and leads go cold before anyone follows up.",
-        products:["Odometer VoIP","Calls on Demand","Bumper Retention"],
-        outcome:"Every call answered. Every lead worked. More appointments set." },
-      visibility:{ problem:"Every department reports differently, so nobody sees the whole store.",
-        products:["Pie","Odometer VoIP","Bumper Retention"],
-        outcome:"One connected view. Department-level detail. Decisions backed by data." },
-      profit:{ problem:"Margin compression squeezes front-end gross on every single deal.",
-        products:["Bumper Finance","Accessory Accelerator","Pie"],
-        outcome:"Higher PVR. More back-end gross. Revenue from customers you already have." }
+      retention:{ label:"Customer retention",
+        problem:"Customers are returning to market before your dealership knows about it.",
+        products:["bumper-retention","calls-on-demand","odometer-voip"],
+        tags:["More appointments set","More repeat purchases","Higher lifetime value"] },
+      turn:{ label:"Inventory turn",
+        problem:"Units age past 60 days while ad spend stays flat across the whole lot.",
+        products:["bumper-inventory-ads","glovebox-websites","pie"],
+        tags:["Faster inventory turn","Less aged stock","Ad spend that follows the metal"] },
+      fixed:{ label:"Fixed ops growth",
+        problem:"Service customers drift to independents once the warranty runs out.",
+        products:["bumper-retention","accessory-accelerator","odometer-voip"],
+        tags:["More RO count","Higher CPRO","Service share you keep"] },
+      leads:{ label:"Lead response",
+        problem:"Calls ring out and leads go cold before anyone follows up.",
+        products:["odometer-voip","calls-on-demand","bumper-retention"],
+        tags:["Every call answered","Every lead worked","More appointments set"] },
+      visibility:{ label:"Executive visibility",
+        problem:"Every department reports differently, so nobody sees the whole store.",
+        products:["pie","odometer-voip","bumper-retention"],
+        tags:["One connected view","Department-level detail","Decisions backed by data"] },
+      profit:{ label:"Profitability",
+        problem:"Margin compression squeezes front-end gross on every single deal.",
+        products:["bumper-finance","accessory-accelerator","pie"],
+        tags:["Higher PVR","More back-end gross","Revenue from existing customers"] }
     };
-    var order=["retention","turn","fixed","leads","visibility","profit"];
+    var cycle=["retention","turn","fixed","leads","visibility","profit"];
     var cards=[].slice.call(root.querySelectorAll(".fch-card"));
-    var prob=document.getElementById("fch-prob"), prods=document.getElementById("fch-prods"),
+    var probT=document.getElementById("fch-prob-t"), prob=document.getElementById("fch-prob"),
+        chips=document.getElementById("fch-chips"), prods=document.getElementById("fch-prods"),
         outc=document.getElementById("fch-outcome");
     var steps=["fch-s1","fch-a1","fch-s2","fch-a2","fch-s3"].map(function(id){return document.getElementById(id);});
-    var timers=[], idx=0, auto=true, seen=false;
+    var sel=[], timers=[], ci=0, auto=true, seen=false;
     function clr(){ timers.forEach(clearTimeout); timers=[]; }
     function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
-    function play(key){
+
+    function unionProducts(){
+      var s={};
+      sel.forEach(function(k){ C[k].products.forEach(function(p){ s[p]=1; }); });
+      return ORDER.filter(function(p){ return s[p]; });
+    }
+    function unionTags(){
+      var out=[], seenT={};
+      sel.forEach(function(k){ C[k].tags.forEach(function(t){ if(!seenT[t]){ seenT[t]=1; out.push(t); } }); });
+      return out;
+    }
+    // Exposed so the Solutions Builder hero button carries the recommended
+    // products across with the market itself.
+    window.SB_HERO_EXTRAS=function(){
+      return unionProducts().map(function(p){ return { id:p, type:"products" }; });
+    };
+
+    function render(){
       clr();
       steps.forEach(function(s){ s.classList.remove("on"); });
-      cards.forEach(function(c){ c.classList.toggle("on", c.getAttribute("data-c")===key); });
-      var d=C[key];
-      prob.textContent=d.problem;
-      outc.textContent=d.outcome;
+      cards.forEach(function(c){ c.classList.toggle("on", sel.indexOf(c.getAttribute("data-c"))>=0); });
+
+      var multi = sel.length>1;
+      probT.textContent = multi ? ("Challenges identified ("+sel.length+")") : "Challenge identified";
+      prob.textContent = multi ? "" : (sel.length ? C[sel[0]].problem : "");
+      prob.style.display = multi ? "none" : "";
+      chips.innerHTML="";
+      if(multi){
+        sel.forEach(function(k){
+          var c=document.createElement("span"); c.className="fch-chip"; c.textContent=C[k].label;
+          chips.appendChild(c);
+        });
+      }
+
+      var plist=unionProducts();
+      document.getElementById("fch-sol-t").textContent =
+        plist.length>3 ? ("Vicimus solution \u2014 "+plist.length+" products") : "Vicimus solution";
       prods.innerHTML="";
-      d.products.forEach(function(n){
+      prods.classList.toggle("fch-prods--dense", plist.length>4);
+      plist.slice(0,6).forEach(function(slug){
         var r=document.createElement("div"); r.className="fch-prod";
-        r.innerHTML='<span class="fch-tick">&#10003;</span>'+n;
+        r.innerHTML=\'<span class="fch-tick">&#10003;</span>\'+NAMES[slug];
         prods.appendChild(r);
       });
-      var chips=[].slice.call(prods.children);
-      at(260,function(){ steps[0].classList.add("on"); });
-      at(900,function(){ steps[1].classList.add("on"); });
-      at(1100,function(){ steps[2].classList.add("on"); });
-      chips.forEach(function(c,i){ at(1200+i*220,function(){ c.classList.add("in"); }); });
-      at(2100,function(){ steps[3].classList.add("on"); });
-      at(2300,function(){ steps[4].classList.add("on"); });
-      if(auto) at(5600,function(){ idx=(idx+1)%order.length; play(order[idx]); });
+
+      var tags=unionTags(), cap=4;
+      outc.innerHTML="";
+      tags.slice(0,cap).forEach(function(t){
+        var el=document.createElement("span"); el.className="fch-tag"; el.textContent=t;
+        outc.appendChild(el);
+      });
+      if(tags.length>cap){
+        var more=document.createElement("span"); more.className="fch-tag fch-tag--more";
+        more.textContent="+"+(tags.length-cap)+" more"; outc.appendChild(more);
+      }
+
+      var pchips=[].slice.call(prods.children);
+      at(240,function(){ steps[0].classList.add("on"); });
+      at(820,function(){ steps[1].classList.add("on"); });
+      at(1000,function(){ steps[2].classList.add("on"); });
+      pchips.forEach(function(c,i){ at(1080+i*140,function(){ c.classList.add("in"); }); });
+      at(1900,function(){ steps[3].classList.add("on"); });
+      at(2080,function(){ steps[4].classList.add("on"); });
+      if(auto) at(5400,function(){ ci=(ci+1)%cycle.length; sel=[cycle[ci]]; render(); });
+      syncBuilder();
     }
+
+    // If the visitor has already added this page to the Solutions Builder,
+    // keep the recommended products in step as they change their selection.
+    function syncBuilder(){
+      if(!(window.SB && window.SB.has && window.SB.has("franchise-retail","markets"))) return;
+      unionProducts().forEach(function(p){ window.SB.add(p,"products"); });
+    }
+
     cards.forEach(function(c){
       c.addEventListener("click",function(){
         auto=false;
-        idx=order.indexOf(c.getAttribute("data-c"));
-        play(c.getAttribute("data-c"));
+        var k=c.getAttribute("data-c"), i=sel.indexOf(k);
+        if(i>=0){ if(sel.length>1) sel.splice(i,1); }
+        else { sel.push(k); }
+        render();
       });
     });
-    function start(){ play(order[0]); }
+    function start(){ sel=[cycle[0]]; render(); }
     if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;start();}});},{threshold:.25}).observe(root); } else start();
   })();
   </script>
@@ -2762,41 +2832,159 @@ def franchise_challenge_map():
 </section>'''
 
 
+def franchise_growth_builder():
+    """The Dealer Growth Builder — store profile + goals generate a customised
+    Vicimus stack. Sliders genuinely change the output (deal volume pulls in
+    F&I tooling, database size pulls in BDC capacity), and the whole stack can
+    be pushed into the Solutions Builder in one click."""
+    return '''<section class="section section--tight">
+  <div class="wrap centered">
+    <p class="eyebrow" style="color:var(--teal)">The dealer growth builder</p>
+    <h2 class="h2" style="margin-bottom:8px">Tell us your store. We&rsquo;ll build the stack.</h2>
+    <p class="lede">Set your volume, pick what you&rsquo;re trying to grow, and see exactly which Vicimus products your dealership would run &mdash; and why each one is in there.</p>
+  </div>
+  <div class="wrap">
+    <div class="dgb" id="dgb">
+      <div class="dgb-controls">
+        <div class="dgb-field">
+          <div class="dgb-label">Annual sales <b id="dgb-units-v">150 units</b></div>
+          <input class="dgb-range" id="dgb-units" type="range" min="50" max="1200" step="25" value="150">
+        </div>
+        <div class="dgb-field">
+          <div class="dgb-label">Customers in your database <b id="dgb-cust-v">2,000</b></div>
+          <input class="dgb-range" id="dgb-cust" type="range" min="500" max="20000" step="250" value="2000">
+        </div>
+        <div class="dgb-goals-t">What are you trying to grow?</div>
+        <div class="dgb-goals">
+          <button class="dgb-goal is-on" data-g="marketing">Marketing</button>
+          <button class="dgb-goal is-on" data-g="retention">Retention</button>
+          <button class="dgb-goal is-on" data-g="advertising">Advertising</button>
+          <button class="dgb-goal is-on" data-g="phones">Phone management</button>
+          <button class="dgb-goal is-on" data-g="reporting">Reporting</button>
+        </div>
+      </div>
+      <div class="dgb-result">
+        <div class="dgb-result-head">
+          <div class="dgb-result-t">Your stack</div>
+          <div class="dgb-count" id="dgb-count"></div>
+        </div>
+        <div class="dgb-stack" id="dgb-stack"></div>
+        <div class="dgb-empty" id="dgb-empty">Pick at least one goal to generate a stack.</div>
+        <div class="dgb-foot">
+          <div class="dgb-scale" id="dgb-scale"></div>
+          <button class="btn btn-red dgb-add" id="dgb-add" type="button">Add this stack to the Solutions Builder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById("dgb"); if(!root) return;
+    var P={
+      "bumper-retention":"Bumper Retention","bumper-inventory-ads":"Bumper Inventory Ads","pie":"Pie",
+      "bumper-finance":"Bumper Finance","accessory-accelerator":"Accessory Accelerator",
+      "glovebox-websites":"GloveBox Websites","odometer-voip":"Odometer VoIP","calls-on-demand":"Calls on Demand"};
+    var ORDER=["glovebox-websites","bumper-inventory-ads","bumper-retention","calls-on-demand",
+      "odometer-voip","accessory-accelerator","bumper-finance","pie"];
+    var unitsEl=document.getElementById("dgb-units"), custEl=document.getElementById("dgb-cust"),
+        unitsV=document.getElementById("dgb-units-v"), custV=document.getElementById("dgb-cust-v"),
+        stackEl=document.getElementById("dgb-stack"), countEl=document.getElementById("dgb-count"),
+        emptyEl=document.getElementById("dgb-empty"), scaleEl=document.getElementById("dgb-scale"),
+        addBtn=document.getElementById("dgb-add");
+    function fmt(n){ return String(n).replace(/\\B(?=(\\d{3})+(?!\\d))/g,","); }
+    function goals(){
+      return [].slice.call(root.querySelectorAll(".dgb-goal.is-on")).map(function(b){return b.getAttribute("data-g");});
+    }
+    function build(){
+      var g=goals(), units=+unitsEl.value, cust=+custEl.value, out={};
+      function put(slug,why){ if(!out[slug]) out[slug]={slug:slug,why:why}; }
+      if(g.indexOf("marketing")>=0){ put("glovebox-websites","Your storefront and landing pages, editable by your team"); put("bumper-retention","Lifecycle campaigns to the customers you already have"); }
+      if(g.indexOf("retention")>=0){ put("bumper-retention","Brings service and trade-cycle customers back on schedule"); put("accessory-accelerator","Adds revenue to deals and repair orders you already write"); }
+      if(g.indexOf("advertising")>=0){ put("bumper-inventory-ads","Ads generated per unit and weighted toward aged stock"); }
+      if(g.indexOf("phones")>=0){ put("odometer-voip","Every call recorded, routed, and attributed by department"); put("calls-on-demand","Trained BDC agents cover overflow and after-hours"); }
+      if(g.indexOf("reporting")>=0){ put("pie","One connected view across sales, service, and marketing"); }
+      // Scale signals — the sliders genuinely change the recommendation.
+      if(units>=200 && g.length) put("bumper-finance","At "+fmt(units)+" units a year, a modern F&I menu pays for itself");
+      if(cust>=6000 && g.indexOf("phones")<0 && g.length) put("calls-on-demand","A "+fmt(cust)+"-customer database needs more outreach capacity than a store can staff");
+      var list=ORDER.filter(function(s){return out[s];}).map(function(s){return out[s];});
+      stackEl.innerHTML="";
+      list.forEach(function(item,i){
+        var el=document.createElement("div"); el.className="dgb-prod";
+        el.innerHTML=\'<div class="dgb-prod-n">\'+P[item.slug]+\'</div><div class="dgb-prod-w">\'+item.why+\'</div>\';
+        stackEl.appendChild(el);
+        setTimeout(function(){ el.classList.add("in"); }, 40+i*70);
+      });
+      emptyEl.style.display = list.length ? "none" : "block";
+      countEl.textContent = list.length ? list.length+" products" : "";
+      addBtn.style.display = list.length ? "" : "none";
+      var tier = units>=600 ? "multi-rooftop scale" : (units>=250 ? "high-volume store" : "single-rooftop store");
+      scaleEl.textContent = fmt(units)+" units/yr \u00b7 "+fmt(cust)+" customers \u00b7 "+tier;
+      root.setAttribute("data-slugs", list.map(function(x){return x.slug;}).join(","));
+      return list;
+    }
+    function sync(){ unitsV.textContent=fmt(+unitsEl.value)+" units"; custV.textContent=fmt(+custEl.value); build(); }
+    unitsEl.addEventListener("input",sync); custEl.addEventListener("input",sync);
+    root.querySelectorAll(".dgb-goal").forEach(function(b){
+      b.addEventListener("click",function(){ b.classList.toggle("is-on"); build(); });
+    });
+    addBtn.addEventListener("click",function(){
+      if(!(window.SB && window.SB.add)) return;
+      (root.getAttribute("data-slugs")||"").split(",").filter(Boolean).forEach(function(s){ window.SB.add(s,"products"); });
+      window.SB.add("franchise-retail","markets");
+      window.SB.open();
+      addBtn.textContent="\u2713 Added to your Solutions Builder";
+      setTimeout(function(){ addBtn.textContent="Add this stack to the Solutions Builder"; }, 2600);
+    });
+    var seen=false;
+    if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;sync();}});},{threshold:.2}).observe(root); } else sync();
+  })();
+  </script>
+</section>'''
+
+
 def franchise_comparison():
-    """Vicimus vs a typical multi-vendor mix. Business-approach comparison
-    rather than a product comparison — and no competitor is named."""
+    """Approach comparison rather than product comparison: Vicimus, a named
+    category leader, and the fragmented status quo. Cox marks reflect core
+    productized offerings and need team sign-off before this goes public."""
     rows = [
-        ("Customer retention", "yes", "partial"),
-        ("Inventory advertising", "yes", "yes"),
-        ("Business intelligence", "yes", "partial"),
-        ("Website platform", "yes", "yes"),
-        ("VoIP &amp; call tracking", "yes", "partial"),
-        ("Outsourced BDC services", "yes", "no"),
-        ("Accessory revenue programs", "yes", "no"),
-        ("F&amp;I retailing tools", "yes", "partial"),
-        ("Integrated reporting across solutions", "yes", "no"),
-        ("Single strategic partner", "yes", "no"),
-        ("Automotive-specific expertise", "yes", "partial"),
-        ("Dedicated performance management", "yes", "no"),
+        # (capability,               Vicimus, Cox Automotive, Typical vendor mix)
+        ("Customer retention",                     "yes", "yes",     "partial"),
+        ("Inventory advertising",                  "yes", "yes",     "yes"),
+        ("Business intelligence",                  "yes", "partial", "partial"),
+        ("Website platform",                       "yes", "yes",     "yes"),
+        ("VoIP &amp; call tracking",               "yes", "partial", "partial"),
+        ("Outsourced BDC services",                "yes", "no",      "no"),
+        ("Accessory revenue programs",             "yes", "no",      "no"),
+        ("F&amp;I retailing tools",                "yes", "yes",     "partial"),
+        ("Integrated reporting across solutions",  "yes", "partial", "no"),
+        ("Single strategic partner",               "yes", "partial", "no"),
+        ("Automotive-specific expertise",          "yes", "yes",     "partial"),
+        ("Dedicated performance management",       "yes", "partial", "no"),
     ]
     cards = [
         {"name": "Vicimus", "badge": "One connected partner", "highlight": True,
          "items": [(r[1], r[0]) for r in rows]},
-        {"name": "Typical Vendor Mix", "badge": "Assembled piece by piece",
+        {"name": "Cox Automotive", "badge": "Enterprise suite",
          "items": [(r[2], r[0]) for r in rows]},
+        {"name": "Typical Vendor Mix", "badge": "Assembled piece by piece",
+         "items": [(r[3], r[0]) for r in rows]},
     ]
-    disclaimer = ("Illustrative comparison of Vicimus against a typical franchise-dealer technology stack assembled "
-                  "from separate point vendors, agencies, website providers, and software companies, based on "
-                  "Vicimus's understanding of common industry realities as of 2026. No specific vendor is described; "
-                  "every dealership's mix is different, and individual vendors may be strong in their own category. "
-                  "The contrast drawn here is about breadth, integration, and accountability across a single "
-                  "relationship rather than the quality of any one tool.")
+    disclaimer = (
+        "Illustrative comparison prepared by Vicimus and current as of 2026. Cox Automotive is a category leader "
+        "whose retail brands &mdash; including Dealer.com, VinSolutions, Xtime, and Dealertrack &mdash; are strong in "
+        "their own right, and marks here reflect our reading of each vendor&rsquo;s core productized offering rather "
+        "than what can be assembled through partners, integrations, or third-party add-ons. &ldquo;Typical vendor "
+        "mix&rdquo; describes a stack stitched together from separate point vendors, agencies, website providers, and "
+        "software companies; no specific vendor is described, and every dealership&rsquo;s mix differs. The contrast "
+        "drawn here is about breadth, integration, and single-point accountability, not the quality of any individual "
+        "tool. Product lineups change &mdash; if anything here is out of date, tell us and we&rsquo;ll correct it."
+    )
     return comparison_section(
         "Why franchise dealers choose Vicimus",
         "Compare approaches, not features.",
-        "Most franchise stores can buy every one of these capabilities somewhere. What they rarely get is all of them "
-        "from a partner that connects the reporting, understands the retail automotive business, and answers for the "
-        "result &mdash; instead of a dozen invoices and nobody accountable for the whole.",
+        "Most franchise stores can buy every one of these capabilities somewhere &mdash; from an enterprise suite, or "
+        "from a shelf of point vendors. What&rsquo;s rare is getting all of them from a partner that connects the "
+        "reporting, knows the retail automotive business, and answers for the result.",
         cards, disclaimer,
     )
 
@@ -2847,7 +3035,9 @@ def build_audience_page(item, kind, lang):
     # so it gets an interactive challenge-selector hero, the challenge map, and
     # an approach comparison. Every other audience page keeps Layout A as-is.
     AUD_HERO_DEMOS = {"franchise-retail": franchise_hero_animation}
-    AUD_EXTRA_BEFORE_HELP = {"franchise-retail": franchise_challenge_map}
+    # franchise_challenge_map() is still defined above and can be swapped back
+    # in here (or added alongside) if the map earns its place again.
+    AUD_EXTRA_BEFORE_HELP = {"franchise-retail": franchise_growth_builder}
     AUD_EXTRA_AFTER_HELP = {"franchise-retail": franchise_comparison}
     slug = item["slug"]
     extra_before_help = AUD_EXTRA_BEFORE_HELP[slug]() if slug in AUD_EXTRA_BEFORE_HELP else ""
