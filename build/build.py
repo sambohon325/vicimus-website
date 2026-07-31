@@ -2057,81 +2057,71 @@ def psi_hero_animation(ap=""):
 
 
 def psi_demo(ap=""):
-    """Dealer Growth Builder — inputs (annual sales, customers) + goals ->
-    generates a customized PSI stack of real Vicimus products."""
-    return f'''<section class="section section--tight">
+    """Goal-based recommender — 'Choose your goal, see your solution.' PSI acts
+    as a consultant, recommending real Vicimus products + expected outcomes."""
+    return '''<section class="section section--tight">
   <div class="wrap centered">
-    <p class="eyebrow" style="color:var(--teal)">Build your stack</p>
-    <h2 class="h2" style="margin-bottom:8px">The Dealer Growth Builder.</h2>
-    <p class="lede">Tell us about your store and what you want to grow. PSI assembles the exact combination of Vicimus products to get you there &mdash; one vendor, one team.</p>
+    <p class="eyebrow" style="color:var(--teal)">One dealer. Multiple growth opportunities.</p>
+    <h2 class="h2" style="margin-bottom:8px">Choose your goal. See your solution.</h2>
+    <p class="lede">Tell PSI what you're trying to grow and it recommends the right combination of Vicimus products &mdash; and what to expect from them.</p>
   </div>
   <div class="wrap">
     <div class="pgb" id="pgb">
-      <div class="pgb-controls">
-        <label class="pgb-slider">
-          <span class="pgb-slider-top">Annual sales <b id="pgb-units-v">150 units</b></span>
-          <input type="range" id="pgb-units" min="25" max="1200" step="25" value="150">
-        </label>
-        <label class="pgb-slider">
-          <span class="pgb-slider-top">Current customers <b id="pgb-cust-v">2,000</b></span>
-          <input type="range" id="pgb-cust" min="200" max="15000" step="100" value="2000">
-        </label>
-        <div class="pgb-goals">
-          <div class="pgb-goals-t">What do you want to grow?</div>
-          <button class="pgb-goal is-on" data-g="marketing">Marketing</button>
-          <button class="pgb-goal is-on" data-g="retention">Retention</button>
-          <button class="pgb-goal is-on" data-g="advertising">Advertising</button>
-          <button class="pgb-goal is-on" data-g="phones">Phone management</button>
-          <button class="pgb-goal is-on" data-g="reporting">Reporting</button>
-        </div>
+      <div class="pgb-goals-col">
+        <button class="pgb-goal2 is-on" data-g="sell">&#128200; Sell more vehicles</button>
+        <button class="pgb-goal2" data-g="repeat">&#128260; Increase repeat customers</button>
+        <button class="pgb-goal2" data-g="leads">&#128222; Improve lead handling</button>
+        <button class="pgb-goal2" data-g="website">&#127760; Upgrade my website</button>
+        <button class="pgb-goal2" data-g="performance">&#128202; Understand performance</button>
       </div>
-      <div class="pgb-result">
-        <div class="pgb-result-t">Your customized PSI stack</div>
+      <div class="pgb-rec">
+        <div class="pgb-rec-t">PSI recommends</div>
         <div class="pgb-stack" id="pgb-stack"></div>
-        <div class="pgb-foot" id="pgb-foot"></div>
+        <div class="pgb-out-t">Expected outcomes</div>
+        <div class="pgb-outcomes" id="pgb-outcomes"></div>
       </div>
     </div>
   </div>
   <script>
-  (function(){{
+  (function(){
     var root=document.getElementById("pgb"); if(!root) return;
-    // each goal maps to real Vicimus products
-    var GOAL_PRODUCTS={{
-      marketing:[{{n:"Bumper Retention",d:"Lifecycle marketing automation"}}],
-      retention:[{{n:"Bumper Retention",d:"Win-back &amp; loyalty campaigns"}},{{n:"Accessory Accelerator",d:"Upsell at every touchpoint"}}],
-      advertising:[{{n:"Bumper Inventory Ads",d:"Facebook &amp; Google, VIN-level"}}],
-      phones:[{{n:"Odometer VoIP",d:"Call tracking &amp; recording"}},{{n:"Calls on Demand",d:"BDC overflow &amp; follow-up"}}],
-      reporting:[{{n:"Pie",d:"Business intelligence dashboard"}}]
-    }};
-    var alwaysOn=[{{n:"GloveBox Websites",d:"Dealer-controlled website platform"}}];
-    var units=document.getElementById("pgb-units"), cust=document.getElementById("pgb-cust");
-    var stackBox=document.getElementById("pgb-stack"), foot=document.getElementById("pgb-foot");
-    function render(){{
-      document.getElementById("pgb-units-v").textContent=(+units.value).toLocaleString()+" units";
-      document.getElementById("pgb-cust-v").textContent=(+cust.value).toLocaleString();
-      // gather selected goals -> unique products
-      var goals=[].slice.call(root.querySelectorAll(".pgb-goal.is-on")).map(function(b){{return b.getAttribute("data-g");}});
-      var picked=[], seen={{}};
-      alwaysOn.concat(goals.reduce(function(acc,g){{ return acc.concat(GOAL_PRODUCTS[g]||[]); }},[])).forEach(function(pr){{
-        if(!seen[pr.n]){{ seen[pr.n]=1; picked.push(pr); }}
-      }});
-      stackBox.innerHTML="";
-      picked.forEach(function(pr,i){{
-        var card=document.createElement("div"); card.className="pgb-prod";
-        card.innerHTML="<b>"+pr.n+"</b><span>"+pr.d+"</span>";
+    var GOALS={
+      sell:{ products:["Bumper Inventory Ads","GloveBox Websites","Calls on Demand"],
+        outcomes:["More qualified showroom traffic","Faster lead response","More closed deals"] },
+      repeat:{ products:["Bumper Retention","Accessory Accelerator","Odometer VoIP"],
+        outcomes:["More service visits","More trade cycles","Higher customer retention","Lower marketing waste"] },
+      leads:{ products:["Odometer VoIP","Calls on Demand","Bumper Retention"],
+        outcomes:["Fewer missed calls","Every lead followed up","More appointments set"] },
+      website:{ products:["GloveBox Websites","Bumper Inventory Ads","Pie"],
+        outcomes:["Instant, dealer-controlled updates","Inventory that stays in sync","Faster launches, no developers"] },
+      performance:{ products:["Pie","Odometer VoIP","Bumper Retention"],
+        outcomes:["One connected view of the store","Department-level visibility","Decisions backed by data"] }
+    };
+    var stackBox=document.getElementById("pgb-stack"), outBox=document.getElementById("pgb-outcomes");
+    function render(g){
+      var d=GOALS[g];
+      stackBox.innerHTML=""; outBox.innerHTML="";
+      d.products.forEach(function(name,i){
+        if(i>0){ var plus=document.createElement("div"); plus.className="pgb-plus"; plus.textContent="+"; stackBox.appendChild(plus); }
+        var card=document.createElement("div"); card.className="pgb-prod2"; card.textContent=name;
         stackBox.appendChild(card);
-        setTimeout(function(){{ card.classList.add("in"); }}, i*80);
-      }});
-      var big=(+units.value>=400)||(+cust.value>=6000);
-      foot.innerHTML="<b>"+picked.length+" products</b> &middot; one vendor, one support team, one connected view"+(big?" &middot; <span class='pgb-scale'>ready to scale</span>":"");
-    }}
-    [units,cust].forEach(function(s){{ s.addEventListener("input",render); }});
-    root.querySelectorAll(".pgb-goal").forEach(function(b){{
-      b.addEventListener("click",function(){{ b.classList.toggle("is-on"); render(); }});
-    }});
+        setTimeout(function(){ card.classList.add("in"); }, i*160);
+      });
+      d.outcomes.forEach(function(txt,i){
+        var row=document.createElement("div"); row.className="pgb-outcome"; row.innerHTML="&#10003; "+txt;
+        outBox.appendChild(row);
+        setTimeout(function(){ row.classList.add("in"); }, 400+i*140);
+      });
+    }
+    root.querySelectorAll(".pgb-goal2").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        root.querySelectorAll(".pgb-goal2").forEach(function(x){x.classList.remove("is-on");});
+        btn.classList.add("is-on"); render(btn.getAttribute("data-g"));
+      });
+    });
     var seen=false;
-    if("IntersectionObserver" in window){{ new IntersectionObserver(function(es){{es.forEach(function(e){{if(e.isIntersecting&&!seen){{seen=true;render();}}}});}},{{threshold:.3}}).observe(root); }} else render();
-  }})();
+    if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;render("sell");}});},{threshold:.3}).observe(root); } else render("sell");
+  })();
   </script>
 </section>'''
 
