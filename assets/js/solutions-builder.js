@@ -320,11 +320,15 @@
     if (!foot) return;
     if (!enabled) { foot.innerHTML = ""; return; }
     foot.innerHTML =
+      '<button class="btn btn-yellow sb-demo" id="sb-demo">Book a demo with this &rarr;</button>' +
       '<div class="row">' +
       '<button class="btn btn-red" id="sb-pdf">Download PDF</button>' +
       '<button class="btn btn-ghost" id="sb-email">Email PDF</button>' +
       "</div>" +
       '<button class="sb-clear" id="sb-clear">Clear all</button>';
+    document.getElementById("sb-demo").addEventListener("click", function () {
+      window.location.href = linkTo("book-a-demo.html") + "?sb=1";
+    });
     document.getElementById("sb-pdf").addEventListener("click", function () { buildPDF(true); });
     document.getElementById("sb-email").addEventListener("click", emailFlow);
     document.getElementById("sb-clear").addEventListener("click", clearAll);
@@ -580,6 +584,81 @@
     catch (e) { return "vicimus.com"; }
   }
 
+  // ---------- book-a-demo handoff ----------
+  // The visitor built a stack in the tray; the demo form should already know
+  // what it is so they only have to add contact details. Runs on the demo page
+  // whenever the tray has anything in it.
+  function prefillDemoForm() {
+    var isDemo = /(^|\/)book-a-demo\.html$/.test(SITE.page || "");
+    if (!isDemo) return;
+    var host = document.getElementById("bd-sb-summary");
+    var form = document.getElementById("bd-form");
+    if (!host || !form || !state.items.length) return;
+
+    var r = roi();
+    var prods = impactSet().map(function (id) { return CAT.products[id].name; });
+    var picked = [];
+    ["solutions", "markets"].forEach(function (t) {
+      selectedOf(t).forEach(function (id) { if (CAT[t][id]) picked.push(CAT[t][id].name); });
+    });
+
+    // Visible confirmation — the visitor should see what's being carried over,
+    // and be able to drop it if it's not what they want.
+    var chips = prods.map(function (n) { return "<span>" + esc(n) + "</span>"; }).join("");
+    host.innerHTML =
+      '<div class="bd-sb" id="bd-sb">' +
+        '<div class="bd-sb__head">' +
+          "<strong>From your Solutions Builder</strong>" +
+          '<button type="button" class="bd-sb__x" id="bd-sb-clear">Remove</button>' +
+        "</div>" +
+        (picked.length ? '<div class="bd-sb__ctx">' + picked.map(esc).join(" &middot; ") + "</div>" : "") +
+        '<div class="bd-sb__chips">' + chips + "</div>" +
+        (r.total > 0 || r.hours > 0
+          ? '<div class="bd-sb__impact">' +
+              (r.total > 0 ? money(r.total) + " estimated annual impact" : "") +
+              (r.total > 0 && r.hours > 0 ? " &middot; " : "") +
+              (r.hours > 0 ? hrs(r.hours) + " saved/yr" : "") +
+            "</div>"
+          : "") +
+        '<div class="bd-sb__note">We\'ll have this in front of us on the call &mdash; just add your details below.</div>' +
+      "</div>";
+
+    // Human-readable summary in the notes field, so it survives even if the
+    // form is only ever wired up to email.
+    var lines = [];
+    if (picked.length) lines.push("Interested in: " + picked.join(", "));
+    lines.push("Products: " + prods.join(", "));
+    if (r.units) lines.push("Volume: ~" + r.units + " vehicles/month");
+    if (r.total > 0) lines.push("Est. annual impact: " + money(r.total) + " (directional)");
+    if (r.hours > 0) lines.push("Est. staff time saved: " + hrs(r.hours) + "/yr (directional)");
+    var summary = "Built with the Solutions Builder:\n" + lines.join("\n");
+
+    var notes = document.getElementById("bd-notes");
+    if (notes && !notes.value.trim()) {
+      notes.value = summary + "\n\n";
+      // Leave the caret where they'd naturally keep typing.
+      try { notes.setSelectionRange(notes.value.length, notes.value.length); } catch (e) {}
+    }
+    // Machine-readable copy for whenever the form gets a real endpoint.
+    var payload = document.getElementById("bd-sb-payload");
+    if (payload) {
+      payload.value = JSON.stringify({
+        items: state.items, units: state.units,
+        products: impactSet(), impact: r.total, hours: r.hours
+      });
+    }
+    var dealer = document.getElementById("bd-dealership");
+    if (dealer && !dealer.value && state.dealer) dealer.value = state.dealer;
+
+    document.getElementById("bd-sb-clear").addEventListener("click", function () {
+      host.innerHTML = "";
+      if (payload) payload.value = "";
+      if (notes && notes.value.indexOf(summary) === 0) {
+        notes.value = notes.value.slice(summary.length).replace(/^\n+/, "");
+      }
+    });
+  }
+
   // ---------- boot ----------
   function setupHomepageGate() {
     // On the homepage, the hero already has an interactive ROI calculator,
@@ -615,7 +694,7 @@
     open: function () { openPanel(); }
   };
 
-  function boot() { injectTray(); instrument(); render(); setupHomepageGate(); }
+  function boot() { injectTray(); instrument(); render(); setupHomepageGate(); prefillDemoForm(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();

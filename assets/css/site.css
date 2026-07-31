@@ -1564,3 +1564,20 @@ button.btn{margin:0;background-image:none}
 .sb-impact--hrs{font-size:1.05rem;color:var(--blue-deep)}
 .sb-impact--hrs span{font-family:var(--body);font-style:normal;font-weight:500;font-size:.78rem;color:var(--muted)}
 .sb-impact-tag.is-gated{display:none!important}
+
+/* Solutions Builder -> Book a demo handoff */
+.sb-demo{width:100%;justify-content:center;margin-bottom:8px}
+.bd-sb{border:1px solid rgba(62,189,196,.45);background:rgba(62,189,196,.07);border-radius:12px;
+  padding:14px 15px;margin-bottom:18px}
+.bd-sb__head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px}
+.bd-sb__head strong{font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;
+  font-size:.74rem;letter-spacing:.05em;color:var(--blue-deep)}
+.bd-sb__x{background:none;border:0;padding:0;font-size:.72rem;color:var(--muted);text-decoration:underline;cursor:pointer}
+.bd-sb__x:hover{color:var(--red)}
+.bd-sb__ctx{font-size:.8rem;font-weight:600;color:var(--ink);margin-bottom:8px}
+.bd-sb__chips{display:flex;flex-wrap:wrap;gap:6px}
+.bd-sb__chips span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 10px;
+  font-size:.74rem;font-weight:600;color:var(--ink)}
+.bd-sb__impact{margin-top:9px;font-family:var(--display);font-style:italic;font-weight:800;
+  font-size:.92rem;color:var(--blue-deep)}
+.bd-sb__note{margin-top:7px;font-size:.72rem;color:var(--muted);line-height:1.4}

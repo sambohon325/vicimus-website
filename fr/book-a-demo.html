@@ -120,18 +120,20 @@
       </div>
       <div class="contact-card">
         <span class="form__legend">Request a demo</span>
-        <form method="post" action="#">
+        <div id="bd-sb-summary"></div>
+        <form method="post" action="#" id="bd-form">
           <div class="form-row cols-2">
-            <div class="field"><label>First name</label><input type="text" required></div>
-            <div class="field"><label>Last name</label><input type="text" required></div>
+            <div class="field"><label for="bd-first">First name</label><input id="bd-first" name="first_name" type="text" required></div>
+            <div class="field"><label for="bd-last">Last name</label><input id="bd-last" name="last_name" type="text" required></div>
           </div>
-          <div class="form-row"><div class="field"><label>Work email</label><input type="email" required></div></div>
-          <div class="form-row"><div class="field"><label>Dealership name</label><input type="text" required></div></div>
+          <div class="form-row"><div class="field"><label for="bd-email">Work email</label><input id="bd-email" name="email" type="email" required></div></div>
+          <div class="form-row"><div class="field"><label for="bd-dealership">Dealership name</label><input id="bd-dealership" name="dealership" type="text" required></div></div>
           <div class="form-row cols-2">
-            <div class="field"><label>Market</label><select><option>United States</option><option>Canada</option></select></div>
-            <div class="field"><label>Role</label><select><option>General Manager</option><option>Dealer Principal</option><option>Fixed Operations Director</option><option>Marketing / BDC</option><option>Other</option></select></div>
+            <div class="field"><label for="bd-market">Market</label><select id="bd-market" name="market"><option>United States</option><option>Canada</option></select></div>
+            <div class="field"><label for="bd-role">Role</label><select id="bd-role" name="role"><option>General Manager</option><option>Dealer Principal</option><option>Fixed Operations Director</option><option>Marketing / BDC</option><option>Other</option></select></div>
           </div>
-          <div class="form-row"><div class="field"><label>Anything specific you'd like to see? (optional)</label><textarea></textarea></div></div>
+          <div class="form-row"><div class="field"><label for="bd-notes">Anything specific you'd like to see? (optional)</label><textarea id="bd-notes" name="notes"></textarea></div></div>
+          <input type="hidden" id="bd-sb-payload" name="solutions_builder" value="">
           <button class="form__submit" type="submit">Request my demo</button>
         </form>
       </div>
