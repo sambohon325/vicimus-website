@@ -1537,3 +1537,30 @@ button.btn{margin:0;background-image:none}
 .dgb-foot{margin-top:auto;padding-top:18px}
 .dgb-scale{font-size:.76rem;font-weight:600;color:var(--faint);margin-bottom:12px;padding-top:14px;border-top:1px solid var(--line)}
 .dgb-add{width:100%;justify-content:center;text-align:center}
+
+/* Running impact total, pinned above the Solutions Builder tab */
+.sb-impact-tag{
+  position:fixed;right:26px;bottom:94px;z-index:139;
+  display:none;flex-direction:column;align-items:flex-end;gap:1px;
+  background:var(--blue-deep);color:#fff;border-radius:11px;padding:8px 12px;
+  box-shadow:0 6px 20px rgba(13,45,92,.3);text-align:right;pointer-events:none;
+  max-width:210px;animation:sbTagIn .28s ease-out}
+.sb-impact-tag.is-on{display:flex}
+.sb-impact-tag::after{content:"";position:absolute;bottom:-5px;right:22px;width:10px;height:10px;
+  background:var(--blue-deep);transform:rotate(45deg);border-radius:2px}
+.sb-impact-tag__k{font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;
+  font-size:.56rem;letter-spacing:.07em;color:rgba(255,255,255,.62);line-height:1.1}
+.sb-impact-tag__v{font-family:var(--display);font-style:italic;font-weight:800;font-size:1.12rem;
+  color:var(--yellow);line-height:1.12}
+.sb-impact-tag__s{font-size:.63rem;color:rgba(255,255,255,.72);line-height:1.15}
+@keyframes sbTagIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:520px){
+  .sb-impact-tag{right:20px;bottom:86px;padding:7px 10px;max-width:170px}
+  .sb-impact-tag__v{font-size:1rem}
+}
+@media(prefers-reduced-motion:reduce){.sb-impact-tag{animation:none}}
+
+/* Hours-saved line inside the tray summary */
+.sb-impact--hrs{font-size:1.05rem;color:var(--blue-deep)}
+.sb-impact--hrs span{font-family:var(--body);font-style:normal;font-weight:500;font-size:.78rem;color:var(--muted)}
+.sb-impact-tag.is-gated{display:none!important}

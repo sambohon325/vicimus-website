@@ -8,7 +8,9 @@ window.SB_CATALOG = {
       "path": "products/bumper-retention.html",
       "roi": {
         "kind": "qual",
-        "metric": "Repeat & service retention lift"
+        "metric": "Repeat & service retention lift",
+        "hours": 520,
+        "hours_label": "list pulling & manual follow-up"
       }
     },
     "bumper-inventory-ads": {
@@ -18,7 +20,9 @@ window.SB_CATALOG = {
       "path": "products/bumper-inventory-ads.html",
       "roi": {
         "kind": "qual",
-        "metric": "More qualified inventory leads"
+        "metric": "More qualified inventory leads",
+        "hours": 312,
+        "hours_label": "building & refreshing ad creative"
       }
     },
     "pie": {
@@ -28,7 +32,9 @@ window.SB_CATALOG = {
       "path": "products/pie.html",
       "roi": {
         "kind": "qual",
-        "metric": "Automated insight on one dataset"
+        "metric": "Automated insight on one dataset",
+        "hours": 416,
+        "hours_label": "pulling & reconciling reports"
       }
     },
     "bumper-finance": {
@@ -40,7 +46,9 @@ window.SB_CATALOG = {
         "kind": "per_unit",
         "amount": 800,
         "label": "F&I gross per vehicle",
-        "metric": "+$800 average PVR lift"
+        "metric": "+$800 average PVR lift",
+        "hours": 260,
+        "hours_label": "deal prep & menu presentation"
       }
     },
     "accessory-accelerator": {
@@ -52,7 +60,9 @@ window.SB_CATALOG = {
         "kind": "per_unit",
         "amount": 500,
         "label": "Accessory gross per vehicle",
-        "metric": "New accessory revenue per unit"
+        "metric": "New accessory revenue per unit",
+        "hours": 156,
+        "hours_label": "accessory quoting & ordering"
       }
     },
     "glovebox-websites": {
@@ -62,7 +72,9 @@ window.SB_CATALOG = {
       "path": "products/glovebox-websites.html",
       "roi": {
         "kind": "qual",
-        "metric": "Higher website conversion"
+        "metric": "Higher website conversion",
+        "hours": 208,
+        "hours_label": "website edits without vendor tickets"
       }
     },
     "odometer-voip": {
@@ -74,7 +86,9 @@ window.SB_CATALOG = {
         "kind": "annual_flat",
         "amount": 8400,
         "label": "Phone cost savings",
-        "metric": "~70% lower phone bill"
+        "metric": "~70% lower phone bill",
+        "hours": 180,
+        "hours_label": "call routing & phone admin"
       }
     },
     "calls-on-demand": {
@@ -84,7 +98,9 @@ window.SB_CATALOG = {
       "path": "products/calls-on-demand.html",
       "roi": {
         "kind": "qual",
-        "metric": "~20% of missed calls recovered"
+        "metric": "~20% of missed calls recovered",
+        "hours": 1040,
+        "hours_label": "outbound calling handled for you"
       }
     },
     "powersports-independent": {
@@ -94,7 +110,9 @@ window.SB_CATALOG = {
       "path": "products/powersports-independent.html",
       "roi": {
         "kind": "qual",
-        "metric": "Flexible, a-la-carte bundle"
+        "metric": "Flexible, a-la-carte bundle",
+        "hours": 624,
+        "hours_label": "one vendor instead of six"
       }
     }
   },

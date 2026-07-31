@@ -51,14 +51,17 @@
 
   function meta(id, type) { return (CAT[type] || {})[id]; }
   function has(id, type) { return state.items.some(function (x) { return x.id === id && x.type === type; }); }
+  function announce() {
+    try { document.dispatchEvent(new CustomEvent("sb:change")); } catch (e) {}
+  }
   function add(id, type) {
     if (!meta(id, type) || has(id, type)) return;
     state.items.push({ id: id, type: type });
-    save(); render(); flashTab(); markAdds();
+    save(); render(); flashTab(); markAdds(); announce();
   }
   function remove(id, type) {
     state.items = state.items.filter(function (x) { return !(x.id === id && x.type === type); });
-    save(); render(); markAdds();
+    save(); render(); markAdds(); announce();
   }
   function clearAll() { state.items = []; save(); render(); markAdds(); }
 
@@ -86,31 +89,55 @@
     selectedOf("products").forEach(function (id) { (COMPLEMENTS[id] || []).forEach(push); });
     return set.slice(0, 6);
   }
+  // What the impact number should count: everything the visitor actually put in
+  // the tray, plus the recommendations we inferred. recommended() is capped at 6
+  // because it drives a display list — the totals must not inherit that cap, or
+  // the number silently ignores items sitting right there in the tray.
+  function impactSet() {
+    var out = [];
+    function push(id) { if (CAT.products[id] && out.indexOf(id) < 0) out.push(id); }
+    selectedOf("products").forEach(push);
+    // Markets and solutions in the tray imply products too. These must be added
+    // uncapped: otherwise a visitor selecting a second challenge pushes the
+    // implied products past recommended()'s limit of 6 and the headline total
+    // *falls* — which reads as a bug to anyone watching the number.
+    selectedOf("markets").forEach(function (m) { (IMPLIES[m] || []).forEach(push); });
+    selectedOf("solutions").forEach(function (s) { (IMPLIES[s] || []).forEach(push); });
+    recommended().forEach(push);
+    return out;
+  }
   function roi() {
     var units = Math.max(0, parseInt(state.units, 10) || 0);
     var annualUnits = units * 12;
-    var rows = [], total = 0;
-    recommended().forEach(function (id) {
+    var rows = [], total = 0, hours = 0;
+    impactSet().forEach(function (id) {
       var r = (CAT.products[id] || {}).roi || {};
+      if (r.hours) hours += r.hours;
       if (r.kind === "per_unit" && annualUnits > 0) {
         var amt = r.amount * annualUnits;
-        rows.push({ name: CAT.products[id].name, detail: r.label, value: amt });
+        rows.push({ name: CAT.products[id].name, detail: r.label, value: amt, hours: r.hours || 0 });
         total += amt;
       } else if (r.kind === "annual_flat") {
-        rows.push({ name: CAT.products[id].name, detail: r.label, value: r.amount });
+        rows.push({ name: CAT.products[id].name, detail: r.label, value: r.amount, hours: r.hours || 0 });
         total += r.amount;
       } else if (r.metric) {
-        rows.push({ name: CAT.products[id].name, detail: r.metric, value: null });
+        rows.push({ name: CAT.products[id].name, detail: r.metric, value: null, hours: r.hours || 0 });
       }
     });
-    return { rows: rows, total: total, units: units };
+    return { rows: rows, total: total, hours: hours, units: units };
   }
   function money(n) { return "$" + Math.round(n).toLocaleString("en-US"); }
+  function hrs(n) { return Math.round(n).toLocaleString("en-US") + " hrs"; }
 
   // ---------- tray DOM ----------
-  var panel, tab, overlay, countEl;
+  var panel, tab, overlay, countEl, impactEl;
 
   function injectTray() {
+    impactEl = document.createElement("div");
+    impactEl.className = "sb-impact-tag";
+    impactEl.setAttribute("aria-hidden", "true");
+    document.body.appendChild(impactEl);
+
     tab = document.createElement("button");
     tab.className = "sb-tab";
     tab.setAttribute("aria-label", "Open Solutions Builder");
@@ -162,8 +189,8 @@
     });
   }
 
-  function openPanel() { panel.classList.add("is-open"); overlay.classList.add("is-open"); tab.classList.add("is-open", "is-tray-open"); render(); }
-  function closePanel() { panel.classList.remove("is-open"); overlay.classList.remove("is-open"); tab.classList.remove("is-open", "is-tray-open"); }
+  function openPanel() { panel.classList.add("is-open"); overlay.classList.add("is-open"); tab.classList.add("is-open", "is-tray-open"); render(); updateImpactTag(); }
+  function closePanel() { panel.classList.remove("is-open"); overlay.classList.remove("is-open"); tab.classList.remove("is-open", "is-tray-open"); updateImpactTag(); }
   function togglePanel() { if (panel.classList.contains("is-open")) closePanel(); else openPanel(); }
   function flashTab() {
     tab.animate(
@@ -175,9 +202,34 @@
   var TYPE_LABEL = { products: "Products", solutions: "Goals", markets: "Your market" };
   var FAM_CLASS = { b: "", t: "t", r: "r" };
 
+  // Running total pinned above the floating tab, so the number follows the
+  // visitor from page to page as they build a stack.
+  function updateImpactTag() {
+    if (!impactEl) return;
+    var r = roi();
+    var open = panel && panel.classList.contains("is-open");
+    var gated = impactEl.classList.contains("is-gated");
+    if (!state.items.length || (r.total <= 0 && r.hours <= 0) || open || gated) {
+      impactEl.classList.remove("is-on");
+      impactEl.innerHTML = "";
+      return;
+
+    }
+    var val = r.total > 0 ? money(r.total) : hrs(r.hours);
+    var sub = r.total > 0 && r.hours > 0
+      ? "+ " + hrs(r.hours) + " saved/yr"
+      : (r.total > 0 ? "estimated annual impact" : "saved per year");
+    impactEl.innerHTML =
+      '<span class="sb-impact-tag__k">Est. annual impact</span>' +
+      '<span class="sb-impact-tag__v">' + val + "</span>" +
+      '<span class="sb-impact-tag__s">' + sub + "</span>";
+    impactEl.classList.add("is-on");
+  }
+
   function render() {
     var n = state.items.length;
     if (countEl) { countEl.textContent = n ? n : ""; countEl.setAttribute("data-n", n); }
+    updateImpactTag();
 
     var body = document.getElementById("sb-body");
     if (!body) return;
@@ -229,11 +281,17 @@
       html += "<h4>We'd recommend</h4><div class=\"sb-reco\">" +
         rec.map(function (id) { return "<span>" + esc(CAT.products[id].name) + "</span>"; }).join("") + "</div>";
     }
-    if (r.total > 0) {
-      html += "<h4 style=\"margin-top:12px\">Estimated annual impact</h4>" +
-        '<div class="sb-impact">' + money(r.total) + "</div>" +
-        '<div class="sb-disclaimer">Directional estimate based on ' + (r.units || 0) +
-        " vehicles/month and published, non-guaranteed figures. Your team should validate against your numbers.</div>";
+    if (r.total > 0 || r.hours > 0) {
+      html += "<h4 style=\"margin-top:12px\">Estimated annual impact</h4>";
+      if (r.total > 0) html += '<div class="sb-impact">' + money(r.total) + "</div>";
+      if (r.hours > 0) {
+        html += '<div class="sb-impact sb-impact--hrs">' + hrs(r.hours) +
+          ' <span>of staff time saved per year</span></div>';
+      }
+      html += '<div class="sb-disclaimer">Directional estimate based on ' + (r.units || 0) +
+        " vehicles/month and published, non-guaranteed figures. Hours saved are Vicimus planning" +
+        " estimates for a typical single rooftop, not measured results. Your team should validate" +
+        " both against your own numbers.</div>";
     }
     html += "</div>";
 
@@ -347,12 +405,34 @@
     b.style.borderColor = "rgba(255,255,255,.45)";
     b.setAttribute("data-sb-id", id); b.setAttribute("data-sb-type", type);
     var LABEL = "+ Add to Solutions Builder";
+    // A page may nominate extra blocks that belong with it (e.g. the Franchise
+    // Retail hero recommends products based on the challenges the visitor
+    // picked). They ride along with the market/product itself.
+    function extras() {
+      if (typeof window.SB_HERO_EXTRAS !== "function") return [];
+      try { return window.SB_HERO_EXTRAS() || []; } catch (e) { return []; }
+    }
+    function relabel() {
+      if (!has(id, type)) { b.textContent = LABEL; return; }
+      var n = state.items.length;
+      b.textContent = n > 1 ? "\u2713 Added \u2014 " + n + " items" : "\u2713 Added";
+    }
     b.textContent = has(id, type) ? "\u2713 Added" : LABEL;
+    relabel();
     b.addEventListener("click", function () {
-      if (has(id, type)) { remove(id, type); b.textContent = LABEL; }
-      else { add(id, type); b.textContent = "\u2713 Added"; openPanel(); }
+      if (has(id, type)) {
+        extras().forEach(function (x) { remove(x.id, x.type || "products"); });
+        remove(id, type);
+      } else {
+        add(id, type);
+        extras().forEach(function (x) { add(x.id, x.type || "products"); });
+        openPanel();
+      }
+      relabel();
     });
     actions.appendChild(b);
+    // Keep the label honest when the tray changes from anywhere else.
+    document.addEventListener("sb:change", relabel);
   }
 
   function markAdds() {
@@ -437,14 +517,25 @@
           doc.setFont("helvetica", "bold"); doc.setFontSize(10.5); doc.setTextColor("#16A34A");
           doc.text(money(row.value), R, y, { align: "right" });
         }
+        if (row.hours) {
+          doc.setFont("helvetica", "normal"); doc.setFontSize(8.5); doc.setTextColor("#6E6E6C");
+          doc.text("~" + hrs(row.hours) + "/yr saved", R, y + 12, { align: "right" });
+        }
         y += 26;
       });
-      if (r.total > 0) {
-        pageBreak(30); doc.setDrawColor("#DFE7EF"); doc.line(L, y, R, y); y += 18;
-        doc.setFont("helvetica", "bold"); doc.setFontSize(13); doc.setTextColor("#0D2D5C");
-        doc.text("Estimated annual impact", L, y);
-        doc.text(money(r.total), R, y, { align: "right" }); y += 20;
-        para("Directional estimate based on " + r.units + " vehicles/month and published, non-guaranteed figures. Validate against your store's actuals.", 8.5, "#9A9A98");
+      if (r.total > 0 || r.hours > 0) {
+        pageBreak(46); doc.setDrawColor("#DFE7EF"); doc.line(L, y, R, y); y += 18;
+        if (r.total > 0) {
+          doc.setFont("helvetica", "bold"); doc.setFontSize(13); doc.setTextColor("#0D2D5C");
+          doc.text("Estimated annual impact", L, y);
+          doc.text(money(r.total), R, y, { align: "right" }); y += 20;
+        }
+        if (r.hours > 0) {
+          doc.setFont("helvetica", "bold"); doc.setFontSize(11.5); doc.setTextColor("#0D2D5C");
+          doc.text("Estimated staff time saved", L, y);
+          doc.text(hrs(r.hours) + "/yr", R, y, { align: "right" }); y += 20;
+        }
+        para("Directional estimates based on " + r.units + " vehicles/month and published, non-guaranteed figures. Hours saved are Vicimus planning estimates for a typical single rooftop, not measured results. Validate both against your store's actuals.", 8.5, "#9A9A98");
       }
     }
 
@@ -477,6 +568,7 @@
       "Market: " + industry() + "\n" +
       (lines ? "Recommended:\n" + lines + "\n" : "") +
       (r.total > 0 ? "\nEstimated annual impact: " + money(r.total) + " (directional)\n" : "") +
+      (r.hours > 0 ? "Estimated staff time saved: " + hrs(r.hours) + "/yr (directional)\n" : "") +
       "\nThe full brief just downloaded to my device (\"" + pdfName() + "\") — attaching it here.\n\n" +
       "Take a look:  " + siteURL() + "\n\nThanks";
     var url = "mailto:?subject=" + encodeURIComponent("Vicimus — Tailored Solutions Brief") +
@@ -501,6 +593,7 @@
     function check() {
       var past = hero.getBoundingClientRect().bottom <= 60;
       tab.classList.toggle("sb-tab--reveal", past);
+      if (impactEl) { impactEl.classList.toggle("is-gated", !past); updateImpactTag(); }
       // if the panel is open and we scroll back up into the hero, tuck it away
       if (!past && panel.classList.contains("is-open")) closePanel();
     }
@@ -511,6 +604,16 @@
     window.addEventListener("resize", check);
     check();
   }
+
+  // Public API — lets page-level widgets (e.g. the Franchise Retail hero)
+  // read and drive the tray without reaching into internals.
+  window.SB = {
+    add: function (id, type) { add(id, type || "products"); },
+    remove: function (id, type) { remove(id, type || "products"); },
+    has: function (id, type) { return has(id, type || "products"); },
+    items: function () { return state.items.slice(); },
+    open: function () { openPanel(); }
+  };
 
   function boot() { injectTray(); instrument(); render(); setupHomepageGate(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);

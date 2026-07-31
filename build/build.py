@@ -40,16 +40,24 @@ LOGODIR = "assets/logos"
 # rule-based engine reads these (via the generated catalog) to produce an
 # illustrative annual-impact estimate. All figures are directional.
 SB_ROI = {
-    "bumper-finance":         {"kind": "per_unit",     "amount": 800,  "label": "F&I gross per vehicle",        "metric": "+$800 average PVR lift"},
-    "accessory-accelerator":  {"kind": "per_unit",     "amount": 500,  "label": "Accessory gross per vehicle",  "metric": "New accessory revenue per unit"},
-    "odometer-voip":          {"kind": "annual_flat",  "amount": 8400, "label": "Phone cost savings",           "metric": "~70% lower phone bill"},
-    "calls-on-demand":        {"kind": "qual",                                                                   "metric": "~20% of missed calls recovered"},
-    "bumper-retention":       {"kind": "qual",                                                                   "metric": "Repeat & service retention lift"},
-    "bumper-inventory-ads":   {"kind": "qual",                                                                   "metric": "More qualified inventory leads"},
-    "pie":              {"kind": "qual",                                                                   "metric": "Automated insight on one dataset"},
-    "glovebox-websites":      {"kind": "qual",                                                                   "metric": "Higher website conversion"},
-    "powersports-independent":{"kind": "qual",                                                                   "metric": "Flexible, a-la-carte bundle"},
+    "bumper-finance":         {"kind": "per_unit",     "amount": 800,  "label": "F&I gross per vehicle",        "metric": "+$800 average PVR lift",           "hours": 260,  "hours_label": "deal prep & menu presentation"},
+    "accessory-accelerator":  {"kind": "per_unit",     "amount": 500,  "label": "Accessory gross per vehicle",  "metric": "New accessory revenue per unit",   "hours": 156,  "hours_label": "accessory quoting & ordering"},
+    "odometer-voip":          {"kind": "annual_flat",  "amount": 8400, "label": "Phone cost savings",           "metric": "~70% lower phone bill",            "hours": 180,  "hours_label": "call routing & phone admin"},
+    "calls-on-demand":        {"kind": "qual",                                                                  "metric": "~20% of missed calls recovered",   "hours": 1040, "hours_label": "outbound calling handled for you"},
+    "bumper-retention":       {"kind": "qual",                                                                  "metric": "Repeat & service retention lift",  "hours": 520,  "hours_label": "list pulling & manual follow-up"},
+    "bumper-inventory-ads":   {"kind": "qual",                                                                  "metric": "More qualified inventory leads",   "hours": 312,  "hours_label": "building & refreshing ad creative"},
+    "pie":              {"kind": "qual",                                                                  "metric": "Automated insight on one dataset", "hours": 416,  "hours_label": "pulling & reconciling reports"},
+    "glovebox-websites":      {"kind": "qual",                                                                  "metric": "Higher website conversion",        "hours": 208,  "hours_label": "website edits without vendor tickets"},
+    "powersports-independent":{"kind": "qual",                                                                  "metric": "Flexible, a-la-carte bundle",      "hours": 624,  "hours_label": "one vendor instead of six"},
 }
+# NOTE: "hours" are directional annual staff-hours-saved estimates for a typical
+# single rooftop, expressed as hours/year. They are Vicimus-authored planning
+# figures, not measured or audited results, and the tray labels them as such.
+# They are deliberately kept in one table so they are easy to revise after
+# review. Rough basis: hours/week x 52 (e.g. 10 hrs/wk of manual list-pulling
+# and follow-up = 520). Calls on Demand is the outlier because it is an
+# outsourced service that absorbs the calling work outright rather than
+# speeding it up.
 
 # Languages and the subfolder each lives in.
 LANGS = ["en", "es", "fr"]
