@@ -89,7 +89,7 @@ window.SB_CATALOG = {
     },
     "powersports-independent": {
       "name": "Powersports Independent (PSI)",
-      "blurb": "Tired of being a vendor afterthought? Build customized bundles that include only the applications that make an impact and provide essential ROI for your business — with d",
+      "blurb": "Everything you need to market, retain, advertise, and grow your dealership — without enterprise budgets, enterprise complexity, or enterprise headaches.",
       "family": "r",
       "path": "products/powersports-independent.html",
       "roi": {

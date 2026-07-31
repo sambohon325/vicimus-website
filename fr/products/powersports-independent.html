@@ -94,16 +94,66 @@
     </div>
   </div>
 </header>
-<section class="subhero">
+<section class="subhero subhero--split subhero--powersports-independent">
   <img class="subhero__bg" src="../../assets/img/hero.jpg" alt="">
-  <div class="subhero__inner">
-    <img class="subhero__logo" src="../../assets/logos/bumper.svg" alt="Powersports Independent (PSI)">
-    <p class="eyebrow" translate="no">Powersports & Independent Solutions</p>
-    <h1 class="h1">Scaled solutions for powersports and independent markets.</h1>
-    <p class="subhero__lead">Tired of being a vendor afterthought? Build customized bundles that include only the applications that make an impact and provide essential ROI for your business — with dedicated performance support for every dealer.</p>
-    <div class="subhero__actions">
-      <a class="btn btn-yellow" href="../book-a-demo.html">Schedule a demo &rarr;</a>
+  <div class="subhero__split">
+    <div class="subhero__col">
+      <img class="subhero__logo" src="../../assets/logos/bumper.svg" alt="Powersports Independent (PSI)">
+      <h1 class="h1">Big dealer technology. Built for independent &amp; powersports dealers.</h1>
+      <p class="subhero__lead">Everything you need to market, retain, advertise, and grow your dealership &mdash; without enterprise budgets, enterprise complexity, or enterprise headaches.</p>
+      <div class="subhero__actions">
+        <a class="btn btn-yellow" href="../book-a-demo.html">Schedule a demo &rarr;</a>
+      </div>
     </div>
+    <div class="subhero__demo"><div class="psi" id="psi">
+    <div class="psi-pick">
+      <div class="psi-pick-t">Choose your business</div>
+      <div class="psi-biz" data-b="0">&#127949; Powersports</div>
+      <div class="psi-biz" data-b="1">&#128664; Independent auto</div>
+      <div class="psi-biz" data-b="2">&#128665; Used vehicles</div>
+      <div class="psi-biz" data-b="3">&#128676; Marine</div>
+      <div class="psi-biz" data-b="4">&#128679; Utility / equipment</div>
+    </div>
+    <div class="psi-build">
+      <div class="psi-selected" id="psi-selected">Powersports dealer selected</div>
+      <div class="psi-stack">
+        <div class="psi-item" data-k="0">&#10003; Retention marketing</div>
+        <div class="psi-item" data-k="1">&#10003; Facebook advertising</div>
+        <div class="psi-item" data-k="2">&#10003; Google advertising</div>
+        <div class="psi-item" data-k="3">&#10003; Website platform</div>
+        <div class="psi-item" data-k="4">&#10003; VoIP &amp; call tracking</div>
+        <div class="psi-item" data-k="5">&#10003; Business intelligence</div>
+      </div>
+      <div class="psi-cost" id="psi-cost">
+        <div class="psi-cost-row"><span>Enterprise solution</span><b class="psi-ent">$$$</b></div>
+        <div class="psi-cost-row psi-cost-psi"><span>PSI solution</span><b>$</b></div>
+      </div>
+    </div>
+  <script>
+  (function(){
+    var root=document.getElementById("psi"); if(!root) return;
+    var bizes=[].slice.call(root.querySelectorAll(".psi-biz"));
+    var names=["Powersports dealer selected","Independent auto dealer selected","Used-vehicle dealer selected","Marine dealer selected","Utility / equipment dealer selected"];
+    var selected=document.getElementById("psi-selected");
+    var items=[].slice.call(root.querySelectorAll(".psi-item"));
+    var cost=document.getElementById("psi-cost");
+    var seen=false, timers=[], bi=0;
+    function clr(){ timers.forEach(clearTimeout); timers=[]; }
+    function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
+    function cycle(){
+      clr();
+      bizes.forEach(function(b){ b.classList.remove("on"); });
+      selected.classList.remove("on"); cost.classList.remove("on");
+      items.forEach(function(it){ it.classList.remove("on"); });
+      at(500,function(){ bizes[bi].classList.add("on"); selected.textContent=names[bi]; selected.classList.add("on"); });
+      items.forEach(function(it,i){ at(1100+i*260,function(){ it.classList.add("on"); }); });
+      at(3000,function(){ cost.classList.add("on"); });
+      at(5200,function(){ bi=(bi+1)%bizes.length; cycle(); });
+    }
+    if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;cycle();}});},{threshold:.3}).observe(root); } else cycle();
+  })();
+  </script>
+</div></div>
   </div>
 </section>
 
@@ -148,7 +198,81 @@
   </div>
 </section>
 
-
+<section class="section section--tight">
+  <div class="wrap centered">
+    <p class="eyebrow" style="color:var(--teal)">Build your stack</p>
+    <h2 class="h2" style="margin-bottom:8px">The Dealer Growth Builder.</h2>
+    <p class="lede">Tell us about your store and what you want to grow. PSI assembles the exact combination of Vicimus products to get you there &mdash; one vendor, one team.</p>
+  </div>
+  <div class="wrap">
+    <div class="pgb" id="pgb">
+      <div class="pgb-controls">
+        <label class="pgb-slider">
+          <span class="pgb-slider-top">Annual sales <b id="pgb-units-v">150 units</b></span>
+          <input type="range" id="pgb-units" min="25" max="1200" step="25" value="150">
+        </label>
+        <label class="pgb-slider">
+          <span class="pgb-slider-top">Current customers <b id="pgb-cust-v">2,000</b></span>
+          <input type="range" id="pgb-cust" min="200" max="15000" step="100" value="2000">
+        </label>
+        <div class="pgb-goals">
+          <div class="pgb-goals-t">What do you want to grow?</div>
+          <button class="pgb-goal is-on" data-g="marketing">Marketing</button>
+          <button class="pgb-goal is-on" data-g="retention">Retention</button>
+          <button class="pgb-goal is-on" data-g="advertising">Advertising</button>
+          <button class="pgb-goal is-on" data-g="phones">Phone management</button>
+          <button class="pgb-goal is-on" data-g="reporting">Reporting</button>
+        </div>
+      </div>
+      <div class="pgb-result">
+        <div class="pgb-result-t">Your customized PSI stack</div>
+        <div class="pgb-stack" id="pgb-stack"></div>
+        <div class="pgb-foot" id="pgb-foot"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById("pgb"); if(!root) return;
+    // each goal maps to real Vicimus products
+    var GOAL_PRODUCTS={
+      marketing:[{n:"Bumper Retention",d:"Lifecycle marketing automation"}],
+      retention:[{n:"Bumper Retention",d:"Win-back &amp; loyalty campaigns"},{n:"Accessory Accelerator",d:"Upsell at every touchpoint"}],
+      advertising:[{n:"Bumper Inventory Ads",d:"Facebook &amp; Google, VIN-level"}],
+      phones:[{n:"Odometer VoIP",d:"Call tracking &amp; recording"},{n:"Calls on Demand",d:"BDC overflow &amp; follow-up"}],
+      reporting:[{n:"Pie",d:"Business intelligence dashboard"}]
+    };
+    var alwaysOn=[{n:"GloveBox Websites",d:"Dealer-controlled website platform"}];
+    var units=document.getElementById("pgb-units"), cust=document.getElementById("pgb-cust");
+    var stackBox=document.getElementById("pgb-stack"), foot=document.getElementById("pgb-foot");
+    function render(){
+      document.getElementById("pgb-units-v").textContent=(+units.value).toLocaleString()+" units";
+      document.getElementById("pgb-cust-v").textContent=(+cust.value).toLocaleString();
+      // gather selected goals -> unique products
+      var goals=[].slice.call(root.querySelectorAll(".pgb-goal.is-on")).map(function(b){return b.getAttribute("data-g");});
+      var picked=[], seen={};
+      alwaysOn.concat(goals.reduce(function(acc,g){ return acc.concat(GOAL_PRODUCTS[g]||[]); },[])).forEach(function(pr){
+        if(!seen[pr.n]){ seen[pr.n]=1; picked.push(pr); }
+      });
+      stackBox.innerHTML="";
+      picked.forEach(function(pr,i){
+        var card=document.createElement("div"); card.className="pgb-prod";
+        card.innerHTML="<b>"+pr.n+"</b><span>"+pr.d+"</span>";
+        stackBox.appendChild(card);
+        setTimeout(function(){ card.classList.add("in"); }, i*80);
+      });
+      var big=(+units.value>=400)||(+cust.value>=6000);
+      foot.innerHTML="<b>"+picked.length+" products</b> &middot; one vendor, one support team, one connected view"+(big?" &middot; <span class='pgb-scale'>ready to scale</span>":"");
+    }
+    [units,cust].forEach(function(s){ s.addEventListener("input",render); });
+    root.querySelectorAll(".pgb-goal").forEach(function(b){
+      b.addEventListener("click",function(){ b.classList.toggle("is-on"); render(); });
+    });
+    var seen=false;
+    if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;render();}});},{threshold:.3}).observe(root); } else render();
+  })();
+  </script>
+</section>
 
 <section class="section section--tight">
   <div class="wrap">
@@ -182,7 +306,17 @@
   </div>
 </section>
 
-
+<section class="section section--wash">
+  <div class="wrap centered">
+    <p class="eyebrow">How it stacks up</p>
+    <h2 class="h2" style="margin-bottom:8px">Why dealers choose PSI.</h2>
+    <p class="lede">The individual tools exist everywhere. What independent and powersports dealers rarely get is all of them from one vendor &mdash; connected reporting, unified customer data, and a single team &mdash; instead of juggling six logins and six invoices.</p>
+  </div>
+  <div class="wrap">
+    <div class="icmp icmp--2"><div class="icmp-card icmp-card--hl"><div class="icmp-name">PSI</div><div class="icmp-badge">One connected platform</div><ul class="cmp-ilist"><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Marketing automation</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Inventory advertising</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Website platform</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Call tracking</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Customer retention</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Business intelligence</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Single support team</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">One vendor relationship</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Connected reporting</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Unified customer data</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Scalable growth platform</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Built for powersports &amp; independents</span></li></ul></div><div class="icmp-card"><div class="icmp-name">Multiple Vendors</div><div class="icmp-badge icmp-badge--muted">The usual stack</div><ul class="cmp-ilist"><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Marketing automation</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Inventory advertising</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Website platform</span></li><li class="cmp-i-part"><span class="cmp-i-mark"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 0 18Z"/><circle cx="12" cy="12" r="9"/></svg></span><span class="cmp-i-txt">Call tracking</span></li><li class="cmp-i-part"><span class="cmp-i-mark"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 0 18Z"/><circle cx="12" cy="12" r="9"/></svg></span><span class="cmp-i-txt">Customer retention</span></li><li class="cmp-i-part"><span class="cmp-i-mark"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 0 18Z"/><circle cx="12" cy="12" r="9"/></svg></span><span class="cmp-i-txt">Business intelligence</span></li><li class="cmp-i-no"><span class="cmp-i-mark">&times;</span><span class="cmp-i-txt">Single support team</span></li><li class="cmp-i-no"><span class="cmp-i-mark">&times;</span><span class="cmp-i-txt">One vendor relationship</span></li><li class="cmp-i-no"><span class="cmp-i-mark">&times;</span><span class="cmp-i-txt">Connected reporting</span></li><li class="cmp-i-no"><span class="cmp-i-mark">&times;</span><span class="cmp-i-txt">Unified customer data</span></li><li class="cmp-i-part"><span class="cmp-i-mark"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 0 18Z"/><circle cx="12" cy="12" r="9"/></svg></span><span class="cmp-i-txt">Scalable growth platform</span></li><li class="cmp-i-no"><span class="cmp-i-mark">&times;</span><span class="cmp-i-txt">Built for powersports &amp; independents</span></li></ul></div></div>
+    <p class="cmp-disc">Illustrative comparison of a single connected platform (PSI) against a typical independent-dealer setup stitched together from multiple point vendors, based on Vicimus's understanding of common industry realities as of 2026. Every dealer's stack is different; capabilities, integration, and support vary by the specific vendors involved.</p>
+  </div>
+</section>
 
 <section class="band">
   <div class="band__inner">

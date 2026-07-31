@@ -2002,6 +2002,178 @@ def cod_comparison():
     )
 
 
+def psi_hero_animation(ap=""):
+    """Hero: Build Your Dealership Stack — cycles business types, assembles the
+    stack, shows Enterprise $$$ vs PSI $ cost. Loops."""
+    return '''<div class="psi" id="psi">
+    <div class="psi-pick">
+      <div class="psi-pick-t">Choose your business</div>
+      <div class="psi-biz" data-b="0">&#127949; Powersports</div>
+      <div class="psi-biz" data-b="1">&#128664; Independent auto</div>
+      <div class="psi-biz" data-b="2">&#128665; Used vehicles</div>
+      <div class="psi-biz" data-b="3">&#128676; Marine</div>
+      <div class="psi-biz" data-b="4">&#128679; Utility / equipment</div>
+    </div>
+    <div class="psi-build">
+      <div class="psi-selected" id="psi-selected">Powersports dealer selected</div>
+      <div class="psi-stack">
+        <div class="psi-item" data-k="0">&#10003; Retention marketing</div>
+        <div class="psi-item" data-k="1">&#10003; Facebook advertising</div>
+        <div class="psi-item" data-k="2">&#10003; Google advertising</div>
+        <div class="psi-item" data-k="3">&#10003; Website platform</div>
+        <div class="psi-item" data-k="4">&#10003; VoIP &amp; call tracking</div>
+        <div class="psi-item" data-k="5">&#10003; Business intelligence</div>
+      </div>
+      <div class="psi-cost" id="psi-cost">
+        <div class="psi-cost-row"><span>Enterprise solution</span><b class="psi-ent">$$$</b></div>
+        <div class="psi-cost-row psi-cost-psi"><span>PSI solution</span><b>$</b></div>
+      </div>
+    </div>
+  <script>
+  (function(){
+    var root=document.getElementById("psi"); if(!root) return;
+    var bizes=[].slice.call(root.querySelectorAll(".psi-biz"));
+    var names=["Powersports dealer selected","Independent auto dealer selected","Used-vehicle dealer selected","Marine dealer selected","Utility / equipment dealer selected"];
+    var selected=document.getElementById("psi-selected");
+    var items=[].slice.call(root.querySelectorAll(".psi-item"));
+    var cost=document.getElementById("psi-cost");
+    var seen=false, timers=[], bi=0;
+    function clr(){ timers.forEach(clearTimeout); timers=[]; }
+    function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
+    function cycle(){
+      clr();
+      bizes.forEach(function(b){ b.classList.remove("on"); });
+      selected.classList.remove("on"); cost.classList.remove("on");
+      items.forEach(function(it){ it.classList.remove("on"); });
+      at(500,function(){ bizes[bi].classList.add("on"); selected.textContent=names[bi]; selected.classList.add("on"); });
+      items.forEach(function(it,i){ at(1100+i*260,function(){ it.classList.add("on"); }); });
+      at(3000,function(){ cost.classList.add("on"); });
+      at(5200,function(){ bi=(bi+1)%bizes.length; cycle(); });
+    }
+    if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;cycle();}});},{threshold:.3}).observe(root); } else cycle();
+  })();
+  </script>
+</div>'''
+
+
+def psi_demo(ap=""):
+    """Dealer Growth Builder — inputs (annual sales, customers) + goals ->
+    generates a customized PSI stack of real Vicimus products."""
+    return f'''<section class="section section--tight">
+  <div class="wrap centered">
+    <p class="eyebrow" style="color:var(--teal)">Build your stack</p>
+    <h2 class="h2" style="margin-bottom:8px">The Dealer Growth Builder.</h2>
+    <p class="lede">Tell us about your store and what you want to grow. PSI assembles the exact combination of Vicimus products to get you there &mdash; one vendor, one team.</p>
+  </div>
+  <div class="wrap">
+    <div class="pgb" id="pgb">
+      <div class="pgb-controls">
+        <label class="pgb-slider">
+          <span class="pgb-slider-top">Annual sales <b id="pgb-units-v">150 units</b></span>
+          <input type="range" id="pgb-units" min="25" max="1200" step="25" value="150">
+        </label>
+        <label class="pgb-slider">
+          <span class="pgb-slider-top">Current customers <b id="pgb-cust-v">2,000</b></span>
+          <input type="range" id="pgb-cust" min="200" max="15000" step="100" value="2000">
+        </label>
+        <div class="pgb-goals">
+          <div class="pgb-goals-t">What do you want to grow?</div>
+          <button class="pgb-goal is-on" data-g="marketing">Marketing</button>
+          <button class="pgb-goal is-on" data-g="retention">Retention</button>
+          <button class="pgb-goal is-on" data-g="advertising">Advertising</button>
+          <button class="pgb-goal is-on" data-g="phones">Phone management</button>
+          <button class="pgb-goal is-on" data-g="reporting">Reporting</button>
+        </div>
+      </div>
+      <div class="pgb-result">
+        <div class="pgb-result-t">Your customized PSI stack</div>
+        <div class="pgb-stack" id="pgb-stack"></div>
+        <div class="pgb-foot" id="pgb-foot"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){{
+    var root=document.getElementById("pgb"); if(!root) return;
+    // each goal maps to real Vicimus products
+    var GOAL_PRODUCTS={{
+      marketing:[{{n:"Bumper Retention",d:"Lifecycle marketing automation"}}],
+      retention:[{{n:"Bumper Retention",d:"Win-back &amp; loyalty campaigns"}},{{n:"Accessory Accelerator",d:"Upsell at every touchpoint"}}],
+      advertising:[{{n:"Bumper Inventory Ads",d:"Facebook &amp; Google, VIN-level"}}],
+      phones:[{{n:"Odometer VoIP",d:"Call tracking &amp; recording"}},{{n:"Calls on Demand",d:"BDC overflow &amp; follow-up"}}],
+      reporting:[{{n:"Pie",d:"Business intelligence dashboard"}}]
+    }};
+    var alwaysOn=[{{n:"GloveBox Websites",d:"Dealer-controlled website platform"}}];
+    var units=document.getElementById("pgb-units"), cust=document.getElementById("pgb-cust");
+    var stackBox=document.getElementById("pgb-stack"), foot=document.getElementById("pgb-foot");
+    function render(){{
+      document.getElementById("pgb-units-v").textContent=(+units.value).toLocaleString()+" units";
+      document.getElementById("pgb-cust-v").textContent=(+cust.value).toLocaleString();
+      // gather selected goals -> unique products
+      var goals=[].slice.call(root.querySelectorAll(".pgb-goal.is-on")).map(function(b){{return b.getAttribute("data-g");}});
+      var picked=[], seen={{}};
+      alwaysOn.concat(goals.reduce(function(acc,g){{ return acc.concat(GOAL_PRODUCTS[g]||[]); }},[])).forEach(function(pr){{
+        if(!seen[pr.n]){{ seen[pr.n]=1; picked.push(pr); }}
+      }});
+      stackBox.innerHTML="";
+      picked.forEach(function(pr,i){{
+        var card=document.createElement("div"); card.className="pgb-prod";
+        card.innerHTML="<b>"+pr.n+"</b><span>"+pr.d+"</span>";
+        stackBox.appendChild(card);
+        setTimeout(function(){{ card.classList.add("in"); }}, i*80);
+      }});
+      var big=(+units.value>=400)||(+cust.value>=6000);
+      foot.innerHTML="<b>"+picked.length+" products</b> &middot; one vendor, one support team, one connected view"+(big?" &middot; <span class='pgb-scale'>ready to scale</span>":"");
+    }}
+    [units,cust].forEach(function(s){{ s.addEventListener("input",render); }});
+    root.querySelectorAll(".pgb-goal").forEach(function(b){{
+      b.addEventListener("click",function(){{ b.classList.toggle("is-on"); render(); }});
+    }});
+    var seen=false;
+    if("IntersectionObserver" in window){{ new IntersectionObserver(function(es){{es.forEach(function(e){{if(e.isIntersecting&&!seen){{seen=true;render();}}}});}},{{threshold:.3}}).observe(root); }} else render();
+  }})();
+  </script>
+</section>'''
+
+
+def psi_comparison():
+    """PSI (bundled) vs Multiple Vendors / typical independent stack."""
+    rows = [
+        ("Marketing automation", ("yes",), ("yes",)),
+        ("Inventory advertising", ("yes",), ("yes",)),
+        ("Website platform", ("yes",), ("yes",)),
+        ("Call tracking", ("yes",), ("partial",)),
+        ("Customer retention", ("yes",), ("partial",)),
+        ("Business intelligence", ("yes",), ("partial",)),
+        ("Single support team", ("yes",), ("no",)),
+        ("One vendor relationship", ("yes",), ("no",)),
+        ("Connected reporting", ("yes",), ("no",)),
+        ("Unified customer data", ("yes",), ("no",)),
+        ("Scalable growth platform", ("yes",), ("partial",)),
+        ("Built for powersports &amp; independents", ("yes",), ("no",)),
+    ]
+
+    def col(idx):
+        return [(row[idx + 1][0], row[0], row[idx + 1][1] if len(row[idx + 1]) > 1 else "") for row in rows]
+
+    cards = [
+        {"name": "PSI", "badge": "One connected platform", "highlight": True, "items": col(0)},
+        {"name": "Multiple Vendors", "badge": "The usual stack", "items": col(1)},
+    ]
+    disclaimer = ("Illustrative comparison of a single connected platform (PSI) against a typical independent-dealer "
+                  "setup stitched together from multiple point vendors, based on Vicimus's understanding of common "
+                  "industry realities as of 2026. Every dealer's stack is different; capabilities, integration, and "
+                  "support vary by the specific vendors involved.")
+    return comparison_section(
+        "How it stacks up",
+        "Why dealers choose PSI.",
+        "The individual tools exist everywhere. What independent and powersports dealers rarely get is all of them "
+        "from one vendor &mdash; connected reporting, unified customer data, and a single team &mdash; instead of "
+        "juggling six logins and six invoices.",
+        cards, disclaimer,
+    )
+
+
 def build_product(p, lang):
     pp = "../"                      # product pages live one level under lang root
     ap = ap_for(lang, pp)
@@ -2044,6 +2216,9 @@ def build_product(p, lang):
     elif p["slug"] == "calls-on-demand":
         extra_after_capabilities = cod_demo()
         extra_after_shots = cod_comparison()
+    elif p["slug"] == "powersports-independent":
+        extra_after_capabilities = psi_demo(ap)
+        extra_after_shots = psi_comparison()
     else:
         extra_after_capabilities = ""
         extra_after_shots = ""
@@ -2057,6 +2232,7 @@ def build_product(p, lang):
         "glovebox-websites": glovebox_hero_animation,
         "odometer-voip": odometer_hero_animation,
         "calls-on-demand": cod_hero_animation,
+        "powersports-independent": psi_hero_animation,
     }
     if p["slug"] in HERO_DEMOS:
         subhero = f'''<section class="subhero subhero--split subhero--{p['slug']}">
