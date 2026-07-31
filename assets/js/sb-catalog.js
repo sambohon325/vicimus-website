@@ -79,7 +79,7 @@ window.SB_CATALOG = {
     },
     "calls-on-demand": {
       "name": "Calls on Demand",
-      "blurb": "Customers want what they want, when they want it — and it starts by answering the phone. Our Calls on Demand service professionally handles your consumer engagements and ",
+      "blurb": "Inbound overflow, outbound follow-up, appointment setting, service reminders, retention campaigns, and customer reactivation — all handled by a team built for dealerships",
       "family": "t",
       "path": "products/calls-on-demand.html",
       "roi": {

@@ -172,8 +172,8 @@ PRODUCTS = [
         "logo": "glovebox.svg",  # COD has no standalone SVG in the pack; use a neutral mark
         "family": "t",
         "eyebrow": "COD — Calls on Demand",
-        "hero_h": "Inbound & outbound BDC services for every dealership.",
-        "hero_p": "Customers want what they want, when they want it — and it starts by answering the phone. Our Calls on Demand service professionally handles your consumer engagements and drives sales and service traffic to your location.",
+        "hero_h": "Never miss another opportunity.",
+        "hero_p": "Inbound overflow, outbound follow-up, appointment setting, service reminders, retention campaigns, and customer reactivation &mdash; all handled by a team built for dealerships.",
         "intro_h": "There for your customers when you can't be.",
         "intro_p": "Our COD communications center uses three locations in North America to create boutique operations, so clients receive personalized attention and can adjust strategy based on immediate feedback from our Call Specialists and Management Team. Full-spectrum inbound and outbound call services for sales and service, conquest and retention.",
         "features_h": "Full-spectrum call services.",

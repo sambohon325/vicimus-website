@@ -1820,6 +1820,185 @@ def odometer_comparison():
     )
 
 
+def cod_hero_animation(ap=""):
+    """Hero: The Opportunity Meter — today's opportunities tally -> without COD
+    (79 missed) -> COD activates -> results (2 missed). Loops."""
+    return '''<div class="cod" id="cod">
+    <div class="cod-meter">
+      <div class="cod-meter-t">Today's opportunities</div>
+      <div class="cod-src"><span>Inbound calls</span><b>47</b></div>
+      <div class="cod-src"><span>Web leads</span><b>23</b></div>
+      <div class="cod-src"><span>Service due</span><b>62</b></div>
+      <div class="cod-src"><span>Unsold prospects</span><b>89</b></div>
+      <div class="cod-total"><span>Total</span><b>221</b></div>
+    </div>
+    <div class="cod-right">
+      <div class="cod-result cod-without" id="cod-without">
+        <div class="cod-result-t">Without COD</div>
+        <div class="cod-r-row"><span>Handled</span><b>142</b></div>
+        <div class="cod-r-row cod-r-miss"><span>Missed</span><b>79 opportunities</b></div>
+      </div>
+      <div class="cod-activate" id="cod-activate">
+        <div class="cod-act-t"><span class="cod-live"></span> Calls on Demand online</div>
+        <div class="cod-act" data-k="0">&#10003; Inbound coverage</div>
+        <div class="cod-act" data-k="1">&#10003; Outbound follow-up</div>
+        <div class="cod-act" data-k="2">&#10003; Appointment setting</div>
+        <div class="cod-act" data-k="3">&#10003; Retention campaigns</div>
+      </div>
+      <div class="cod-result cod-with" id="cod-with">
+        <div class="cod-result-t">With COD</div>
+        <div class="cod-r-row"><span>Handled</span><b id="cod-handled">219</b></div>
+        <div class="cod-r-row cod-r-good"><span>Missed</span><b>2 opportunities</b></div>
+      </div>
+    </div>
+  <script>
+  (function(){
+    var root=document.getElementById("cod"); if(!root) return;
+    var without=document.getElementById("cod-without"), activate=document.getElementById("cod-activate"), withc=document.getElementById("cod-with");
+    var acts=[].slice.call(activate.querySelectorAll(".cod-act"));
+    var seen=false, timers=[];
+    function clr(){ timers.forEach(clearTimeout); timers=[]; }
+    function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
+    function run(){
+      clr();
+      without.classList.remove("on"); activate.classList.remove("on"); withc.classList.remove("on");
+      acts.forEach(function(a){ a.classList.remove("on"); });
+      at(700,function(){ without.classList.add("on"); });
+      at(2100,function(){ activate.classList.add("on"); });
+      acts.forEach(function(a,i){ at(2500+i*450,function(){ a.classList.add("on"); }); });
+      at(4700,function(){ withc.classList.add("on"); });
+      at(8200, run);
+    }
+    if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;run();}});},{threshold:.3}).observe(root); } else run();
+  })();
+  </script>
+</div>'''
+
+
+def cod_demo():
+    """"One Lead. Two Outcomes." — split screen, without vs with COD, with a
+    lead-type toggle that changes the scenario."""
+    return '''<section class="section section--tight">
+  <div class="wrap centered">
+    <p class="eyebrow" style="color:var(--teal)">See it work</p>
+    <h2 class="h2" style="margin-bottom:8px">One lead. Two outcomes.</h2>
+    <p class="lede">The difference isn't the lead &mdash; it's the follow-up. Pick a scenario and watch it play out both ways.</p>
+  </div>
+  <div class="wrap">
+    <div class="cod2" id="cod2">
+      <div class="cod2-toggle">
+        <button class="cod2-t is-on" data-s="sales">Sales lead</button>
+        <button class="cod2-t" data-s="service">Service lead</button>
+        <button class="cod2-t" data-s="missed">Missed call</button>
+        <button class="cod2-t" data-s="retention">Retention opportunity</button>
+      </div>
+      <div class="cod2-split">
+        <div class="cod2-side cod2-lose">
+          <div class="cod2-side-t">Without COD</div>
+          <div class="cod2-steps" id="cod2-lose-steps"></div>
+          <div class="cod2-outcome cod2-outcome-bad" id="cod2-lose-out">Lost opportunity</div>
+        </div>
+        <div class="cod2-side cod2-win">
+          <div class="cod2-side-t">With COD</div>
+          <div class="cod2-steps" id="cod2-win-steps"></div>
+          <div class="cod2-outcome cod2-outcome-good" id="cod2-win-out">Showroom visit</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById("cod2"); if(!root) return;
+    var SCEN={
+      sales:{
+        start:"Internet lead arrives",
+        lose:["Sales team busy","No response","Customer shops elsewhere"], loseOut:"Lost opportunity",
+        win:["COD responds in minutes","Appointment scheduled","Sales team engaged"], winOut:"Showroom visit"
+      },
+      service:{
+        start:"Service-due customer",
+        lose:["Advisors overloaded","Reminder never sent","Customer skips service"], loseOut:"Lost RO revenue",
+        win:["COD calls the customer","Appointment booked","Advisor prepped"], winOut:"Service visit"
+      },
+      missed:{
+        start:"Inbound call rings",
+        lose:["No one available","Call goes to voicemail","Caller hangs up"], loseOut:"Missed sale",
+        win:["COD picks up the overflow","Need captured","Routed to the right team"], winOut:"Opportunity saved"
+      },
+      retention:{
+        start:"Equity / lease-end prospect",
+        lose:["No outbound capacity","Prospect never contacted","Defects to a competitor"], loseOut:"Lost loyalty",
+        win:["COD runs the campaign","Prospect re-engaged","Upgrade offer presented"], winOut:"Repeat customer"
+      }
+    };
+    var loseSteps=document.getElementById("cod2-lose-steps"), winSteps=document.getElementById("cod2-win-steps");
+    var loseOut=document.getElementById("cod2-lose-out"), winOut=document.getElementById("cod2-win-out");
+    function build(box, start, steps){
+      box.innerHTML="";
+      var all=[start].concat(steps);
+      all.forEach(function(txt,i){
+        var step=document.createElement("div"); step.className="cod2-step"; step.textContent=txt;
+        box.appendChild(step);
+        if(i<all.length-1){ var ar=document.createElement("div"); ar.className="cod2-arrow"; ar.innerHTML="&darr;"; box.appendChild(ar); }
+        setTimeout(function(){ step.classList.add("in"); }, i*280);
+      });
+    }
+    function render(s){
+      var d=SCEN[s];
+      loseOut.classList.remove("show"); winOut.classList.remove("show");
+      loseOut.textContent=d.loseOut; winOut.textContent=d.winOut;
+      build(loseSteps, d.start, d.lose); build(winSteps, d.start, d.win);
+      var total=(d.lose.length+1);
+      setTimeout(function(){ loseOut.classList.add("show"); winOut.classList.add("show"); }, total*280+200);
+    }
+    root.querySelectorAll(".cod2-t").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        root.querySelectorAll(".cod2-t").forEach(function(x){x.classList.remove("is-on");});
+        btn.classList.add("is-on"); render(btn.getAttribute("data-s"));
+      });
+    });
+    var seen=false;
+    if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;render("sales");}});},{threshold:.3}).observe(root); } else render("sales");
+  })();
+  </script>
+</section>'''
+
+
+def cod_comparison():
+    """Calls on Demand vs Typical BDC Provider."""
+    rows = [
+        ("Inbound call handling", ("yes",), ("yes",)),
+        ("Outbound sales calls", ("yes",), ("yes",)),
+        ("Service appointment setting", ("yes",), ("yes",)),
+        ("Retention-campaign support", ("yes",), ("partial",)),
+        ("Equity-mining outreach", ("yes",), ("no",)),
+        ("Service-lane opportunities", ("yes",), ("no",)),
+        ("Multi-channel customer engagement", ("yes",), ("partial",)),
+        ("Integrated with the Vicimus ecosystem", ("yes",), ("no",)),
+        ("Retention + advertising + BDC alignment", ("yes",), ("no",)),
+        ("Flexible campaign scaling", ("yes",), ("partial",)),
+    ]
+
+    def col(idx):
+        return [(row[idx + 1][0], row[0], row[idx + 1][1] if len(row[idx + 1]) > 1 else "") for row in rows]
+
+    cards = [
+        {"name": "Calls on Demand", "badge": "Built for dealers", "highlight": True, "items": col(0)},
+        {"name": "Typical BDC Provider", "badge": "Generic call center", "items": col(1)},
+    ]
+    disclaimer = ("Illustrative comparison of Calls on Demand against a typical third-party BDC / call-center "
+                  "arrangement, based on Vicimus's understanding of common industry offerings as of 2026. Providers "
+                  "vary widely; capabilities and scope differ by vendor and contract. Verify specifics with any "
+                  "provider you're evaluating.")
+    return comparison_section(
+        "How it stacks up",
+        "Calls on Demand vs. a typical BDC provider.",
+        "A generic call center answers phones. Calls on Demand works your opportunities like part of your store "
+        "&mdash; equity mining, the service lane, and retention campaigns, all aligned with your Vicimus marketing.",
+        cards, disclaimer,
+    )
+
+
 def build_product(p, lang):
     pp = "../"                      # product pages live one level under lang root
     ap = ap_for(lang, pp)
@@ -1859,6 +2038,9 @@ def build_product(p, lang):
     elif p["slug"] == "odometer-voip":
         extra_after_capabilities = odometer_demo()
         extra_after_shots = odometer_comparison()
+    elif p["slug"] == "calls-on-demand":
+        extra_after_capabilities = cod_demo()
+        extra_after_shots = cod_comparison()
     else:
         extra_after_capabilities = ""
         extra_after_shots = ""
@@ -1871,6 +2053,7 @@ def build_product(p, lang):
         "accessory-accelerator": accessory_hero_animation,
         "glovebox-websites": glovebox_hero_animation,
         "odometer-voip": odometer_hero_animation,
+        "calls-on-demand": cod_hero_animation,
     }
     if p["slug"] in HERO_DEMOS:
         subhero = f'''<section class="subhero subhero--split subhero--{p['slug']}">
