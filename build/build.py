@@ -1965,18 +1965,19 @@ def cod_demo():
 
 
 def cod_comparison():
-    """Calls on Demand vs Typical BDC Provider."""
+    """Calls on Demand vs Other BDC Provider vs Hiring In-House."""
     rows = [
-        ("Inbound call handling", ("yes",), ("yes",)),
-        ("Outbound sales calls", ("yes",), ("yes",)),
-        ("Service appointment setting", ("yes",), ("yes",)),
-        ("Retention-campaign support", ("yes",), ("partial",)),
-        ("Equity-mining outreach", ("yes",), ("no",)),
-        ("Service-lane opportunities", ("yes",), ("no",)),
-        ("Multi-channel customer engagement", ("yes",), ("partial",)),
-        ("Integrated with the Vicimus ecosystem", ("yes",), ("no",)),
-        ("Retention + advertising + BDC alignment", ("yes",), ("no",)),
-        ("Flexible campaign scaling", ("yes",), ("partial",)),
+        # (label, COD, Other BDC, In-House)
+        ("Inbound call handling", ("yes",), ("yes",), ("yes",)),
+        ("Outbound sales calls", ("yes",), ("yes",), ("partial",)),
+        ("Service appointment setting", ("yes",), ("yes",), ("yes",)),
+        ("Retention-campaign support", ("yes",), ("partial",), ("no",)),
+        ("Equity-mining outreach", ("yes",), ("no",), ("no",)),
+        ("Service-lane opportunities", ("yes",), ("no",), ("partial",)),
+        ("Multi-channel customer engagement", ("yes",), ("partial",), ("no",)),
+        ("Integrated with the Vicimus ecosystem", ("yes",), ("no",), ("no",)),
+        ("Retention + advertising + BDC alignment", ("yes",), ("no",), ("no",)),
+        ("Scales without new payroll", ("yes",), ("partial",), ("no",)),
     ]
 
     def col(idx):
@@ -1984,17 +1985,19 @@ def cod_comparison():
 
     cards = [
         {"name": "Calls on Demand", "badge": "Built for dealers", "highlight": True, "items": col(0)},
-        {"name": "Typical BDC Provider", "badge": "Generic call center", "items": col(1)},
+        {"name": "Other BDC Provider", "badge": "Generic call center", "items": col(1)},
+        {"name": "Hiring In-House", "badge": "Your own team", "items": col(2)},
     ]
     disclaimer = ("Illustrative comparison of Calls on Demand against a typical third-party BDC / call-center "
-                  "arrangement, based on Vicimus's understanding of common industry offerings as of 2026. Providers "
-                  "vary widely; capabilities and scope differ by vendor and contract. Verify specifics with any "
-                  "provider you're evaluating.")
+                  "arrangement and against building an in-house team, based on Vicimus's understanding of common "
+                  "industry realities as of 2026. Every store and provider is different; staffing outcomes, scope, "
+                  "and cost vary widely. Use this as a starting point, not a guarantee.")
     return comparison_section(
         "How it stacks up",
-        "Calls on Demand vs. a typical BDC provider.",
-        "A generic call center answers phones. Calls on Demand works your opportunities like part of your store "
-        "&mdash; equity mining, the service lane, and retention campaigns, all aligned with your Vicimus marketing.",
+        "Calls on Demand vs. the alternatives.",
+        "Most dealers weigh three options: a generic BDC, hiring and training their own team, or Calls on Demand. "
+        "Only one works your opportunities like part of your store &mdash; equity mining, the service lane, and "
+        "retention &mdash; and scales up without adding to payroll.",
         cards, disclaimer,
     )
 
