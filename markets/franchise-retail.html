@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Franchise Retail Dealers | Vicimus</title>
-<meta name="description" content="Retention, F&I, accessory, and BI tools built for franchise dealers — defend service share and grow every department from the customers you already have.">
+<meta name="description" content="Retention, inventory, fixed ops, F&I, and BI solutions for franchise dealers — one partner for the problems that hit profitability every day.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,600;1,700;1,800&family=Barlow:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
@@ -94,15 +94,108 @@
     </div>
   </div>
 </header>
-<section class="subhero">
+<section class="subhero subhero--split subhero--franchise-retail">
   <img class="subhero__bg" src="../assets/img/hero.jpg" alt="">
-  <div class="subhero__inner">
-    <p class="eyebrow">Markets Served</p>
-    <h1 class="h1">Defend your service drive and grow every department.</h1>
-    <p class="subhero__lead">Franchise stores have the data and the traffic — but also OEM standards, co-op rules, and independents chipping away at service share. We help you retain customers, lift F&I and accessories, and report it all in one place.</p>
-    <div class="subhero__actions">
-      <a class="btn btn-yellow" href="../contact.html">Talk to us &rarr;</a>
+  <div class="subhero__split">
+    <div class="subhero__col">
+      <p class="eyebrow">Markets Served</p>
+      <h1 class="h1">Built for the challenges franchise dealers actually face.</h1>
+      <p class="subhero__lead">Inventory pressure. Retention erosion. Service acquisition costs. Margin compression. Staffing shortages. We help franchise dealerships solve the problems that impact profitability every day.</p>
+      <div class="subhero__actions">
+        <a class="btn btn-yellow" href="../contact.html">Talk to us &rarr;</a>
+      </div>
     </div>
+    <div class="subhero__demo"><div class="fch" id="fch">
+    <div class="fch-q">What&rsquo;s your biggest challenge right now?</div>
+    <div class="fch-cards">
+      <button class="fch-card" data-c="retention"><span class="fch-ico">&#128201;</span>Customer retention</button>
+      <button class="fch-card" data-c="turn"><span class="fch-ico">&#128663;</span>Inventory turn</button>
+      <button class="fch-card" data-c="fixed"><span class="fch-ico">&#128295;</span>Fixed ops growth</button>
+      <button class="fch-card" data-c="leads"><span class="fch-ico">&#128222;</span>Lead response</button>
+      <button class="fch-card" data-c="visibility"><span class="fch-ico">&#128202;</span>Executive visibility</button>
+      <button class="fch-card" data-c="profit"><span class="fch-ico">&#128176;</span>Profitability</button>
+    </div>
+    <div class="fch-out">
+      <div class="fch-step" id="fch-s1">
+        <div class="fch-step-t">Challenge identified</div>
+        <div class="fch-body" id="fch-prob"></div>
+      </div>
+      <div class="fch-arrow" id="fch-a1">&darr;</div>
+      <div class="fch-step" id="fch-s2">
+        <div class="fch-step-t">Vicimus solution</div>
+        <div class="fch-prods" id="fch-prods"></div>
+      </div>
+      <div class="fch-arrow" id="fch-a2">&darr;</div>
+      <div class="fch-step fch-step--pay" id="fch-s3">
+        <div class="fch-step-t">Outcome</div>
+        <div class="fch-body" id="fch-outcome"></div>
+      </div>
+    </div>
+  <script>
+  (function(){
+    var root=document.getElementById("fch"); if(!root) return;
+    var C={
+      retention:{ problem:"Customers are returning to market before your dealership knows about it.",
+        products:["Bumper Retention","Calls on Demand","Odometer VoIP"],
+        outcome:"More appointments. More repeat purchases. Higher lifetime customer value." },
+      turn:{ problem:"Units age past 60 days while ad spend stays flat across the whole lot.",
+        products:["Bumper Inventory Ads","GloveBox Websites","Pie"],
+        outcome:"Faster turn. Less aged inventory. Ad spend that follows the metal." },
+      fixed:{ problem:"Service customers drift to independents once the warranty runs out.",
+        products:["Bumper Retention","Accessory Accelerator","Odometer VoIP"],
+        outcome:"More RO count. Higher CPRO. Service share you actually keep." },
+      leads:{ problem:"Calls ring out and leads go cold before anyone follows up.",
+        products:["Odometer VoIP","Calls on Demand","Bumper Retention"],
+        outcome:"Every call answered. Every lead worked. More appointments set." },
+      visibility:{ problem:"Every department reports differently, so nobody sees the whole store.",
+        products:["Pie","Odometer VoIP","Bumper Retention"],
+        outcome:"One connected view. Department-level detail. Decisions backed by data." },
+      profit:{ problem:"Margin compression squeezes front-end gross on every single deal.",
+        products:["Bumper Finance","Accessory Accelerator","Pie"],
+        outcome:"Higher PVR. More back-end gross. Revenue from customers you already have." }
+    };
+    var order=["retention","turn","fixed","leads","visibility","profit"];
+    var cards=[].slice.call(root.querySelectorAll(".fch-card"));
+    var prob=document.getElementById("fch-prob"), prods=document.getElementById("fch-prods"),
+        outc=document.getElementById("fch-outcome");
+    var steps=["fch-s1","fch-a1","fch-s2","fch-a2","fch-s3"].map(function(id){return document.getElementById(id);});
+    var timers=[], idx=0, auto=true, seen=false;
+    function clr(){ timers.forEach(clearTimeout); timers=[]; }
+    function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
+    function play(key){
+      clr();
+      steps.forEach(function(s){ s.classList.remove("on"); });
+      cards.forEach(function(c){ c.classList.toggle("on", c.getAttribute("data-c")===key); });
+      var d=C[key];
+      prob.textContent=d.problem;
+      outc.textContent=d.outcome;
+      prods.innerHTML="";
+      d.products.forEach(function(n){
+        var r=document.createElement("div"); r.className="fch-prod";
+        r.innerHTML='<span class="fch-tick">&#10003;</span>'+n;
+        prods.appendChild(r);
+      });
+      var chips=[].slice.call(prods.children);
+      at(260,function(){ steps[0].classList.add("on"); });
+      at(900,function(){ steps[1].classList.add("on"); });
+      at(1100,function(){ steps[2].classList.add("on"); });
+      chips.forEach(function(c,i){ at(1200+i*220,function(){ c.classList.add("in"); }); });
+      at(2100,function(){ steps[3].classList.add("on"); });
+      at(2300,function(){ steps[4].classList.add("on"); });
+      if(auto) at(5600,function(){ idx=(idx+1)%order.length; play(order[idx]); });
+    }
+    cards.forEach(function(c){
+      c.addEventListener("click",function(){
+        auto=false;
+        idx=order.indexOf(c.getAttribute("data-c"));
+        play(c.getAttribute("data-c"));
+      });
+    });
+    function start(){ play(order[0]); }
+    if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;start();}});},{threshold:.25}).observe(root); } else start();
+  })();
+  </script>
+</div></div>
   </div>
 </section>
 
@@ -134,6 +227,125 @@
   </div>
 </section>
 
+<section class="section section--tight">
+  <div class="wrap centered">
+    <p class="eyebrow" style="color:var(--teal)">The modern dealership challenge map</p>
+    <h2 class="h2" style="margin-bottom:8px">Every dealership problem is connected. So are our solutions.</h2>
+    <p class="lede">Pick a problem you recognise and follow it all the way through &mdash; from the moment it shows up in your data to the revenue it puts back on the board.</p>
+  </div>
+  <div class="wrap">
+    <div class="fmap" id="fmap">
+      <div class="fmap-left">
+        <div class="fmap-diagram">
+          <div class="fmap-dept" data-d="sales" style="grid-area:a">Sales</div>
+          <div class="fmap-dept" data-d="inventory" style="grid-area:b">Inventory</div>
+          <div class="fmap-dept" data-d="marketing" style="grid-area:c">Marketing</div>
+          <div class="fmap-hub" id="fmap-hub">Your<br>dealership</div>
+          <div class="fmap-dept" data-d="service" style="grid-area:e">Service</div>
+          <div class="fmap-dept" data-d="operations" style="grid-area:f">Operations</div>
+        </div>
+        <div class="fmap-probs">
+          <button class="fmap-prob" data-p="aging">&#9888; Aging inventory</button>
+          <button class="fmap-prob" data-p="calls">&#9888; Missed calls</button>
+          <button class="fmap-prob" data-p="service">&#9888; Lost service customers</button>
+          <button class="fmap-prob" data-p="accessory">&#9888; Low accessory penetration</button>
+          <button class="fmap-prob" data-p="cpro">&#9888; Declining CPRO</button>
+          <button class="fmap-prob" data-p="website">&#9888; Slow website updates</button>
+        </div>
+      </div>
+      <div class="fmap-right">
+        <div class="fmap-chain" id="fmap-chain"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var root=document.getElementById("fmap"); if(!root) return;
+    var P={
+      service:{ dept:"service", steps:[
+        ["Problem","Customer has not serviced in 10 months."],
+        ["Vicimus identifies the opportunity","Lifecycle data flags the lapse before the customer is gone."],
+        ["Bumper Retention","product"],
+        ["Automated outreach","Personalised service offer by email, SMS, and voicemail."],
+        ["Appointment scheduled","Booked straight into the service drive."],
+        ["Revenue recovered","payoff"]]},
+      aging:{ dept:"inventory", steps:[
+        ["Problem","Units are sitting past 60 days on the lot."],
+        ["Vicimus identifies the opportunity","Age and turn data surface the units that need help."],
+        ["Bumper Inventory Ads","product"],
+        ["Automated ad generation","Ads built per unit and weighted toward aged stock."],
+        ["Traffic to the vehicle page","Shoppers land on the units you need to move."],
+        ["Unit turned","payoff"]]},
+      calls:{ dept:"sales", steps:[
+        ["Problem","A sales call rang out at 4:50pm and nobody called back."],
+        ["Vicimus identifies the opportunity","Call tracking logs the miss and who it belonged to."],
+        ["Odometer VoIP + Calls on Demand","product"],
+        ["The call gets returned","A trained BDC agent follows up the same day."],
+        ["Appointment set","The lead lands back in the sales process."],
+        ["Deal saved","payoff"]]},
+      accessory:{ dept:"sales", steps:[
+        ["Problem","Accessories were never presented at delivery."],
+        ["Vicimus identifies the opportunity","The gap shows up in attachment rates by deal."],
+        ["Accessory Accelerator","product"],
+        ["Accessories presented in the deal","Fitted, priced, and financed into the payment."],
+        ["Attachment on the repair order","Parts and installation flow to fixed ops."],
+        ["Back-end gross added","payoff"]]},
+      cpro:{ dept:"service", steps:[
+        ["Problem","Customer-pay per repair order is trending down."],
+        ["Vicimus identifies the opportunity","Advisor and opcode gaps surface in the reporting."],
+        ["Pie","product"],
+        ["Targeted service campaigns","Declined work and due maintenance get worked deliberately."],
+        ["Advisors coached on the gaps","Everyone sees the same numbers, weekly."],
+        ["CPRO recovers","payoff"]]},
+      website:{ dept:"marketing", steps:[
+        ["Problem","The OEM incentive changed three days ago and the site still shows the old one."],
+        ["Vicimus identifies the opportunity","The offer mismatch is caught before more traffic lands."],
+        ["GloveBox Websites","product"],
+        ["Your team edits it directly","No ticket, no vendor queue, no developer."],
+        ["Offer live across the site","Campaign landing pages stay in step."],
+        ["No wasted traffic","payoff"]]}
+    };
+    var chain=document.getElementById("fmap-chain"), hub=document.getElementById("fmap-hub");
+    var depts=[].slice.call(root.querySelectorAll(".fmap-dept"));
+    var probs=[].slice.call(root.querySelectorAll(".fmap-prob"));
+    var timers=[];
+    function clr(){ timers.forEach(clearTimeout); timers=[]; }
+    function render(key){
+      clr();
+      var d=P[key];
+      probs.forEach(function(b){ b.classList.toggle("on", b.getAttribute("data-p")===key); });
+      depts.forEach(function(x){ x.classList.toggle("on", x.getAttribute("data-d")===d.dept); });
+      hub.classList.add("on");
+      chain.innerHTML="";
+      d.steps.forEach(function(s,i){
+        var kind = s[1]==="product" ? "product" : (s[1]==="payoff" ? "payoff" : "plain");
+        var el=document.createElement("div");
+        el.className="fmap-step fmap-step--"+kind;
+        if(kind==="plain"){
+          el.innerHTML='<div class="fmap-step-t">'+s[0]+'</div><div class="fmap-step-b">'+s[1]+'</div>';
+        } else if(kind==="product"){
+          el.innerHTML='<div class="fmap-step-k">Vicimus solution</div><div class="fmap-step-p">'+s[0]+'</div>';
+        } else {
+          el.innerHTML='<div class="fmap-step-p">'+s[0]+'</div>';
+        }
+        chain.appendChild(el);
+        if(i < d.steps.length-1){
+          var a=document.createElement("div"); a.className="fmap-link"; a.innerHTML="&darr;";
+          chain.appendChild(a);
+        }
+        timers.push(setTimeout(function(){ el.classList.add("in"); }, 120+i*300));
+      });
+      [].slice.call(chain.querySelectorAll(".fmap-link")).forEach(function(a,i){
+        timers.push(setTimeout(function(){ a.classList.add("in"); }, 260+i*300));
+      });
+    }
+    probs.forEach(function(b){ b.addEventListener("click",function(){ render(b.getAttribute("data-p")); }); });
+    var seen=false;
+    if("IntersectionObserver" in window){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;render("service");}});},{threshold:.2}).observe(root); } else render("service");
+  })();
+  </script>
+</section>
+
 <section class="section section--wash">
   <div class="wrap centered">
     <p class="eyebrow">How we help</p>
@@ -163,7 +375,31 @@
   <h3 translate="no">Pie</h3>
   <p>Pie consolidates sales, service, parts, inventory, and financial performance into one intelligent view —&hellip;</p>
   <span class="go">View product &rarr;</span>
+</a>
+<a class="rel-card r" href="../products/odometer-voip.html">
+  <div class="rel-card__logo"><img src="../assets/logos/odometer.svg" alt="Odometer VoIP"></div>
+  <h3 translate="no">Odometer VoIP</h3>
+  <p>Track, record, report, and improve every customer conversation with a dealership phone system built for&hellip;</p>
+  <span class="go">View product &rarr;</span>
+</a>
+<a class="rel-card t" href="../products/calls-on-demand.html">
+  <div class="rel-card__logo"><img src="../assets/logos/glovebox.svg" alt="Calls on Demand"></div>
+  <h3 translate="no">Calls on Demand</h3>
+  <p>Inbound overflow, outbound follow-up, appointment setting, service reminders, retention campaigns, and&hellip;</p>
+  <span class="go">View product &rarr;</span>
 </a></div></div>
+</section>
+
+<section class="section section--wash">
+  <div class="wrap centered">
+    <p class="eyebrow">Why franchise dealers choose Vicimus</p>
+    <h2 class="h2" style="margin-bottom:8px">Compare approaches, not features.</h2>
+    <p class="lede">Most franchise stores can buy every one of these capabilities somewhere. What they rarely get is all of them from a partner that connects the reporting, understands the retail automotive business, and answers for the result &mdash; instead of a dozen invoices and nobody accountable for the whole.</p>
+  </div>
+  <div class="wrap">
+    <div class="icmp icmp--2"><div class="icmp-card icmp-card--hl"><div class="icmp-name">Vicimus</div><div class="icmp-badge">One connected partner</div><ul class="cmp-ilist"><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Customer retention</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Inventory advertising</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Business intelligence</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Website platform</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">VoIP &amp; call tracking</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Outsourced BDC services</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Accessory revenue programs</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">F&amp;I retailing tools</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Integrated reporting across solutions</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Single strategic partner</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Automotive-specific expertise</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Dedicated performance management</span></li></ul></div><div class="icmp-card"><div class="icmp-name">Typical Vendor Mix</div><div class="icmp-badge icmp-badge--muted">Assembled piece by piece</div><ul class="cmp-ilist"><li class="cmp-i-part"><span class="cmp-i-mark"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 0 18Z"/><circle cx="12" cy="12" r="9"/></svg></span><span class="cmp-i-txt">Customer retention</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Inventory advertising</span></li><li class="cmp-i-part"><span class="cmp-i-mark"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 0 18Z"/><circle cx="12" cy="12" r="9"/></svg></span><span class="cmp-i-txt">Business intelligence</span></li><li class="cmp-i-yes"><span class="cmp-i-mark">&#10003;</span><span class="cmp-i-txt">Website platform</span></li><li class="cmp-i-part"><span class="cmp-i-mark"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 0 18Z"/><circle cx="12" cy="12" r="9"/></svg></span><span class="cmp-i-txt">VoIP &amp; call tracking</span></li><li class="cmp-i-no"><span class="cmp-i-mark">&times;</span><span class="cmp-i-txt">Outsourced BDC services</span></li><li class="cmp-i-no"><span class="cmp-i-mark">&times;</span><span class="cmp-i-txt">Accessory revenue programs</span></li><li class="cmp-i-part"><span class="cmp-i-mark"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 0 18Z"/><circle cx="12" cy="12" r="9"/></svg></span><span class="cmp-i-txt">F&amp;I retailing tools</span></li><li class="cmp-i-no"><span class="cmp-i-mark">&times;</span><span class="cmp-i-txt">Integrated reporting across solutions</span></li><li class="cmp-i-no"><span class="cmp-i-mark">&times;</span><span class="cmp-i-txt">Single strategic partner</span></li><li class="cmp-i-part"><span class="cmp-i-mark"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 0 18Z"/><circle cx="12" cy="12" r="9"/></svg></span><span class="cmp-i-txt">Automotive-specific expertise</span></li><li class="cmp-i-no"><span class="cmp-i-mark">&times;</span><span class="cmp-i-txt">Dedicated performance management</span></li></ul></div></div>
+    <p class="cmp-disc">Illustrative comparison of Vicimus against a typical franchise-dealer technology stack assembled from separate point vendors, agencies, website providers, and software companies, based on Vicimus's understanding of common industry realities as of 2026. No specific vendor is described; every dealership's mix is different, and individual vendors may be strong in their own category. The contrast drawn here is about breadth, integration, and accountability across a single relationship rather than the quality of any one tool.</p>
+  </div>
 </section>
 
 <section class="section">

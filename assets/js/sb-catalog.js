@@ -123,7 +123,7 @@ window.SB_CATALOG = {
   "markets": {
     "franchise-retail": {
       "name": "Franchise Retail",
-      "blurb": "Franchise stores have the data and the traffic — but also OEM standards, co-op rules, and independents chipping away at service share. We help you retain customers, lift ",
+      "blurb": "Inventory pressure. Retention erosion. Service acquisition costs. Margin compression. Staffing shortages. We help franchise dealerships solve the problems that impact pro",
       "path": "markets/franchise-retail.html"
     },
     "independent-retail": {
